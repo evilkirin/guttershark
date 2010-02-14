@@ -207,7 +207,7 @@ package gs.core
 		 * A hook you can override to register instances with their
 		 * classes.
 		 * 
-		 * Example
+		 * @example
 		 * <listing>	
 		 * protected function registerInstances():void
 		 * {

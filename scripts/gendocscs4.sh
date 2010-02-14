@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ME=`whoami`
-ASDOC="/Users/${ME}/dev/flex3sdk/bin/"
-AS_PATH="/Users/${ME}/dev/codelibs/as/"
+ASDOC="/Users/${ME}/Development/lib/flex3sdk/bin/"
+AS_PATH="/Users/${ME}/Development/lib/actionscript/"
 rm -rf ./docs/*
 ${ASDOC}asdoc \
 -source-path ./src/as/ \

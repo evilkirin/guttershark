@@ -88,7 +88,7 @@ package gs.display
 		}
 		
 		/**
-		 * x
+		 * x position.
 		 */
 		override public function set x(val:Number):void
 		{
@@ -98,7 +98,7 @@ package gs.display
 		}
 		
 		/**
-		 * x
+		 * x position
 		 */
 		override public function get x():Number
 		{
@@ -106,7 +106,7 @@ package gs.display
 		}
 		
 		/**
-		 * y
+		 * y position
 		 */
 		override public function set y(val:Number):void
 		{
@@ -116,7 +116,7 @@ package gs.display
 		}
 		
 		/**
-		 * y
+		 * y position
 		 */
 		override public function get y():Number
 		{
