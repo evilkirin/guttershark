@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<model>
+	
+	<assets>
+		<asset libraryName="fonts" src="fonts.swf" preload="true" />
+	</assets>
+	
+	<fonts>
+		<font libraryName="LucidaGrandeBold" />
+		<font libraryName="LucidaGrandeRegular" />
+	</fonts>
+	
+	<textformats>
+		<textformat id="labelText" font="LucidaGrandeBold" size="14" />
+		<textformat id="lucidaGBold10" font="LucidaGrandeBold" size="10" bold="true" />
+		<textformat id="lucidaGBold12" font="LucidaGrandeBold" size="12" bold="true" />
+		<textformat id="lucidaGRegular10" font="LucidaGrandeRegular" size="10" />
+		<textformat id="lucidaGRegular12" font="LucidaGrandeRegular" size="12" />
+	</textformats>
+	
+	<textAttributes>
+		<attribute id="ta1" textFormatId="lucidaGRegular10" antiAliasType="advanced" />
+		<attribute id="ta2" textFormatId="lucidaGRegular12" antiAliasType="advanced" />
+		<attribute id="ta3" styleSheetId="example" antiAliasType="advanced" wrapInBodySpan="true" />
+		<attribute id="ta4" styleSheetId="example2" antiAliasType="advanced" wrapInBodySpan="true" />
+	</textAttributes>
+	
+	<stylesheets>
+		<stylesheet id="example">
+			<![CDATA[
+				.body{
+					font:LucidaGrandeRegular;
+					fontSize:10;
+				}
+			]]>
+		</stylesheet>
+		
+		<stylesheet id="example2">
+			<![CDATA[
+				.body{
+					font:LucidaGrandeRegular;
+					fontSize:10;
+				}
+				.bold{
+					font:LucidaGrandeBold;
+					fontWeight:bold;
+					fontSize:14;
+					color:#FF0066;
+				}
+			]]>
+		</stylesheet>
+	</stylesheets>
+</model>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<model>
+	
+	<textAttributes>
+		<attribute id="test1" styleSheetId="colors" />
+	</textAttributes>
+	
+	<stylesheets>
+		<stylesheet id="colors">
+			<![CDATA[
+				.pink{color:#FF0066}
+			]]>
+		</stylesheet>
+	</stylesheets>
+</model>

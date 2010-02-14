@@ -1,0 +1,2 @@
+Demonstrates how a Preloader loads in every asset into the same application domain. Read about ApplicationDomain in the flash
+API to understand why this is important

@@ -1,0 +1,4 @@
+Demonstrates flashvars in a standalone environment VS flashvars from HTML
+
+-Publish the FLA and pay attention to the content in the text area.
+-Open the index.html file and notice the difference in the text area.

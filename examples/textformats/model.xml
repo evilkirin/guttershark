@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<model>
+	<textAttributes>
+		<attribute id="test" textFormatId="theTF" />
+	</textAttributes>
+	
+	<textformats>
+		<textformat id="theTF" font="Arial" color="0xFF0066" bold="true" />
+	</textformats>
+</model>

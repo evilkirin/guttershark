@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<model>
+	<services>
+		<!--remoting-->
+		<gateway id="amfphp" path="amfphp" url="http://localhost/amfphp/gateway.php" objectEncoding="3" />
+		<service id="test" gateway="amfphp" endpoint="Test" limiter="true" attempts="4" timeout="1000" />
+		
+		<!--http-->
+		<service id="foo" url="http://localhost/" attempts="4" timeout="1000" />
+		<service id="sessionDestroy" path="sessiondestroy" url="http://tagsf/services/codeigniter/session/destroy" attempts="4" timeout="1000" responseFormat="variables" />
+		<service id="ci" url="http://tagsf/services/codeigniter/" attempts="4" timeout="1000" responseFormat="variables" />
+		
+		<!--wsdl support-->
+		<wsdl id="savings" attempts="3" timeout="10000" endpoint="http://www.calcxml.com/services/SavingWS?wsdl" />
+    	<service id="savings" wsdl="savings" />
+	</services>
+</model>

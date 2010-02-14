@@ -1,0 +1,29 @@
+<?xl version="1.0" encoding="utf-8"?>
+<model>
+	<properties>
+		<propset id="test">
+			<alpha>.2</alpha>
+			<xywh x="10" y="10" width="100" height="100" />
+		</propset>
+		<propset id="tfieldTest">
+			<styleSheet id="colors3" />
+			<htmlText stringId="sparsley"/>
+		</propset>
+	</properties>
+	<strings>
+		<string id="sparsley"><![CDATA[<p><span class="pink">hello</span> <span class="some">w</span>orld</p>]]></string>
+	</strings>
+	<stylesheets>
+		<stylesheet id="colors">
+			<![CDATA[
+				.pink{color:#FF0066}
+			]]>
+		</stylesheet>
+		<stylesheet id="colors2">
+			<![CDATA[
+				.some{color:#FF8548}
+			]]>
+		</stylesheet>
+		<stylesheet id="colors3" mergeStyleSheets="colors,colors2" />
+	</stylesheets>
+</model>

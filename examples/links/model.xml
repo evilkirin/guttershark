@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<model>
+	<links>
+		<link id="google" href="http://www.google.com" window="_blank" />
+	</links>
+</model>

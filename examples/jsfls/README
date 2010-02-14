@@ -1,0 +1,2 @@
+Demonstrates the exclude classes jsfls. This might be somewhat dated, it's recommended not to use exclude classes from Flash.
+The flex compiler MXMLC has excluding available - i'd use that instead.

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<model>
+	
+	<assets>
+		<asset libraryName="fonts" source="fonts.swf" preload="true" />
+		<asset libraryName="strings" source="strings.xml" preload="true" />
+	</assets>
+	
+	<fonts>
+		<font libraryName="LucidaGrandeBold" />
+		<font libraryName="LucidaGrandeRegular" />
+	</fonts>
+	
+	<stylesheets>
+		<stylesheet id="style1">
+			<![CDATA[
+			.body {
+				color:#000000;
+				font:LucidaGrandeBold;
+			}
+			.test {
+				color:#ff0066;
+			}
+			]]>
+		</stylesheet>
+	</stylesheets>
+	
+	<textAttributes>
+		<attribute id="attr1" styleSheetId='style1' stringId="string1" wrapInBodySpan="false" />
+	</textAttributes>
+	
+</model>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<model>
+	<stylesheets>
+		
+		<!-- must be here for all color helper methods -->
+		<stylesheet id="colors">
+			<![CDATA[
+				.pink {
+					color:#ff0066
+				}
+			]]>
+		</stylesheet>
+		
+	</stylesheets>
+</model>

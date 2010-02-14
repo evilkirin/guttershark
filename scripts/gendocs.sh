@@ -1,0 +1,139 @@
+#!/usr/bin/env bash
+#-exclude-classes net.guttershark.StartHere \
+#-exclude-classes net.guttershark.ext.xview.BaseXView \
+#-exclude-classes net.guttershark.ext.xview.XViewManager \
+ME=`whoami`
+ASDOC="/Users/${ME}/dev/flex3sdk/bin/"
+AS_PATH="/Users/${ME}/dev/codelibs/as/"
+rm -rf ./docs/*
+${ASDOC}asdoc \
+-source-path ./src/as/ \
+-source-path ${AS_PATH}/externals/ \
+-source-path "/Applications/Adobe CS3/Adobe Flash CS3/Configuration/Component Source/ActionScript 3.0/User Interface" \
+-source-path "/Applications/Adobe CS3/Adobe Flash CS3/Configuration/Component Source/ActionScript 3.0/FLVPlayback" \
+-source-path "/Applications/Adobe CS3/Adobe Flash CS3/Configuration/ActionScript 3.0/Classes"  \
+-doc-sources ./src/as/net/guttershark/ \
+-main-title "Guttershark Flash API Docs" \
+-window-title "Guttershark Flash API Docs" \
+-output ./docs/ \
+-exclude-classes net.guttershark.display.Carousel \
+-exclude-classes net.guttershark.display.carousel.Carousel \
+-exclude-classes net.guttershark.display.DropDown \
+-exclude-classes net.guttershark.display.combo.ComboBox \
+-exclude-classes net.guttershark.display.Slider \
+-exclude-classes net.guttershark.display.slider.Slider \
+-exclude-classes net.guttershark.display.tree.Tree \
+-exclude-classes net.guttershark.display.tree.TreeEvent \
+-exclude-classes net.guttershark.display.tree.TreeNode \
+-exclude-classes net.guttershark.display.tree.TreeNodeRenderer \
+-exclude-classes net.guttershark.display.tree.TreeNodeStates \
+-exclude-classes net.guttershark.display.tree.TreeNodeTypes \
+-exclude-classes net.guttershark.display.particle.stencil.StencilRenderer \
+-exclude-classes net.guttershark.display.particle.stencil.StencilParticle \
+-exclude-classes net.guttershark.display.particle.stencil.Pixel \
+-exclude-classes net.guttershark.display.particle.stencil.IRendererEffect \
+-exclude-classes gs.easing.Quad \
+-exclude-classes net.guttershark.display.ScrollContainer \
+-exclude-classes com.asual.swfaddress.SWFAddress \
+-exclude-classes com.asual.swfaddress.SWFAddressEvent \
+-exclude-classes net.guttershark.display.video.FLVPlayer \
+-exclude-classes fl.events.ColorPickerEvent \
+-exclude-classes fl.events.ComponentEvent \
+-exclude-classes fl.events.DataChangeEvent \
+-exclude-classes fl.events.DataChangeType \
+-exclude-classes fl.events.DataGridEvent \
+-exclude-classes fl.events.DataGridEventReason \
+-exclude-classes fl.events.ListEvent \
+-exclude-classes fl.motion.easing.Quadratic \
+-exclude-classes fl.data.DataProvider \
+-exclude-classes fl.data.SimpleCollectionItem \
+-exclude-classes fl.core.InvalidationType \
+-exclude-classes fl.core.UIComponent \
+-exclude-classes fl.containers.BaseScrollPane \
+-exclude-classes fl.controls.dataGridClasses.DataGridCellRenderer \
+-exclude-classes fl.controls.dataGridClasses.DataGridColumn \
+-exclude-classes fl.controls.dataGridClasses.HeaderRenderer \
+-exclude-classes fl.controls.dataGridClasses.DataGridCellEditor \
+-exclude-classes fl.controls.listClasses.ListData \
+-exclude-classes fl.controls.listClasses.CellRenderer \
+-exclude-classes fl.controls.listClasses.ICellRenderer \
+-exclude-classes fl.controls.BaseButton \
+-exclude-classes fl.controls.Button \
+-exclude-classes fl.controls.ButtonLabelPlacement \
+-exclude-classes fl.controls.ColorPicker \
+-exclude-classes fl.controls.ComboBox \
+-exclude-classes fl.controls.DataGrid \
+-exclude-classes fl.controls.LabelButton \
+-exclude-classes fl.controls.List \
+-exclude-classes fl.controls.ScrollBar \
+-exclude-classes fl.controls.ScrollBarDirection \
+-exclude-classes fl.controls.ScrollPolicy \
+-exclude-classes fl.controls.SelectableList \
+-exclude-classes fl.controls.TextInput \
+-exclude-classes fl.managers.IFocusManager \
+-exclude-classes fl.managers.IFocusManagerGroup \
+-exclude-classes fl.managers.IFocusManagerComponent \
+-exclude-classes fl.managers.FocusManager \
+-exclude-classes fl.managers.StyleManager \
+-exclude-classes com.pixelbreaker.ui.osx.MacMouseWheel \
+-exclude-classes gs.TweenMax \
+-exclude-classes gs.events.TweenEvent \
+-exclude-classes gs.TweenLite \
+-exclude-classes gs.TweenFilterLite \
+-exclude-classes fl.events.ScrollEvent \
+-exclude-classes fl.video.INCManager \
+-exclude-classes fl.video.IVPEvent \
+-exclude-classes fl.video.AutoLayoutEvent \
+-exclude-classes fl.video.CuePointEvent \
+-exclude-classes fl.video.CuePointType \
+-exclude-classes fl.video.FLVPlayback \
+-exclude-classes fl.video.LayoutEvent \
+-exclude-classes fl.video.MetadataEvent \
+-exclude-classes fl.video.NCManager \
+-exclude-classes fl.video.SkinErrorEvent \
+-exclude-classes fl.video.SoundEvent \
+-exclude-classes fl.video.VideoAlign \
+-exclude-classes fl.video.VideoError \
+-exclude-classes fl.video.VideoEvent \
+-exclude-classes fl.video.VideoPlayer \
+-exclude-classes fl.video.VideoProgressEvent \
+-exclude-classes fl.video.VideoScaleMode \
+-exclude-classes fl.video.VideoState \
+-left-frameset-width 350 \
+-package net.guttershark "The net.guttershark package contains all Actionscript 3 classes, namespaces, and meta data for the net.guttershark package." \
+-package net.guttershark.control "The net.guttershark.control package contains controller classes for an FLA, and preloading." \
+-package net.guttershark.display.decorators "The net.guttershark.display.decorators package contains re-usable decorators." \
+-package net.guttershark.display "The net.guttershark.display package contains all classes that are display objects, and are used in the display list." \
+-package net.guttershark.display.accordion "The net.guttershark.display.accordion package contains classes that implement an accordion component." \
+-package net.guttershark.display.list "The net.guttershark.display.list package contains classes that implement a list component." \
+-package net.guttershark.display.tabbar "The net.guttershark.display.tabbar package contains classes that implement a tab bar component." \
+-package net.guttershark.display.buttons "The net.guttershark.display.buttons package contains base classes for generic buttons." \
+-package net.guttershark.display.draw "The net.guttershark.display.draw package contains display objects that are drawn with vectors." \
+-package net.guttershark.display.text "The net.guttershark.display.text package contains generic text display objects." \
+-package net.guttershark.display.tooltip "The net.guttershark.display.tooltip package contains base tool tip clips for the ToolTipManager." \
+-package net.guttershark.display.video "The net.guttershark.video package contains classes use for video objects." \
+-package net.guttershark.display.views "The net.guttershark.display.controls.views package contains base classes for generic views." \
+-package net.guttershark.managers "The net.guttershark.managers package contains manager classes that simplify many mundane programming tasks." \
+-package net.guttershark.model "The net.guttershark.model package contains classes for working with model classes and model xml." \
+-package net.guttershark.support "The net.guttershark.support package contains all classes that support, managers,controllers and events and generally aren't used directly, with the exception of a couple classes." \
+-package net.guttershark.display.xview "The net.guttershark.display.xview package contains classes for working with and creating views from an xml source (xview)." \
+-package net.guttershark.ext.display.controls "The net.guttershark.ext.display.controls package contains extra pre-built controls." \
+-package net.guttershark.support.eventmanager "The net.guttershark.support.eventmanager contains all support classes for the EventManager, and other event listener delegates you can opt into for components." \
+-package net.guttershark.support.bindings "The net.guttershark.support.bindings package contains all support classes for the BindingUtils class." \
+-package net.guttershark.support.events "The net.guttershark.support.events package contains supporting events for guttershark controllers, models, and display objects." \
+-package net.guttershark.support.layoutmanager "The net.guttershark.support.layoutmanager package contains classes that support the LayoutManager." \
+-package net.guttershark.support.preloading "The net.guttershark.support.preloading package contains classes that support a PreloadController." \
+-package net.guttershark.support.preloading.events "The net.guttershark.support.preloading.events package contains event classes used with a PreloadController." \
+-package net.guttershark.support.preloading.workers "The net.guttershark.support.preloading.worker package contains worker classes that implement loading of different types of assets from a PreloadingController." \
+-package net.guttershark.support.servicemanager.http "The net.guttershark.support.servicemanager.http package contains classes that implement HTTP service calls with the ServiceManager." \
+-package net.guttershark.support.servicemanager.remoting "The net.guttershark.support.servicemanager.remoting package contains classes that implement Flash Remoting calls with the ServiceManager." \
+-package net.guttershark.support.servicemanager.shared "The net.guttershark.support.servicemanager.shared package contains classes that are shared between different service call implementations with the ServiceManager." \
+-package net.guttershark.support.servicemanager.soap "The net.guttershark.support.servicemanager.soap package contains classes that implement soap calls with the ServiceManager." \
+-package net.guttershark.support.soundmanager "The net.guttershark.support.soundmanager package contains all support classes for the SoundManager class." \
+-package net.guttershark.util "The net.guttershark.util package contains all utility classes and sub packages." \
+-package net.guttershark.util.akamai "The net.guttershark.akamai package contains utility classes for Akamai services." \
+-package net.guttershark.util.autosuggest "The net.guttershark.util.autosuggest package contains utility classes that help create an auto suggest." \
+-package net.guttershark.util.cache "The net.guttershark.util.cache package contains utility classes that cache objects in memory." \
+-package net.guttershark.util.collections "The net.guttershark.util.collections package contains utility classes that define abstract data structures." \
+-package net.guttershark.util.filters "The net.guttershark.util.filters package contains utility classes that simplify working with filters." \
+-package net.guttershark.util.geom "The net.guttershark.util.geom package contains classes that define basic geometry."

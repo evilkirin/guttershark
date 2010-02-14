@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- this can be placed in the adobe help docs directory, to add guttershark as a book. -->
+<book title="Guttershark" directory="guttershark" language="en" version="2.0" sort="mm_45">
+	<level1 href="index.html" name="Guttershark API" />
+</book>

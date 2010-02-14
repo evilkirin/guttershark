@@ -1,0 +1,30 @@
+<!-- The 'globalRenderer' can be used so that you don't have to supply the renderer
+attribute for every node. You can supply a renderer attribute for specific nodes
+and it will override the globalRenderer to use that one. -->
+<tree renderer="MyTreeNodeRenderer">
+	<node collapseSiblings="true">
+		<data>
+			<!-- ...Anything in the data nodes is passed to a TreeNodeRenderer as the dataProvider -->
+		</data>
+		<node collapseSiblings="false">
+			<data>
+			</data>
+		</node>
+		<node collapseSiblings="false" renderer="SomeOtherTreeNodeRenderer">
+			<data>
+			</data>
+		</node>
+	</node>
+	<node collapseSiblings="true">
+		<data>
+		</data>
+		<node collapseSiblings="false">
+			<data>
+			</data>
+		</node>
+		<node collapseSiblings="false" renderer="SomeOtherTreeNodeRenderer">
+			<data>
+			</data>
+		</node>
+	</node>
+</tree>

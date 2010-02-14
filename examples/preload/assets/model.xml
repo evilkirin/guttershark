@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<model>
+	<assets>
+		<asset libraryName="jpg1" source="assets/bmp/jpg1.jpg" preload="true" />
+		<asset libraryName="jpg2" source="assets/bmp/jpg2.jpg" preload="true"/>
+		<asset libraryName="swftest" source="assets/swf/swfload_test.swf" preload="true"/>
+		<asset libraryName="pizza_song" source="assets/flv/Pizza_Song.flv" preload="true"/>
+		<asset libraryName="english" source="assets/xml/english.xml" preload="true"/>
+		<asset libraryName="png1" source="assets/bmp/png1.png" preload="true"/>
+		<asset libraryName="png2" source="assets/bmp/png2.png" preload="true"/>
+		<asset libraryName="sound1" source="assets/sounds/sound1.mp3" preload="true"/>
+	</assets>
+</model>

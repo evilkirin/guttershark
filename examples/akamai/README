@@ -1,0 +1,2 @@
+Demonstrates using an Ident class for Akamai ident's, and setting the NCManager on the VideoPlayer class.
+The Akamai URL in this example may or may not be available, you'll need another akamai url to test with if it's not available. 

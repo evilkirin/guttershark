@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<model>
+	<contextmenus>
+		<menu id="menu1">
+			<item id="home" label="home" />
+			<item id="back" label="GO BACK" sep="true"/>
+		</menu>
+	</contextmenus>
+</model>

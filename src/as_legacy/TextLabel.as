@@ -1,0 +1,5 @@
+package net.guttershark.display.text{	import flash.text.AntiAliasType;
+	import flash.text.TextField;
+	import flash.text.TextFieldAutoSize;
+	import flash.text.TextFormat;	
+	/**	 * The TextLabel class is a generic text label.	 */	public class TextLabel extends TextField	{		/**		 * Constructor for TextLabel instances.		 * 		 * @param str The html text for this label.		 * @param fontFace The font face.		 * @param fontSize The font size.		 * @param fontColor The color.		 * @param embedFont Whether or not to embed fonts.		 */		public function TextLabel(str:String, fontFace:String = "Arial", fontSize:int = 22, fontColor:uint=0x000000, embedFont:Boolean = false)		{			embedFonts = embedFont;			var labelFormat:TextFormat = new TextFormat(fontFace,fontSize,fontColor);			defaultTextFormat = labelFormat;			antiAliasType = AntiAliasType.ADVANCED;			autoSize = TextFieldAutoSize.LEFT;			htmlText = str;			selectable = false;			textColor = fontColor;		}	}}

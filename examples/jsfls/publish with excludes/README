@@ -1,0 +1,12 @@
+There are two FLA's you should open for an example of using the lib/jsfl/publish with excludes command.
+
+-open src/library.fla
+-open src/example.fla
+-publish library.fla
+-switch to the example.fla
+-run the "publish with excludes" command.
+
+now look at the size of the swfs in the deploy folder, you'll see that the library is 20k
+and the example is 4k. The example excluded the example "library classes". As a comparison,
+you could publish both fla's without the exclude command, and see that both fla's would
+be 20k.

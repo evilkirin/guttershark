@@ -1,0 +1,18 @@
+<?xml version='1.0' encoding='utf-8'?>
+<excludeAssets>
+	<asset name="net.guttershark.managers.KeyboardEventManager"/>
+	<asset name="net.guttershark.managers.LanguageManager"/>
+	<asset name="net.guttershark.managers.LayoutManager"/>
+	<asset name="net.guttershark.managers.PlayerManager"/>
+	<asset name="net.guttershark.managers.ServiceManager"/>
+	<asset name="net.guttershark.managers.SoundManager"/>
+	<asset name="net.guttershark.model.Model"/>
+	<asset name="net.guttershark.control.PreloadController"/>
+	<asset name="net.guttershark.display.CoreSprite"/>
+	<asset name="net.guttershark.display.CoreClip"/>
+	<asset name="net.guttershark.managers.AssetManager"/>
+	<asset name="net.guttershark.managers.EventManager"/>
+	<asset name="net.guttershark.managers.FormManager"/>
+	<asset name="net.guttershark.display.controls.buttons.MovieClipButton"/>
+	<asset name="net.guttershark.display.views.AnimatedView"/>
+</excludeAssets>

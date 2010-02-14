@@ -1,0 +1,50 @@
+--fix local computer for gitosis
+--push qatool
+
+-update layout manager stageAlign methods - re-order method parameters
+-number utils from exanimo
+-urlutils from exanimo
+-add casa shit.
+ -EventManager so I can have methods like removeEventListeners
+ -collections?
+ -key combo shit?
+-add martis' collection stuff he sent
+-add bandwidth profiling in Preloader
+-dispose for SoapResultHandler
+-layoutManager - update some of the methods that can take more than one display object.
+-pick apart the VideoLoad from Casa lib - it says something about being able to tell when enough miliseconds are available to play
+-layout manager -> horizontal aligning
+-optimizations ( cast objects when accessing array[].) , cast to ints in loops, only use ints in loops)
+
+---guttershark tools
+-swc creation (air || flash tool)
+-doc command creation
+-bugs - sharedOBject bug, export classes bug, write XML
+-java scaffolding commandline tool
+-update all preferences to save to amf file
+-library tool (batch publish)
+-manage profiles
+-preferences - general guttershark tool preferences
+-scaffolding
+ -create projects
+ -code - (creating classes, clips, etc)
+-publish tools
+ -exclude classes
+ -publish patterns
+ -batch publishing
+-library tools - tools used against the current library
+-video tools
+ -preview player (loads an XML file, which set's up the player) (do we provide stats to? filesize, fps, etc.) 
+ -akamai
+  -test ident
+  -test connection
+  -test video stream
+  -statistics (bandwidth,etc)
+-tracking tools
+-service explorer
+ -remoting
+ -post/get
+ -wsdl
+ -file upload
+-locale tools
+ -language xml management (work with excel/xml)

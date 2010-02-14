@@ -1,0 +1,10 @@
+<?xml verison="1.0" encoding="utf-8"?>
+<model>
+	<assets>
+		<asset libraryName="asset1" source="bitmap.jpg" preload="true" />
+		<group id="sounds">
+			<asset libraryName="asset2" source="sound.mp3" />
+		</group>
+		<asset libraryName="asset3" source="bitmap.jpg" path="bmp" />
+	</assets>
+</model>

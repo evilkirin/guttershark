@@ -1,0 +1,1 @@
+Demonstrates using attributes from the model. Attributes are meant to be used for any situation where you need some key/value to be stored in the model.
