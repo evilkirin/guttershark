@@ -1,3 +1,8 @@
+
+-optimizations ( cast objects when accessing array[].) , cast to ints in loops, only use ints in loops)
+-finish scale9
+-replace keymanager with keycombo
+
 -number utils from exanimo
 -add casa shit.
  -EventManager so I can have methods like removeEventListeners
@@ -5,5 +10,3 @@
  -key combo shit?
 -add bandwidth profiling in Preloader
 -pick apart the VideoLoad from Casa lib - it says something about being able to tell when enough miliseconds are available to play
--layout manager -> horizontal aligning
--optimizations ( cast objects when accessing array[].) , cast to ints in loops, only use ints in loops)

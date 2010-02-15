@@ -25,12 +25,48 @@ package gs.util
 		private var _data:XML;
 		
 		/**
+		 * Complete handler.
+		 */
+		private var onComplete:Function;
+		
+		/**
+		 * IOError handler.
+		 */
+		private var onIOError:Function;
+		
+		/**
+		 * Security error handler.
+		 */
+		private var onSecurityError:Function;
+		
+		/**
 		 * Constructor for XMLLoader instances.
 		 */
 		public function XMLLoader()
 		{
 			contentLoader=new URLLoader();
-			contentLoader.addEventListener(Event.COMPLETE, onXMLComplete);
+			contentLoader.addEventListener(Event.COMPLETE,onXMLComplete,false,25);
+			contentLoader.addEventListener(IOErrorEvent.DISK_ERROR,_onIOError);
+			contentLoader.addEventListener(IOErrorEvent.IO_ERROR,_onIOError);
+			contentLoader.addEventListener(IOErrorEvent.NETWORK_ERROR,_onIOError);
+			contentLoader.addEventListener(IOErrorEvent.VERIFY_ERROR,_onIOError);
+			contentLoader.addEventListener(SecurityErrorEvent.SECURITY_ERROR,_onSecurityError);
+		}
+		
+		/**
+		 * Security error handler.
+		 */
+		private function _onSecurityError(e:SecurityErrorEvent):void
+		{
+			if(onSecurityError!=null)onSecurityError();
+		}
+		
+		/**
+		 * IOError handler.
+		 */
+		private function _onIOError(e:IOErrorEvent):void
+		{
+			if(onIOError!=null)onIOError();
 		}
 		
 		/**
@@ -53,10 +89,29 @@ package gs.util
 		 * 
 		 * xloader.load(new URLRequest(myxmlfile));
 		 * </listing>
+		 * 
+		 * <p>
+		 * <b>Example</b><br>
+		 * Using callbacks instead of events.
+		 * </p>
+		 * 
+		 * <listing>	
+		 * private var xloader:XMLLoader=new XMLLoader();
+		 * 
+		 * xloader.load(new URLRequest(myxmlfile,onXMLComplete));
+		 * 
+		 * function onXMLComplete():void
+		 * {
+		 *     trace(xloader.data);
+		 * }
+		 * </listing>
 		 */
-		public function load(request:URLRequest):void
+		public function load(request:URLRequest,complete:Function=null,ioerror:Function=null,securityerror:Function=null):void
 		{
-			if(!request) throw new ArgumentError("Parameter {request} cannot be null.");
+			if(!request)throw new ArgumentError("Parameter {request} cannot be null.");
+			onComplete=complete;
+			onIOError=ioerror;
+			onSecurityError=securityerror;
 			contentLoader.dataFormat=URLLoaderDataFormat.TEXT;
 			contentLoader.load(request);
 		}
@@ -78,19 +133,28 @@ package gs.util
 		}
 		
 		/**
-		 * Closes internal loader, and disposes of internal objects in memory.
+		 * Dispose of this xml loader.
 		 */
 		public function dispose():void
 		{
-			_data=null;
 			contentLoader.removeEventListener(Event.COMPLETE, onXMLComplete);
+			contentLoader.removeEventListener(IOErrorEvent.DISK_ERROR,_onIOError);
+			contentLoader.removeEventListener(IOErrorEvent.IO_ERROR,_onIOError);
+			contentLoader.removeEventListener(IOErrorEvent.NETWORK_ERROR,_onIOError);
+			contentLoader.removeEventListener(IOErrorEvent.VERIFY_ERROR,_onIOError);
+			contentLoader.removeEventListener(SecurityErrorEvent.SECURITY_ERROR,_onSecurityError);
 			contentLoader.close();
 			contentLoader=null;
+			_data=null;
 		}
 		
+		/**
+		 * on xml complete loading.
+		 */
 		private function onXMLComplete(e:Event):void
 		{
 			_data=XML(e.target.data);
+			if(onComplete!=null)onComplete();
 		}
 	}
 }

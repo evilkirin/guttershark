@@ -1,8 +1,7 @@
 package gs.util.collections 
 {
 	/**
-	 * The ICollection interface is a contract for classes
-	 * that want to implement collection logic.
+	 * Interface for collection objects.
 	 */
 	public interface ICollection
 	{

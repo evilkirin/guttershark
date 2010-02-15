@@ -1,8 +1,12 @@
 package gs.util 
 {
 	import gs.core.*;
-	import gs.util.filters.*;
-
+	import gs.util.filters.FilterUtils;
+	
+	import flash.display.DisplayObject;
+	import flash.display.DisplayObjectContainer;
+	import flash.display.InteractiveObject;
+	import flash.display.Sprite;
 	import flash.filters.DropShadowFilter;
 	import flash.text.StyleSheet;
 	import flash.text.TextField;
@@ -41,15 +45,12 @@ package gs.util
 		 */
 		public static function buttonMode(value:Boolean, ...objs:Array):void
 		{
-			var l:int=objs.length;
+			var l:int;
 			var k:int=0;
 			var a:Array=objs;
-			if(objs[0] is Array)
-			{
-				a=objs[0];
-				l=a.length;
-			}
-			for(k;k<l;k++)a[k].buttonMode=value;
+			if(objs[0] is Array) a=objs[0];
+			l=a.length;
+			for(;k<l;k++)Sprite(a[int(k)]).buttonMode=value;
 		}
 		
 		/**
@@ -60,15 +61,12 @@ package gs.util
 		 */
 		public static function buttonModeAndHand(value:Boolean,...objs:Array):void
 		{
-			var l:int=objs.length;
+			var l:int;
 			var k:int=0;
 			var a:Array=objs;
-			if(objs[0] is Array)
-			{
-				a=objs[0];
-				l=a.length;
-			}
-			for(k;k<l;k++) a[k].buttonMode=a[k].useHandCursor=value;
+			if(objs[0] is Array) a=objs[0];
+			l=a.length;
+			for(;k<l;k++)Sprite(a[int(k)]).buttonMode = Sprite(a[int(k)]).useHandCursor = value;
 		}
 		
 		/**
@@ -79,15 +77,12 @@ package gs.util
 		 */
 		public static function visible(value:Boolean, ...objs:Array):void
 		{
-			var l:int=objs.length;
+			var l:int;
 			var k:int=0;
 			var a:Array=objs;
-			if(objs[0] is Array)
-			{
-				a=objs[0];
-				l=a.length;
-			}
-			for(k;k<l;k++) a[k].visible=value;
+			if(objs[0] is Array)a=objs[0];
+			l=a.length;
+			for(;k<l;k++)DisplayObject(a[int(k)]).visible=value;
 		}
 		
 		/**
@@ -98,15 +93,12 @@ package gs.util
 		 */
 		public static function alpha(value:Number, ...objs:Array):void
 		{
-			var l:int=objs.length;
+			var l:int;
 			var k:int=0;
 			var a:Array=objs;
-			if(objs[0] is Array)
-			{
-				a=objs[0];
-				l=a.length;
-			}
-			for(k;k<l;k++) a[k].alpha=value;
+			if(objs[0] is Array)a=objs[0];
+			l=a.length;
+			for(;k<l;k++)DisplayObject(a[int(k)]).alpha=value;
 		}
 		
 		/**
@@ -117,15 +109,12 @@ package gs.util
 		 */
 		public static function cacheAsBitmap(value:Boolean, ...objs:Array):void
 		{
-			var l:int=objs.length;
+			var l:int;
 			var k:int=0;
 			var a:Array=objs;
-			if(objs[0] is Array)
-			{
-				a=objs[0];
-				l=a.length;
-			}
-			for(k;k<l;k++) a[k].cacheAsBitmap=value;
+			if(objs[0] is Array)a=objs[0];
+			l=a.length;
+			for(;k<l;k++)DisplayObject(a[int(k)]).cacheAsBitmap=value;
 		}
 		
 		/**
@@ -136,15 +125,12 @@ package gs.util
 		 */
 		public static function useHandCursor(value:Boolean, ...objs:Array):void
 		{
-			var l:int=objs.length;
+			var l:int;
 			var k:int=0;
 			var a:Array=objs;
-			if(objs[0] is Array)
-			{
-				a=objs[0];
-				l=a.length;
-			}
-			for(k;k<l;k++) a[k].useHandCursor=value;
+			if(objs[0] is Array)a=objs[0];
+			l=a.length;
+			for(;k<l;k++)Sprite(a[int(k)]).useHandCursor=value;
 		}	
 		
 		/**
@@ -155,15 +141,12 @@ package gs.util
 		 */
 		public static function mouseChildren(value:Boolean,...objs:Array):void
 		{
-			var l:int=objs.length;
+			var l:int;
 			var k:int=0;
 			var a:Array=objs;
-			if(objs[0] is Array)
-			{
-				a=objs[0];
-				l=a.length;
-			}
-			for(k;k<l;k++) a[k].mouseChildren=value;
+			if(objs[0] is Array)a=objs[0];
+			l=a.length;
+			for(;k<l;k++)DisplayObjectContainer(a[int(k)]).mouseChildren=value;
 		}
 		
 		/**
@@ -174,15 +157,12 @@ package gs.util
 		 */
 		public static function mouseEnabled(value:Boolean,...objs:Array):void
 		{
-			var l:int=objs.length;
+			var l:int;
 			var k:int=0;
 			var a:Array=objs;
-			if(objs[0] is Array)
-			{
-				a=objs[0];
-				l=a.length;
-			}
-			for(k;k<l;k++) a[k].mouseEnabled=value;
+			if(objs[0] is Array)a=objs[0];
+			l=a.length;
+			for(;k<l;k++)InteractiveObject(a[int(k)]).mouseEnabled=value;
 		}
 		
 		/**
@@ -192,14 +172,11 @@ package gs.util
 		 */
 		public static function tabIndex(...fields:Array):void
 		{
-			var l:int=fields.length;
+			var l:int;
 			var k:int=0;
-			if(fields[0] is Array)
-			{
-				fields=fields[0];
-				l=fields.length;
-			}
-			for(k;k<l;k++) fields[k].tabIndex=++k;
+			if(fields[0] is Array)fields=fields[0];
+			l=fields.length;
+			for(;k<l;k++)InteractiveObject(fields[int(k)]).tabIndex=++k;
 		}
 		
 		/**
@@ -210,15 +187,12 @@ package gs.util
 		 */
 		public static function tabChildren(value:Boolean,...objs:Array):void
 		{
-			var l:int=objs.length;
+			var l:int;
 			var k:int=0;
 			var a:Array=objs;
-			if(objs[0] is Array)
-			{
-				a=objs[0];
-				l=a.length;
-			}
-			for(k;k<l;k++) a[k].tabChildren=value;
+			if(objs[0] is Array)a=objs[0];
+			l=a.length;
+			for(;k<l;k++)DisplayObjectContainer(a[int(k)]).tabChildren=value;
 		}
 		
 		/**
@@ -229,15 +203,12 @@ package gs.util
 		 */
 		public static function tabEnabled(value:Boolean,...objs:Array):void
 		{
-			var l:int=objs.length;
+			var l:int;
 			var k:int=0;
 			var a:Array=objs;
-			if(objs[0] is Array)
-			{
-				a=objs[0];
-				l=a.length;
-			}
-			for(k;k<l;k++) a[k].tabEnabled=value;
+			if(objs[0] is Array)a=objs[0];
+			l=a.length;
+			for(;k<l;k++)InteractiveObject(a[int(k)]).tabEnabled=value;
 		}
 		
 		/**
@@ -248,15 +219,12 @@ package gs.util
 		 */
 		public static function autoSize(value:String, ...fields:Array):void
 		{
-			var l:int=fields.length;
+			var l:int;
 			var k:int=0;
 			var a:Array=fields;
-			if(fields[0] is Array)
-			{
-				a=fields[0];
-				l=a.length;
-			}
-			for(k;k<l;k++) a[k].autoSize=value;
+			if(fields[0] is Array)a=fields[0];
+			l=a.length;
+			for(;k<l;k++)TextField(a[int(k)]).autoSize=value;
 		}
 		
 		/**
@@ -267,15 +235,12 @@ package gs.util
 		 */
 		public static function x(value:Number, ...objs:Array):void
 		{
-			var l:int=objs.length;
+			var l:int;
 			var k:int=0;
 			var a:Array=objs;
-			if(objs[0] is Array)
-			{
-				a=objs[0];
-				l=a.length;
-			}
-			for(k;k<l;k++) a[k].x=value;
+			if(objs[0] is Array)a=objs[0];
+			l=a.length;
+			for(;k<l;k++)DisplayObject(a[int(k)]).x=value;
 		}
 		
 		/**
@@ -286,15 +251,12 @@ package gs.util
 		 */
 		public static function y(value:Number, ...objs:Array):void
 		{
-			var l:int=objs.length;
+			var l:int;
 			var k:int=0;
 			var a:Array=objs;
-			if(objs[0] is Array)
-			{
-				a=objs[0];
-				l=a.length;
-			}
-			for(k;k<l;k++)a[k].y=value;
+			if(objs[0] is Array)a=objs[0];
+			l=a.length;
+			for(;k<l;k++)DisplayObject(a[int(k)]).y=value;
 		}
 		
 		/**
@@ -304,15 +266,12 @@ package gs.util
 		 */
 		public static function prop(prop:String,value:*,...objs:Array):void
 		{
-			var l:int=objs.length;
+			var l:int;
 			var k:int=0;
 			var a:Array=objs;
-			if(objs[0] is Array)
-			{
-				a=objs[0];
-				l=a.length;
-			}
-			for(k;k<l;k++)a[k][prop]=value;
+			if(objs[0] is Array)a=objs[0];
+			l=a.length;
+			for(;k<l;k++)a[int(k)][prop]=value;
 		}
 		
 		/**
@@ -322,15 +281,12 @@ package gs.util
 		 */
 		public static function toggleVisible(...objs:Array):void
 		{
-			var l:int=objs.length;
+			var l:int;
 			var k:int=0;
 			var a:Array=objs;
-			if(objs[0] is Array)
-			{
-				a=objs[0];
-				l=a.length;
-			}
-			for(k;k<l;k++)a[k].visible=!a[k].visible;
+			if(objs[0] is Array)a=objs[0];
+			l=a.length;
+			for(;k<l;k++)DisplayObject(a[int(k)]).visible=!DisplayObject(a[int(k)]).visible;
 		}
 		
 		/**
@@ -344,19 +300,16 @@ package gs.util
 		 */
 		public static function flipAlpha(val1:Number,val2:Number,...objs:Array):void
 		{
-			var l:int=objs.length;
+			var l:int;
 			var k:int=0;
 			var a:Array=objs;
-			if(objs[0] is Array)
-			{
-				a=objs[0];
-				l=a.length;
-			}
-			var obj:*;
+			if(objs[0] is Array)a=objs[0];
+			l=a.length;
+			var obj:DisplayObject;
 			var al:Number;
-			for(k;k<l;k++)
+			for(;k<l;k++)
 			{
-				obj=a[k];
+				obj=a[int(k)];
 				al=MathUtils.sanitizeFloat(obj.alpha,1);
 				if(al==val1)obj.alpha=val2;
 				else if(al==val2)obj.alpha=val1;
@@ -375,18 +328,15 @@ package gs.util
 		 */
 		public static function flipProp(prop:String,value1:*,value2:*,...objs:Array):void
 		{
-			var l:int=objs.length;
+			var l:int;
 			var k:int=0;
 			var a:Array=objs;
-			if(objs[0] is Array)
-			{
-				a=objs[0];
-				l=a.length;
-			}
+			if(objs[0] is Array)a=objs[0];
+			l=a.length;
 			var obj:*;
-			for(k;k<l;k++)
+			for(;k<l;k++)
 			{
-				obj=a[k];
+				obj=a[int(k)];
 				if(obj[prop]==value1)obj[prop]=value2;
 				else if(obj[prop]==value2)obj[prop]=value1;
 			}
@@ -401,15 +351,12 @@ package gs.util
 		 */
 		public static function flipBoolean(prop:String, ...objs:Array):void
 		{
-			var l:int=objs.length;
+			var l:int;
 			var k:int=0;
 			var a:Array=objs;
-			if(objs[0] is Array)
-			{
-				a=objs[0];
-				l=a.length;
-			}
-			for(k;k<l;k++)a[k][prop]=!a[k][prop];
+			if(objs[0] is Array)a=objs[0];	
+			l=a.length;
+			for(;k<l;k++)a[int(k)][prop]=!a[int(k)][prop];
 		}
 		
 		/**
@@ -536,10 +483,10 @@ package gs.util
 			if(tfields[0] is Array)tfields=tfields[0];
 			var i:int=0;
 			var l:int=tfields.length;
-			for(i;i<l;i++)
+			for(;i<l;i++)
 			{
-				tfields[i].defaultTextFormat=tf;
-				tfields[i].setTextFormat(tf);
+				TextField(tfields[int(i)]).defaultTextFormat=tf;
+				TextField(tfields[int(i)]).setTextFormat(tf);
 			}
 		}
 		
@@ -554,7 +501,7 @@ package gs.util
 			if(tfields[0] is Array)tfields=tfields[0];
 			var i:int=0;
 			var l:int=tfields.length;
-			for(i;i<l;i++)tfields[i].styleSheet=ss;
+			for(;i<l;i++)TextField(tfields[int(i)]).styleSheet=ss;
 		}
 		
 		/**
@@ -565,7 +512,8 @@ package gs.util
 			if(objs[0] is Array)objs=objs[0];
 			var i:int=0;
 			var l:int=objs.length;
-			for(i;i<l;i++)FilterUtils.setShadow(objs[i],ds);
+			var ss:Function=FilterUtils.setShadow;
+			for(;i<l;i++)ss(objs[int(i)],ds);
 		}
 	}
 }

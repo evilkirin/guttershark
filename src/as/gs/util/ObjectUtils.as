@@ -85,7 +85,7 @@ package gs.util
 				var i:int=1;
 				var l:int=props.length;
 				var finalObj:* =obj[props[0]];
-				for(i;i<l;i++)finalObj=finalObj[props[i]];
+				for(;i<l;i++)finalObj=finalObj[props[int(i)]];
 			}
 			return finalObj;
 		}

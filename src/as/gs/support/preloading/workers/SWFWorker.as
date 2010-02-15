@@ -14,9 +14,6 @@ package gs.support.preloading.workers
 	 * The SWFWorker class is the worker that loads all
 	 * swfs.
 	 * 
-	 * <p>This class is not used directly. It is used internally to an
-	 * Asset instance.</p>
-	 * 
 	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 * 
 	 * @see gs.core.Preloader

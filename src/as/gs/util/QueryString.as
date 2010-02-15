@@ -59,10 +59,12 @@ package gs.util
 			if(_queryString)
 			{
 				var params:Array=_queryString.split('&');
-				var length:uint=params.length;
-				for(var i:uint=0, index:int=-1; i < length; i++)
+				var i:int=0;
+				var index:int=-1;
+				var l:int=params.length;
+				for(;i<l;i++)
 				{
-					var kvPair:String=params[i];
+					var kvPair:String=params[int(i)];
 					if((index=kvPair.indexOf("=")) > 0)
 					{
 						var key:String=kvPair.substring(0,index);

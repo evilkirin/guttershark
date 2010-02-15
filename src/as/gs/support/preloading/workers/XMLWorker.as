@@ -14,9 +14,6 @@ package gs.support.preloading.workers
 	/**
 	 * The XMLWorker class is the worker that loads all
 	 * xml files.
-	 *	
-	 * <p>This class is not used directly. It is used internally to an
-	 * Asset instance.</p>
 	 * 
 	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 * 
@@ -29,7 +26,7 @@ package gs.support.preloading.workers
 		/**
 		 * Load an asset of type xml.
 		 * 
-		 * @param	asset	The Asset instance that needs to be loaded.
+		 * @param asset The Asset instance that needs to be loaded.
 		 */
 		public override function load(asset:Asset):void
 		{

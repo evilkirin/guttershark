@@ -147,14 +147,14 @@ package gs.core
 		 * protected function initModel():void
 		 * {
 		 *     model=new Model();
-		 *     model.loadModel(flashvars.model,onModelReady);
+		 *     if(flashvars.model)model.load(flashvars.model,onModelReady,onModelIOError,onModelSecurityError);
 		 * }
 		 * </listing>
 		 */
 		protected function initModel():void
 		{
 			model=new Model();
-			if(flashvars.model)model.loadModel(flashvars.model,onModelReady);
+			if(flashvars.model)model.load(flashvars.model,onModelReady,onModelIOError,onModelSecurityError);
 			else onModelReady();
 		}
 		
@@ -175,6 +175,16 @@ package gs.core
 			setupComplete();
 			startPreload();
 		}
+		
+		/**
+		 * A hook you can override to catch io loading errors for the model.
+		 */
+		protected function onModelIOError():void{}
+		
+		/**
+		 * A hook you can override to cath security errors for the model.
+		 */
+		protected function onModelSecurityError():void{}
 		
 		/**
 		 * A hook to start preloading.

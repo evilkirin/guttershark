@@ -375,7 +375,7 @@ package gs.managers
 				if(showTraces)
 				{
 					trace(">>track omniture");
-					ObjectUtils.dump(objk);		
+					ObjectUtils.dump(objk);
 				}
 				lc.send("TrackingConnection","trackItem",objk);
 			}

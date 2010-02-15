@@ -76,8 +76,8 @@ package gs.util
 		{
 			var look:Array=["PO ","P O","P.O","P. O", "p o","p.o","p. o","Box","Post Office","post office"];
 			var len:Number=look.length;
-			var i:int;
-			for(i=0;i < len; i++) if(address.indexOf(look[i]) != -1) return true; 
+			var i:int=0;
+			for(;i<len;i++)if(address.indexOf(look[int(i)])!=-1)return true; 
 			return false;
 		}
 		
@@ -107,7 +107,7 @@ package gs.util
 			];
 			var i:int=0;
 			var l:int=62;
-			for(i;i<l;i++) if(state.toUpperCase()==states[i]) return true;
+			for(;i<l;i++)if(state.toUpperCase()==states[int(i)]) return true;
 			return false;
 		}
 		
@@ -445,27 +445,28 @@ package gs.util
 		{
 			var i:Number;
 			var j:Number;
-			if(source == null) source='';
-			if(target == null) target='';
-			if(source == target) return 0;
+			if(source==null || target==null) source='';
+			if(source==target) return 0;
 			var d:Array=new Array();
 			var cost:uint;
 			var n:uint=source.length;
 			var m:uint=target.length;
-			if(n == 0) return m;
-			if(m == 0) return n;
-			for(i=0;i <= n; i++) d[i]=new Array();
-			for(i=0;i <= n; i++) d[i][0]=i;
-			for(j=0;j <= m; j++) d[0][j]=j;
-			for (i=1;i <= n; i++)
+			if(n==0) return m;
+			if(m==0) return n;
+			for(i=0;i<=n;i++) d[int(i)]=new Array();
+			for(i=0;i<=n;i++) d[int(i)][0]=int(i);
+			for(j=0;j<=m;j++) d[0][int(j)]=int(j);
+			i=1;
+			for(i;i<=n;i++)
 			{
 				var s_i:String=source.charAt(i-1);
-				for(j=1;j <= m; j++) 
+				j=1;
+				for(;j<=m;j++) 
 				{
-					var t_j:String=target.charAt(j-1);
-					if(s_i == t_j) cost=0; 
+					var t_j:String=target.charAt(int(j)-1);
+					if(s_i==t_j) cost=0; 
 					else cost=1;
-					d[i][j]=_minimum(d[i - 1][j] + 1,d[i][j - 1] + 1,d[i - 1][j - 1] + cost);
+					d[int(i)][int(j)]=_minimum(d[int(i)-1][int(j)]+1,d[int(i)][int(j)-1]+1,d[int(i)-1][int(j)-1]+cost);
 				}
 			}
 			return d[n][m];
@@ -649,16 +650,18 @@ package gs.util
 		public static function toLowerCamel(str:String):String
 		{
 			var o:String=new String();
-			for(var i:int=0;i < str.length;i++)
+			var i:int=0;
+			var l:int=str.length;
+			for(;i<l;i++)
 			{
-				if(str.charAt(i) != " ")
+				if(str.charAt(i)!=" ")
 				{
 					if(justPassedSpace)
 					{
-						o += str.charAt(i).toUpperCase();
+						o+=str.charAt(int(i)).toUpperCase();
 						justPassedSpace=false;
 					}
-					else o += str.charAt(i).toLowerCase();
+					else o+=str.charAt(int(i)).toLowerCase();
 				}
 				else var justPassedSpace:Boolean=true;
 			}
@@ -696,11 +699,12 @@ package gs.util
 		{
 			var tmp:String=String(nm);
 			var outString:String="";
-			var l:Number=tmp.length;
-			for(var i:int=0;i < l;i++)
+			var l:int=tmp.length;
+			var i:int=0;
+			for(;i<l;i++)
 			{
-				if(i % 3 == 0 && i > 0) outString="," + outString;
-				outString=tmp.substr(l - (i + 1),1) + outString;
+				if(int(i)%3==0&&int(i)>0)outString=","+outString;
+				outString=tmp.substr(l-(int(i)+1),1)+outString;
 			}
 			return outString;		
 		}
@@ -876,7 +880,9 @@ package gs.util
 		public static function randChar(amount:Number):String
 		{
 			var str:String="";
-			for(var i:int=0;i < amount;i++) str += String.fromCharCode(Math.round(Math.random() * (126 - 33)) + 33);
+			var i:int=0;
+			var l:int=int(amount);
+			for(;i<l;i++)str+=String.fromCharCode(Math.round(Math.random()*(126-33))+33);
 			return str;
 		}
 
@@ -888,7 +894,9 @@ package gs.util
 		public static function randLowerChar(amount:Number):String
 		{
 			var str:String="";
-			for(var i:int=0;i < amount;i++) str += String.fromCharCode(Math.round(Math.random() * (122 - 97)) + 97);
+			var i:int=0;
+			var l:int=int(amount);
+			for(;i<l;i++)str+=String.fromCharCode(Math.round(Math.random()*(122-97))+97);
 			return str;
 		}
 
@@ -900,7 +908,9 @@ package gs.util
 		public static function randNum(amount:Number):String
 		{
 			var str:String="";
-			for(var i:int=0;i < amount;i++) str += String.fromCharCode(Math.round(Math.random() * (57 - 48)) + 48);
+			var i:int=0;
+			var l:int=int(amount);
+			for(;i<l;i++)str+=String.fromCharCode(Math.round(Math.random()*(57-48))+48);
 			return str;
 		}
 
@@ -912,7 +922,9 @@ package gs.util
 		public static function randSpecialChar(amount:Number):String
 		{
 			var str:String="";
-			for(var i:int=0;i < amount;i++) str += String.fromCharCode(Math.round(Math.random() * (64 - 33)) + 33);
+			var i:int=0;
+			var l:int=int(amount);
+			for(;i<l;i++)str+=String.fromCharCode(Math.round(Math.random()*(64-33))+33);
 			return str;
 		}
 
@@ -962,12 +974,13 @@ package gs.util
 		 */
 		public static function toNumeric(str:String):String
 		{
-			var len:Number=str.length;
 			var result:String="";
-			for(var i:int=0;i < len;i++)
+			var i:int=0;
+			var l:int=str.length;
+			for(;i<l;i++)
 			{
-				var code:Number=str.charCodeAt(i);
-				if(code >= 48 && code <= 57) result += str.substr(i,1);
+				var code:Number=str.charCodeAt(int(i));
+				if(code>=48&&code<=57) result+=str.substr(int(i),1);
 			}
 			return result;
 		}
@@ -1019,19 +1032,19 @@ package gs.util
 				var nParity:Number=aNumbers.length % 2;
 				var i:int=0;
 				var l:int=aNumbers.length;
-				for(i;i<l;i++) //
+				for(;i<l;i++)
 				{
-					var n:Number=Number(aNumbers[i]);
-					if(i % 2 == nParity) 
+					var n:Number=Number(aNumbers[int(i)]);
+					if(int(i)%2==nParity) 
 					{
-						n *= 2;
-						n=n > 9 ? n - 9 : n;
-						nSum_1 += n;
+						n*=2;
+						n=n>9?n-9:n;
+						nSum_1+=n;
 					}
-					else nSum_2 += n;
+					else nSum_2+=n;
 				}
-				nSum_Total=nSum_1 + nSum_2;
-				return (nSum_Total % 10 == 0);
+				nSum_Total=nSum_1+nSum_2;
+				return (nSum_Total%10==0);
 			} 
 			return false;
 		}
@@ -1046,8 +1059,10 @@ package gs.util
 		public static function encodeNumber(strNumber:String, digitsShown:uint=DEFAULT_ENCODE_DIGITS_SHOWN, encodeChar:String=DEFAULT_ENCODE_CHARACTER):String 
 		{
 			var encoded:String="";
-			for(var i:Number=0;i < strNumber.length - digitsShown; i++) encoded += encodeChar;
-			encoded += strNumber.slice(-digitsShown);
+			var i:int=0;
+			var l:int=strNumber.length;
+			for(;i<l-digitsShown;i++) encoded+=encodeChar;
+			encoded+=strNumber.slice(-digitsShown);
 			return encoded;
 		}
 		

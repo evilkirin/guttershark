@@ -38,9 +38,9 @@ package gs.util
 		var l:int=lines.length;
 		for(;i<l;i++)
 		{
-			lines[i]=lines[i].replace(/^\s+/,"");
-			lines[i]=lines[i].replace(/at /,"");
-			if(i==0)lines[i]+=": "+msg;
+			lines[int(i)]=lines[int(i)].replace(/^\s+/,"");
+			lines[int(i)]=lines[int(i)].replace(/at /,"");
+			if(i==0)lines[int(i)]+=": "+msg;
 		}
 		if(pre)trace(pre);
 		trace(lines.join("\n"));

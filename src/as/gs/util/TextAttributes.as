@@ -144,10 +144,10 @@ package gs.util
 		public function apply(...fields):void
 		{
 			if(!fields)return;
-			if(fields[i] is Array)fields=fields[0];
+			if(fields[0] is Array)fields=fields[0];
 			var i:int=0;
 			var l:int=fields.length;
-			for(;i<l;i++)_apply(fields[i]);
+			for(;i<l;i++)_apply(fields[int(i)]);
 		}
 		
 		/**

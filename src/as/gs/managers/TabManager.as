@@ -6,7 +6,7 @@ package gs.managers
 	import flash.utils.Dictionary;
 
 	/**
-	 * The TabManager class manages tab indexes in a sophisticated manner.
+	 * The TabManager class manages tab indexes.
 	 * 
 	 * <p>Tab management in flash is flat; which means that no display
 	 * object can have the same tab index.</p>

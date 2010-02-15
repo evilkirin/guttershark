@@ -146,7 +146,7 @@ package gs.support.soundmanager
 			if(!hasObject(id))return false;
 			var i:int=0;
 			var l:int=playingObjs.length;
-			for(i;i<l;i++)if(AudioObject(playingObjs[i]).id==id)return true;
+			for(;i<l;i++)if(AudioObject(playingObjs[int(i)]).id==id)return true;
 			return false;
 		}
 		
@@ -205,12 +205,12 @@ package gs.support.soundmanager
 			}
 			var i:int=0;
 			var l:int=playingObjs.length;
-			for(i;i<l;i++)
+			for(;i<l;i++)
 			{
-				if(AudioObject(playingObjs[i]).id==id)
+				if(AudioObject(playingObjs[int(i)]).id==id)
 				{
-					AudioObject(playingObjs[i]).stop();
-					playingObjs.splice(i,1);
+					AudioObject(playingObjs[int(i)]).stop();
+					playingObjs.splice(int(i),1);
 				}
 			}
 		}
@@ -257,10 +257,10 @@ package gs.support.soundmanager
 			stoppingAll=true;
 			var i:int=0;
 			var l:int=playingObjs.length;
-			for(i;i<l;i++)
+			for(;i<l;i++)
 			{
-				var ao:AudioObject=playingObjs[i];
-				if(ao==null)continue;
+				var ao:AudioObject=playingObjs[int(i)];
+				if(!ao)continue;
 				ao.stop();
 			}
 			dispatchEvent(new AudioEvent(AudioEvent.STOP));
@@ -278,13 +278,13 @@ package gs.support.soundmanager
 			if(!isPlaying(id))return;
 			var i:int=0;
 			var l:int=playingObjs.length;
-			for(i;i<l;i++)
+			for(;i<l;i++)
 			{
-				var o:AudioObject=AudioObject(playingObjs[i]);
-				if(o.id==id)
+				var o:AudioObject=AudioObject(playingObjs[int(i)]);
+				if(o && o.id==id)
 				{
 					o.stop();
-					playingObjs.splice(i,1);
+					playingObjs.splice(int(i),1);
 				}
 			}
 		}
@@ -298,7 +298,7 @@ package gs.support.soundmanager
 			var l:int=playingObjs.length;
 			var ao:AudioObject;
 			dispatchEvent(new AudioEvent(AudioEvent.PAUSED));
-			for(i;i<l;i++)AudioObject(playingObjs[i]).pause();
+			for(;i<l;i++)AudioObject(playingObjs[int(i)]).pause();
 			for each(ao in objs) ao.pause();
 		}
 		
@@ -311,7 +311,7 @@ package gs.support.soundmanager
 			var l:int=playingObjs.length;
 			var ao:AudioObject;
 			dispatchEvent(new AudioEvent(AudioEvent.RESUMED));
-			for(i;i<l;i++)AudioObject(playingObjs[i]).resume();
+			for(;i<l;i++)AudioObject(playingObjs[int(i)]).resume();
 			for each(ao in objs)ao.resume();
 		}
 
@@ -325,7 +325,7 @@ package gs.support.soundmanager
 			var i:int=0;
 			var l:int=playingObjs.length;
 			var ao:AudioObject;
-			for(i;i<l;i++)AudioObject(playingObjs[i]).increaseVolume(step);
+			for(;i<l;i++)AudioObject(playingObjs[int(i)]).increaseVolume(step);
 			for each(ao in objs)ao.increaseVolume(step);
 			dispatchEvent(new AudioEvent(AudioEvent.VOLUME_CHANGE));
 		}
@@ -340,7 +340,7 @@ package gs.support.soundmanager
 			var i:int=0;
 			var l:int=playingObjs.length;
 			var ao:AudioObject;
-			for(i;i<l;i++)AudioObject(playingObjs[i]).decreaseVolume(step);
+			for(;i<l;i++)AudioObject(playingObjs[int(i)]).decreaseVolume(step);
 			for each(ao in objs)ao.decreaseVolume(step);
 			dispatchEvent(new AudioEvent(AudioEvent.VOLUME_CHANGE));
 		}
@@ -365,15 +365,15 @@ package gs.support.soundmanager
 			var l:int=ids.length;
 			var j:int=0;
 			var k:int=playingObjs.length;
-			for(i;i<l;i++)
+			for(;i<l;i++)
 			{
-				for(j=0;j<k;j++)if(AudioObject(playingObjs[j]).id==ids[i])AudioObject(playingObjs[j]).volume=levels[i];
+				for(j=0;j<k;j++)if(AudioObject(playingObjs[int(j)]).id==ids[int(i)])AudioObject(playingObjs[int(j)]).volume=levels[int(i)];
 				if(!persistent)continue;
-				if(audibleOptions[ids[i]])audibleOptions[ids[i]].volume=levels[i];
+				if(audibleOptions[ids[int(i)]])audibleOptions[ids[int(i)]].volume=levels[int(i)];
 				else
 				{
-					audibleOptions[ids[i]]={};
-					audibleOptions[ids[i]].volume=levels[i];
+					audibleOptions[ids[int(i)]]={};
+					audibleOptions[ids[int(i)]].volume=levels[int(i)];
 				}
 			}
 		}
@@ -391,7 +391,7 @@ package gs.support.soundmanager
 			var i:int=0;
 			var l:int=playingObjs.length;
 			var ao:AudioObject;
-			for(i;i<l;i++) AudioObject(playingObjs[i]).volume=transform.volume;
+			for(;i<l;i++) AudioObject(playingObjs[int(i)]).volume=transform.volume;
 			for each(ao in objs)ao.volume=transform.volume;
 		}
 		
@@ -433,7 +433,7 @@ package gs.support.soundmanager
 			var i:int=0;
 			var l:int=playingObjs.length;
 			var ao:AudioObject;
-			for(i;i<l;i++) AudioObject(playingObjs[i]).volumeTo(level,duration);
+			for(;i<l;i++) AudioObject(playingObjs[int(i)]).volumeTo(level,duration);
 			for each(ao in objs)ao.volumeTo(level,duration);
 		}
 		
@@ -447,7 +447,7 @@ package gs.support.soundmanager
 			var i:int=0;
 			var l:int=playingObjs.length;
 			var ao:AudioObject;
-			for(i;i<l;i++) AudioObject(playingObjs[i]).panning=transform.pan;
+			for(;i<l;i++) AudioObject(playingObjs[int(i)]).panning=transform.pan;
 			for each(ao in objs)ao.panning=transform.pan;
 		}
 		
@@ -489,7 +489,7 @@ package gs.support.soundmanager
 			var i:int=0;
 			var l:int=playingObjs.length;
 			var ao:AudioObject;
-			for(i;i<l;i++) AudioObject(playingObjs[i]).panTo(pan,duration);
+			for(;i<l;i++)AudioObject(playingObjs[int(i)]).panTo(pan,duration);
 			for each(ao in objs)ao.panTo(pan,duration);
 		}
 		
@@ -511,7 +511,7 @@ package gs.support.soundmanager
 			var l:int=playingObjs.length;
 			var ao:AudioObject;
 			dispatchEvent(new AudioEvent(AudioEvent.MUTE));
-			for(i;i<l;i++)AudioObject(playingObjs[i]).mute();
+			for(;i<l;i++)AudioObject(playingObjs[int(i)]).mute();
 			for each(ao in objs)ao.mute();
 			muted=true;
 		}
@@ -525,7 +525,7 @@ package gs.support.soundmanager
 			var l:int=playingObjs.length;
 			var ao:AudioObject;
 			dispatchEvent(new AudioEvent(AudioEvent.UNMUTE));
-			for(i;i<l;i++)AudioObject(playingObjs[i]).unMute();
+			for(;i<l;i++)AudioObject(playingObjs[int(i)]).unMute();
 			for each(ao in objs)ao.unMute();
 			muted=false;
 		}
@@ -542,7 +542,7 @@ package gs.support.soundmanager
 			if(stoppingAll)return;
 			var i:int=0;
 			var l:int=playingObjs.length;
-			for(i;i<l;i++)if(playingObjs[i]===ao)playingObjs.splice(i,1);
+			for(;i<l;i++)if(playingObjs[int(i)]===ao)playingObjs.splice(int(i),1);
 		}
 		
 		/**
@@ -552,7 +552,7 @@ package gs.support.soundmanager
 		{
 			var i:int=0;
 			var l:int=playingObjs.length;
-			for(i;i<l;i++) AudioObject(playingObjs[i]).dispose();
+			for(;i<l;i++)AudioObject(playingObjs[int(i)]).dispose();
 			var ao:AudioObject;
 			for each(ao in objs)ao.dispose();
 			id=null;
@@ -580,7 +580,7 @@ package gs.support.soundmanager
 		{
 			var i:int=0;
 			var l:int=playingObjs.length;
-			for(i;i<l;i++)if(AudioObject(playingObjs[i]).id==id)return playingObjs[i];
+			for(;i<l;i++)if(AudioObject(playingObjs[int(i)]).id==id)return playingObjs[int(i)];
 			return null;
 		}
 		

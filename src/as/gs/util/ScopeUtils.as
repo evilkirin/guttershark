@@ -43,7 +43,7 @@ package gs.util
 			if(!source||!target)return;
 			var l:int=objs.length;
 			var k:int=0;
-			for(k;k<l;k++)target[objs[k]]=source[objs[k]];
+			for(;k<l;k++)target[objs[int(k)]]=source[objs[int(k)]];
 		}
 	}
 }

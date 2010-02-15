@@ -11,7 +11,7 @@ package gs.display.text
 	 * The GradientLabel class creates gradiated text,
 	 * it uses a text field as a mask applied to a gradient.
 	 * 
-	 * <p>Read about drawing gradiends, and read the Matrix
+	 * <p>Read about drawing gradients, and read the Matrix
 	 * class' createGradientBox method for more information
 	 * about how properties on this class are mapped to the
 	 * actual gradient.</p>
@@ -29,7 +29,7 @@ package gs.display.text
 		public var field:TextField;
 		
 		/**
-		 * A matrix
+		 * The matrix that's used to create the gradient box.
 		 */
 		public var matrix:Matrix;
 		
@@ -39,12 +39,12 @@ package gs.display.text
 		public var colors:Array;
 		
 		/**
-		 * Color alphas.
+		 * An array of alpha values for each color.
 		 */
 		public var alphas:Array;
 		
 		/**
-		 * Color ratios.
+		 * An array of ratio values for each color.
 		 */
 		public var ratios:Array;
 		

@@ -74,12 +74,13 @@ package gs.support.preloading.workers
 	 * must override the "load" method and implement your own logic to prepare
 	 * the internal loader and request objects.</p>
 	 *
-	 * <p>Worker subclasses must also be registered with the WorkerInstances class. An Asset
-	 * uses WorkerInstances to get a worker for it's type being loaded.</p>
+	 * <p>Worker subclasses must also be registered by calling Worker.RegisterDefaultWorkers
+	 * and Worker.RegisterWorkerForFileType.</p>
 	 *
-	 * <p>Here is a snippet taken from the BitmapWorker class that shows overriding the load method
+	 * <p>Here's a snippet taken from the BitmapWorker class that shows overriding the load method
 	 * and setting up the internal loader and request properties.</p>
 	 * 
+	 * @example Overriding the load method
 	 * <listing>	
 	 * override public function load(asset:Asset):void
 	 * {

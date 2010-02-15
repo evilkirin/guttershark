@@ -12,9 +12,6 @@ package gs.support.preloading.workers
 	 * The SoundWorker class is the worker loads all
 	 * sound files.
 	 * 
-	 * <p>This class is not used directly. It is used internally to an
-	 * Asset instance.</p>
-	 * 
 	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 * 
 	 * @see gs.core.Preloader

@@ -259,7 +259,7 @@ package gs.core
 			{
 				var l:int=items.length;
 				var i:int=0;
-				for(i;i<l;i++)this.loadItems.unshift(items[i]);
+				for(;i<l;i++)this.loadItems.unshift(items[int(i)]);
 			}
 			loadItemsDuplicate=loadItems.concat();
 		}
@@ -370,12 +370,12 @@ package gs.core
 			if(!asset.source||!asset.libraryName)throw new Error("Both a source and an id must be provided on the Asset to prioritize.");
 			var l:int=loadItems.length;
 			var i:int=0;
-			for(i;i<l;i++)
+			for(;i<l;i++)
 			{
-				var item:Asset=Asset(loadItems[i]);
+				var item:Asset=Asset(loadItems[int(i)]);
 				if(item.source==asset.source)
 				{
-					var litem:Asset=loadItems.splice(i,1)[0] as Asset;
+					var litem:Asset=loadItems.splice(int(i),1)[0] as Asset;
 					loadItems.unshift(litem);
 					return;
 				}
@@ -403,7 +403,8 @@ package gs.core
 			var pixelContributionPerItem:Number=Math.ceil(totalPixelsToFill/(loadItemsDuplicate.length-loadErrors));
 			var pixelUpdate:Number;
 			var percentUpdate:Number;
-			for(var key:String in loadingItemsPool)
+			var key:String;
+			for(key in loadingItemsPool)
 			{
 				var bl:* =bytesLoadedPool[key];
 				var bt:* =bytesTotalPool[key];

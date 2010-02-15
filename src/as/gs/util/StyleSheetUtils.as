@@ -42,15 +42,15 @@ package gs.util
 			var k:int;
 			var j:int;
 			var sn:String;
-			for(i;i<l;i++)
+			for(;i<l;i++)
 			{
-				var s:StyleSheet=StyleSheet(sheets[i]); 
+				var s:StyleSheet=StyleSheet(sheets[int(i)]); 
 				var nm:Array=s.styleNames;
 				k=0;
 				j=nm.length;
 				for(k;k<j;k++)
 				{
-					sn=nm[k];
+					sn=nm[int(k)];
 					newstyles.setStyle(sn,s.getStyle(sn));
 				}
 			}

@@ -9,8 +9,7 @@ package gs.core
 	import gs.util.TextAttributes;
 	import gs.util.XMLLoader;
 	import gs.util.cache.*;
-
-	import flash.events.*;
+	
 	import flash.net.*;
 	import flash.system.*;
 	import flash.text.*;
@@ -256,9 +255,9 @@ package gs.core
 		private var xmlLoader:XMLLoader;
 		
 		/**
-		 * A callback for xml loader complete function.
+		 * On complete handler for the xml loader.
 		 */
-		private var xmlLoaderOnComplete:Function;
+		private var onComplete:Function;
 		
 		/**
 		 * Model lookup.
@@ -342,30 +341,29 @@ package gs.core
 		}
 		
 		/**
-		 * Load's an xml file to use as the model xml.
+		 * Load an xml file to use as the model xml.
 		 * 
 		 * @param model The model xml file name.
-		 * @param onCompleteCallback A callback function for on complete of the xml load.
+		 * @param complete A callback function for on complete of the xml load.
+		 * @param ioerror A callback function to handle ioerrors.
+		 * @param securityerror A callback function to handle security errors.
 		 */
-		public function loadModel(model:String,onCompleteCallback:Function=null):void
+		public function load(model:String,complete:Function,ioerror:Function=null,securityerror:Function=null):void
 		{
-			xmlLoaderOnComplete=onCompleteCallback;
+			onComplete=complete;
 			xmlLoader=new XMLLoader();
-			xmlLoader.contentLoader.addEventListener(Event.COMPLETE,onXMLComplete,false,0,true);
-			var req:URLRequest=new URLRequest(model);
-			xmlLoader.load(req);
+			xmlLoader.load(new URLRequest(model),_onComplete);
 		}
 		
 		/**
-		 * On model xml complete.
+		 * On complete handler.
 		 */
-		private function onXMLComplete(e:Event):void
+		private function _onComplete():void
 		{
 			xml=xmlLoader.data;
-			xmlLoader.removeEventListener(Event.COMPLETE,onXMLComplete);
-			if(xmlLoaderOnComplete!=null)xmlLoaderOnComplete();
+			if(onComplete!=null)onComplete();
 		}
-
+		
 		/**
 		 * Get an Asset instance by the library name.
 		 * 
