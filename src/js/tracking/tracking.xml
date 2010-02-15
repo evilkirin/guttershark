@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tracking>
+	<!--
+		Define <track id=""> nodes.
+		The track tag must have a unique ID to identify it.
+		
+		supported tags in a <track> node:
+			webtrends
+			atlas
+			ganalytics
+			omniture
+			redirect
+		
+		#webtrends
+			The webtrends node is a comma seperated list of values.
+			0=dcsuri, 1=ti, 2=cg_n
+			(IE: <webtrends>/ws2008/videos/product/command/play,ddddd,ad92</webtrends>)
+		
+		#atlas
+			An atlas tag - is generally just a 1x1 gif. Any URL can be placed
+			here (IE: <atlas>http://www.google.com/g.jpg</atlas>)
+		
+		#ganalitycs
+			The ganalytics tag is for google analytics, it fires a
+			pagetrack with the value of whatever is in the tag.
+			Anything can be placed here as well, which will be 
+			handed to _pageTracker (IE: <ganalytics>/coolwhip/whip</ganalytics>)
+		
+		#ominture (not complete yet, doesn't work.)
+			Omniture has two categories, basic, and commerce. Both are
+			supported. The omniture notation is slightly different,
+			as custom tags can be introduced any point. Here's how
+			you define one:
+			<omniture>
+				<channel>SomeValue</channel>
+				<campaign>SomeValue</campaign>
+				<products>SomeValue</products>
+				<pageName>SomeValue</pageName>
+				<prop1>SomeValue</prop1>
+				<hier1>SomeValue</hier1>
+				<eVar1>SomeValue</eVar1>
+				</events>SomeValue</events>
+				<myCustomVariable>MyCustomValue</myCustomVariable>
+			</omniture>
+		
+		#redirect
+			The redirect tag supports these attributes:
+				target -> any valid "target" for an <a> tag.
+				windowParameters -> any valid javascript window parameters ("width=200,height=200")
+			Examples:
+				#->Redirects to google in _self.
+					<redirect>http://www.google.com</redirect>
+				#->Redirects to google in a popup window.
+					<redirect target="_blank" windowParameters="width=200,height=200">http://www.google.com</redirect>
+		
+		You can mix and match any node types - to call, or not call tracking types.
+	-->
+	<track id="omnitureTest">
+		<omniture>
+			<channel>SomeValue</channel>
+			<campaign>SomeValue</campaign>
+			<products>SomeValue</products>
+			<pageName>SomeValue</pageName>
+			<prop1>SomeValue</prop1>
+			<hier1>SomeValue</hier1>
+			<eVar1>SomeValue</eVar1>
+			<events>SomeValue</events>
+			<myCustomVariable>MyCustomValue</myCustomVariable>
+		</omniture>
+	</track>
+	<track id="ganalyticsTest">
+		<ganalytics>/coolwhip/whip</ganalytics>
+	</track>
+	<track id="goToGoogle">
+		<webtrends>/ws2008/videos/product/command/play,ddddd,ad92</webtrends>
+		<atlas>http://www.google.com/g.jpg</atlas>
+		<redirect>http://www.google.com</redirect>
+		<ganalytics>/asdf/asdf</ganalytics>
+	</track>
+	<track id="goToGooglePopup">
+		<webtrends>/ws2008/videos/product/command/play,ddddd,ad92</webtrends>
+		<atlas>http://www.google.com/g.jpg</atlas>
+		<redirect target="_blank" windowParameters="width=200,height=200">http://www.google.com</redirect>
+		<ganalytics>/asdf/asdf</ganalytics>
+	</track>
+	<track id="noRedirectsOrPopups">
+		<webtrends>/ws2008/videos/product/command/play,ddddd,ad92</webtrends>
+		<atlas>http://www.google.com/g.jpg</atlas>
+	</track>
+	<track id="atlasOnly">
+		<atlas>http://www.google.com/g.jpg</atlas>
+	</track>
+	<track id="webtrendsOnly">
+		<webtrends>/ws2008/videos/product/command/play,ddddd,ad92</webtrends>
+	</track>
+	<track id="webtrendsOnlyAndPopup">
+		<webtrends>/ws2008/videos/product/command/play,ddddd,ad92</webtrends>
+		<redirect target="_blank" windowParameters="width=200,height=200">http://www.google.com</redirect>
+	</track>
+	<track id="atlasOnlyAndPopup">
+		<atlas>http://www.google.com/g.jpg</atlas>
+		<redirect target="_blank" windowParameters="width=200,height=200">http://www.google.com</redirect>
+	</track>
+</tracking>

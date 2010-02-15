@@ -15,7 +15,7 @@ package
 			return  {
 				model:"model.xml",
 				tracking:"tracking.xml",
-				localized:"localized.xml"
+				strings:"strings.xml"
 			};
 		}
 		
