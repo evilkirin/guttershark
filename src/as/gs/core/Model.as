@@ -600,7 +600,7 @@ package gs.core
 		 */
 		protected function checkForXML():void
 		{
-			if(!_model) throw new Error("The model xml must be set on the model before attempting to read a property from it. Please see documentation in the DocumentController for the flashvars.model and flashvars.autoInitModel property.");
+			if(!_model) throw new Error("The model xml must be set on the model before attempting to read a property from it.");
 		}
 
 		/**

@@ -175,5 +175,6 @@ ${ASDOC}asdoc \
 -package gs.util.autosuggest "The gs.util.autosuggest package contains utility classes that help create an auto suggest." \
 -package gs.util.cache "The gs.util.cache package contains utility classes that cache objects in memory." \
 -package gs.util.iters "The gs.util.iters package contains utility iterators." \
+-package gs.util.collections "The gs.util.collections package contains utility collections." \
 -package gs.util.filters "The gs.util.filters package contains utility classes that simplify working with filters." \
 -package gs.util.geom "The gs.util.geom package contains classes that define basic geometry."
