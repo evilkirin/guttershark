@@ -53,5 +53,15 @@ package gs.support.servicemanager.soap
 		{
 			return !(soapXML==null);
 		}
+		
+		/**
+		 * Dispose of this soap result.
+		 */
+		public function dispose():void
+		{
+			raw=null;
+			if("dispose" in handler)handler.dispose();
+			soapXML=null;
+		}
 	}
 }

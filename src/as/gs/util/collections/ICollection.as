@@ -1,23 +1,57 @@
 package gs.util.collections 
 {
-	
-	public interface ICollection 
+	/**
+	 * The ICollection interface is a contract for classes
+	 * that want to implement collection logic.
+	 */
+	public interface ICollection
 	{
 		
-		function getName():String;
-		
+		/**
+		 * Add an item to the collection.
+		 * 
+		 * @param item An item to add.
+		 */
 		function addItem(item:*):void;
 		
-		function addItemAt(index:Number, item:*):void;
+		/**
+		 * Add an item at a specific index.
+		 * 
+		 * @param i The index.
+		 * @param item The item to add.
+		 */
+		function addItemAt(i:int,item:*):void;
 		
-		function getItem(index:Number):*;
+		/**
+		 * Get an item at a specific index.
+		 * 
+		 * @param i The index of the item.
+		 */
+		function getItemAt(i:int):*;
 		
-		function removeItem(index:Number):void;
+		/**
+		 * Remove an item at a specific index.
+		 * 
+		 * @param i The index of the item to remove.
+		 */
+		function removeItemAt(i:int):void;
 		
-		function setItemAt(item:*, index:int):Boolean;
+		/**
+		 * Replace an item at a specific index.
+		 * 
+		 * @param item The item to set.
+		 * @param i The index.
+		 */
+		function setItemAt(item:*,index:int):Boolean;
 		
+		/**
+		 * Clear's the collection.
+		 */
 		function clear():void;
 		
-		function getLength():uint;
+		/**
+		 * Dispose of this collection.
+		 */
+		function dispose():void;
 	}
 }

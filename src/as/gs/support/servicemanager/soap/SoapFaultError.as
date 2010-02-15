@@ -28,5 +28,14 @@ package gs.support.servicemanager.soap
 			super();
 			fault=soapFault;
 		}
+		
+		/**
+		 * Dispose of this fault error.
+		 */
+		public function dispose():void
+		{
+			fault.dispose();
+			fault=null;
+		}
 	}
 }

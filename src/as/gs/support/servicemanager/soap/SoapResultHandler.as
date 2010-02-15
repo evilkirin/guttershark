@@ -99,5 +99,17 @@ package gs.support.servicemanager.soap
 		{
 			return !(soapFault);
 		}
+		
+		/**
+		 * Dispose of this soap result handler.
+		 */
+		public function dispose():void
+		{
+			soapBody=null;
+			soapFault=null;
+			soapNamespace=null;
+			soapResult=null;
+			xml=null;
+		}
 	}
 }

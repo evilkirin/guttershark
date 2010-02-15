@@ -15,5 +15,12 @@ package gs.support.servicemanager.soap
 		public function SoapFault()
 		{
 		}
+		
+		/**
+		 * Dispose of this soap fault.
+		 */
+		public function dispose():void
+		{
+		}
 	}
 }

@@ -360,5 +360,23 @@ package gs.support.servicemanager.soap
 		{
 			return ed.willTrigger(type);
 		}
+		
+		/**
+		 * Dispose of this service.
+		 */
+		public function dispose():void
+		{
+			ed=null;
+			url=null;
+			attempts=NaN;
+			timeout=NaN;
+			methods=null;
+			methodsLookup=null;
+			loader=null;
+			_portType=null;
+			_binding=null;
+			_rawWSDL=null;
+			_servicePath=null;
+		}
 	}
 }
