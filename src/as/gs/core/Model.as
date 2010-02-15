@@ -401,7 +401,7 @@ package gs.core
 			var p:Array=[];
 			var i:int=0;
 			var l:int=libraryNames.length;
-			for(i;i<l;i++) p[i]=getAssetByLibraryName(libraryNames[i]);
+			for(;i<l;i++)p[int(i)]=getAssetByLibraryName(libraryNames[int(i)]);
 			modelcache.cacheObject(cacheKey,p);
 			return p;
 		}
@@ -416,10 +416,12 @@ package gs.core
 			checkForXML();
 			var cacheKey:String="assetGroup_"+groupId; 
 			if(modelcache.isCached(cacheKey))return modelcache.getCachedObject(cacheKey) as Array;
-			var x:XMLList=assets..group.(@id==groupId);
-			var n:XML;
+			var x:XMLList=assets..group.(@id==groupId)..asset;
 			var payload:Array=[];
-			for each(n in x..asset)payload.push(getAssetByLibraryName(n.@libraryName));
+			var i:int=0;
+			var l:int=x.length();
+			for(;i<l;i++)payload.push(getAssetByLibraryName(x[int(i)].@libraryName));
+			//for each(n in x..asset)payload.push(getAssetByLibraryName(n.@libraryName));
 			modelcache.cacheObject(cacheKey,payload);
 			return payload;
 		}
@@ -655,10 +657,10 @@ package gs.core
 			var fp:String="";
 			var i:int=0;
 			var l:int=pathIds.length;
-			for(i;i<l;i++)
+			for(;i<l;i++)
 			{
-				if(!paths[pathIds[i]]) throw new Error("Path {"+pathIds[i]+"} not defined.");
-				fp += paths[pathIds[i]];
+				if(!paths[pathIds[int(i)]])throw new Error("Path {"+pathIds[int(i)]+"} not defined.");
+				fp+=paths[pathIds[int(i)]];
 			}
 			return fp;
 		}
@@ -669,14 +671,14 @@ package gs.core
 		 */
 		public function loadPolicyFiles():void
 		{
-			if(!security) return;
+			if(!security)return;
 			var pf:XMLList=security.policyfiles.crossdomain;
 			var s:XML;
 			var sp:String;
 			for each(s in pf)
 			{
-				if(s.hasOwnProperty("@url")) sp = s.@url;
-				if(s.hasOwnProperty("src")) sp = s.@src;
+				if(s.hasOwnProperty("@url"))sp=s.@url;
+				if(s.hasOwnProperty("src"))sp=s.@src;
 				Security.loadPolicyFile(sp);
 			}
 		}
@@ -812,15 +814,16 @@ package gs.core
 			var fc:Class;
 			var f:Font;
 			var finalFontFamily:String;
-			for(i;i<l;i++)
+			for(;i<l;i++)
 			{
-				so=s.getStyle(names[i]);
-				for(var key:String in so)
+				so=s.getStyle(names[int(i)]);
+				var key:String;
+				for(key in so)
 				{
 					if(key=="font")
 					{
 						var fontNode:XMLList=fonts..font.(@libraryName==so[key]);
-						if(fontNode.hasOwnProperty("@inSWF")) fc=AssetManager.getClassFromSWFLibrary(fontNode.@inSWF,so[key]);
+						if(fontNode.hasOwnProperty("@inSWF"))fc=AssetManager.getClassFromSWFLibrary(fontNode.@inSWF,so[key]);
 						else fc=AssetManager.getClass(so[key]);
 						Font.registerFont(fc);
 						f=new fc();
@@ -836,7 +839,7 @@ package gs.core
 					}
 				}
 				if(finalFontFamily)so['fontFamily']=finalFontFamily;
-				s.setStyle(names[i],so);
+				s.setStyle(names[int(i)],so);
 			}
 			modelcache.cacheObject(cacheId,s);
 			return s;
@@ -861,7 +864,7 @@ package gs.core
 			var sheets:Array=[];
 			var i:int=0;
 			var l:int=styleIds.length;
-			for(i;i<l;i++)sheets.push(getStyleSheetById(styleIds[i]));
+			for(;i<l;i++)sheets.push(getStyleSheetById(styleIds[int(i)]));
 			var newstyle:StyleSheet=StyleSheetUtils.mergeStyleSheets(sheets);
 			customStyles[newStyleId]=newstyle;
 			var cacheKey:String="css_"+newStyleId;
