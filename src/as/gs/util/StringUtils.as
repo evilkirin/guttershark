@@ -1054,7 +1054,7 @@ package gs.util
 		/**
 		 * Convert string or number to boolean
 		 * 
-		 * @param s The string ("1", "true", "yes", "on", "no" "off").
+		 * @param s The string ("1", "0", "true", "false", "yes", "no", "on", "off").
 		 * 
 		 * @example Using toBoolean:
 		 * <listing>	
@@ -1066,7 +1066,7 @@ package gs.util
 			var b:String=String(s).toLowerCase();
 			if(b == "1" || b == "true" || b == "yes" || b == "on") return true;
 			else if (b == "0" || b == "false" || b == "no" || b == "off") return false; 
-			else throw new Error("BoolConversion.toBoolean() could not convert input to a proper Boolean value");
+			else throw new Error("StringUtils.toBoolean() could not convert input to a proper Boolean value");
 		}		
 				
 		/**
