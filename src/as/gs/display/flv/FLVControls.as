@@ -164,7 +164,7 @@ package gs.display.flv
 		public function FLVControls(flv:FLV,playButton:Sprite=null,pauseButton:Sprite=null,downloadProgress:Sprite=null,playProgressBar:Sprite=null,seekHandle:Sprite=null,bufferBar:Sprite=null,bufferIndicator:Sprite=null,initialPlayButton:Sprite=null,playAgain:Sprite=null,muteButton:Sprite=null)
 		{
 			super();
-			if(!flv) throw new Error("Parameter {flv} cannot be null.");
+			if(!flv)throw new Error("Parameter {flv} cannot be null.");
 			if(flv.video.stage)_stage=flv.video.stage;
 			else flv.video.addEventListener(Event.ADDED_TO_STAGE,onFLVAddedToStage);
 			progressCount=0;
@@ -255,11 +255,11 @@ package gs.display.flv
 					hideBufferProgressBar();
 					defaultBufferProgressBarWidth();
 				}
-				if(pauseButton)hidePausebutton();
-				if(playButton)showPlayButton();
-				if(playAgainButton)showPlayAgainButton();
-				if(progressBar)progressBarFull();
-				if(seekHandle)positionSeekHandleAtStartPosition();
+				hidePausebutton();
+				showPlayButton();
+				showPlayAgainButton();
+				progressBarFull();
+				positionSeekHandleAtStartPosition();
 				return;
 			}
 			completeCount=0;
@@ -268,7 +268,7 @@ package gs.display.flv
 				downloadProgress.width=(fe.bytesLoaded/fe.bytesTotal)*flv.pixelsToFill;
 				if(downloadProgress.width==flv.pixelsToFill)flvDownloadComplete();
 			}
-			if(seekHandle&&progressBar&&!seekDown)
+			if(seekHandle && progressBar && !seekDown)
 			{
 				if(progressCount<4)
 				{
@@ -284,14 +284,14 @@ package gs.display.flv
 					else positionSeekHandleAtStartPosition();
 				}
 			}
-			if(progressBar)setProgressBarWidth(fe.pixelsPlayed);
-			if(bufferBar)setBufferProgressBarWidth(fe.pixelsBuffered);
+			setProgressBarWidth(fe.pixelsPlayed);
+			setBufferProgressBarWidth(fe.pixelsBuffered);
 			if(initialPlayButton)
 			{
 				if(fe.percentPlayed==0||fe.percentPlayed==1&&flv.isPaused())showInitialPlayButton();
 				else hideInitialPlayButton();
 			}
-			if(playAgainButton&&playAgainButton.visible)hidePlayAgainButton();
+			if(playAgainButton && playAgainButton.visible)hidePlayAgainButton();
 		}
 		
 		/**
@@ -300,9 +300,9 @@ package gs.display.flv
 		 */
 		protected function onFLVStart(fe:FLVEvent):void
 		{
-			if(playAgainButton)hidePlayAgainButton();
-			if(pauseButton)showPauseButton();
-			if(playButton)hidePlayButton();
+			hidePlayAgainButton();
+			showPauseButton();
+			hidePlayButton();
 		}
 
 		/**
@@ -312,8 +312,8 @@ package gs.display.flv
 		protected function onFLVStop(fe:FLVEvent):void
 		{
 			if(seekDown)return;
-			if(pauseButton)hidePausebutton();
-			if(playButton)showPlayButton();
+			hidePausebutton();
+			showPlayButton();
 		}
 		
 		/**
@@ -323,8 +323,8 @@ package gs.display.flv
 		protected function onBufferEmpty(fe:FLVEvent):void
 		{
 			if(complete)return;
-			if(bufferIndicator)showBufferIndicator();
-			if(bufferBar)showBufferProgressBar();
+			showBufferIndicator();
+			showBufferProgressBar();
 		}
 		
 		/**
@@ -333,8 +333,8 @@ package gs.display.flv
 		 */
 		protected function onBufferFull(fe:FLVEvent):void
 		{
-			if(bufferIndicator)hideBufferIndicator();
-			if(bufferBar)hideBufferProgressBar();
+			hideBufferIndicator();
+			hideBufferProgressBar();
 		}
 		
 		/**
@@ -483,7 +483,7 @@ package gs.display.flv
 		 */
 		protected function hidePlayButton():void
 		{
-			playButton.visible=false;
+			if(playButton)playButton.visible=false;
 		}
 
 		/**
@@ -494,7 +494,7 @@ package gs.display.flv
 		 */
 		protected function showPauseButton():void
 		{
-			pauseButton.visible=true;
+			if(pauseButton)pauseButton.visible=true;
 		}
 
 		/**
@@ -505,7 +505,7 @@ package gs.display.flv
 		 */
 		protected function hidePausebutton():void
 		{
-			pauseButton.visible=false;
+			if(pauseButton)pauseButton.visible=false;
 		}
 		
 		/**
@@ -538,7 +538,7 @@ package gs.display.flv
 		 */
 		protected function showPlayAgainButton():void
 		{
-			playAgainButton.visible=true;
+			if(playAgainButton)playAgainButton.visible=true;
 		}
 		
 		/**
@@ -549,7 +549,7 @@ package gs.display.flv
 		 */
 		protected function hidePlayAgainButton():void
 		{
-			playAgainButton.visible=false;
+			if(playAgainButton)playAgainButton.visible=false;
 		}
 		
 		/**
@@ -557,7 +557,7 @@ package gs.display.flv
 		 */
 		protected function hideBufferProgressBar():void
 		{
-			bufferBar.visible=false;
+			if(bufferBar)bufferBar.visible=false;
 		}
 		
 		/**
@@ -565,7 +565,7 @@ package gs.display.flv
 		 */
 		protected function showBufferProgressBar():void
 		{
-			bufferBar.visible=true;
+			if(bufferBar)bufferBar.visible=true;
 		}
 		
 		/**
@@ -573,7 +573,7 @@ package gs.display.flv
 		 */
 		protected function hideBufferIndicator():void
 		{
-			bufferIndicator.visible=false;
+			if(bufferIndicator)bufferIndicator.visible=false;
 		}
 		
 		/**
@@ -581,7 +581,7 @@ package gs.display.flv
 		 */
 		protected function showBufferIndicator():void
 		{
-			bufferIndicator.visible=true;
+			if(bufferIndicator)bufferIndicator.visible=true;
 		}
 
 		/**
@@ -589,7 +589,7 @@ package gs.display.flv
 		 */
 		protected function setBufferProgressBarWidth(pixelsBuffered:Number):void
 		{
-			bufferBar.width=pixelsBuffered;
+			if(bufferBar)bufferBar.width=pixelsBuffered;
 		}
 		
 		/**
@@ -597,7 +597,7 @@ package gs.display.flv
 		 */
 		protected function setProgressBarWidth(pixelsPlayed:Number):void
 		{
-			progressBar.width=pixelsPlayed;
+			if(progressBar)progressBar.width=pixelsPlayed;
 		}
 		
 		/**
@@ -613,7 +613,7 @@ package gs.display.flv
 		 */
 		protected function progressBarFull():void
 		{
-			progressBar.width=flv.pixelsToFill;
+			if(progressBar)progressBar.width=flv.pixelsToFill;
 		}
 		
 		/**
@@ -621,6 +621,7 @@ package gs.display.flv
 		 */
 		protected function positionSeekHandleAtStartPosition():void
 		{
+			if(!seekHandle)return;
 			if(seekHandle.x==firstProps.seekHandleX)return;
 			seekHandle.x=firstProps.seekHandleX;
 		}
