@@ -18,11 +18,12 @@ package
 		
 		override protected function flashvarsForStandalone():Object
 		{
-			return  {model:"model.xml"};
+			return {model:"model.xml"};
 		}
 		
 		override protected function onModelReady():void
 		{
+			super.onModelReady();
 			trace(model.getLink("google"));
 			trace(model.getLink("google").url);
 		}
