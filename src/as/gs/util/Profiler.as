@@ -286,11 +286,12 @@ internal class ProfilerContent extends Sprite
 		var inc:Number=width/(history-1);
 		var rateRange:Number=maxFps - minFps;
 		var value:Number;
-		for(i=0;i<len;i++) 
+		i=0;
+		for(;i<len;i++)
 		{
-			value=(fpsList[i]-minFps)/rateRange;
+			value=(fpsList[int(i)]-minFps)/rateRange;
 			if(i==0)vec.moveTo(0,-value*height);
-			else vec.lineTo(i*inc,-value*height);
+			else vec.lineTo(int(i)*inc,-value*height);
 		}
 		vec=mb.graphics;
 		vec.clear();
@@ -298,11 +299,12 @@ internal class ProfilerContent extends Sprite
 		i=0;
 		len=memList.length;
 		rateRange=maxMem-minMem;
-		for(i=0;i<len;i++) 
+		i=0;
+		for(;i<len;i++) 
 		{
-			value=(memList[i]-minMem)/rateRange;
+			value=(memList[int(i)]-minMem)/rateRange;
 			if(i==0)vec.moveTo(0,-value*height);
-			else vec.lineTo(i*inc,-value*height);
+			else vec.lineTo(int(i)*inc,-value*height);
 		}
 	}
 

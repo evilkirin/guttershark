@@ -3,7 +3,5 @@
 -finish scale9
 -number utils from exanimo
 
--add casa shit.
- -EventManager so I can have methods like removeEventListeners
 -add bandwidth profiling in Preloader
 -pick apart the VideoLoad from Casa lib - it says something about being able to tell when enough miliseconds are available to play

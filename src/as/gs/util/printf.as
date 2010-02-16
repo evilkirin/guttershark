@@ -287,9 +287,9 @@ function truncateNumber(raw:Number,decimals:int=2):Number
 function padString(str:String, paddingNum:int, paddingChar:String=" "):String
 {
 	if(paddingChar==null) return str;
-	var i:int;
+	var i:int=0;
 	var buf:Array=[];
-	for(i=0;i<Math.abs(paddingNum)-str.length;i++)buf.push(paddingChar);
+	for(;i<Math.abs(paddingNum)-str.length;i++)buf.push(paddingChar);
 	if(paddingNum<0)buf.unshift(str);
 	else buf.push(str);
 	return buf.join("");

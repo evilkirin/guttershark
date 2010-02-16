@@ -191,7 +191,7 @@ package gs.display.flv
 			goingOut = false;
 			_queue = [];
 			var i:int = 1;
-			for(i;i<3;i++) _player.getVideoPlayer(i).close();
+			for(;i<3;i++)_player.getVideoPlayer(int(i)).close();
 		}
 		
 		/**

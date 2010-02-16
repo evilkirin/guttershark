@@ -1,10 +1,9 @@
-if(typeof net=="undefined")var net={};
-if(typeof net.guttershark=="undefined")net.guttershark={};
+if(typeof gs=="undefined")var gs={};
 
 /**
  * Check if popup's are blocked.
  */
-net.guttershark.arePopupsBlocked=function()
+gs.arePopupsBlocked=function()
 {
 	var o;
 	var mine=window.open('','','width=1,height=1,left=0,top=0,scrollbars=no');
@@ -18,7 +17,7 @@ net.guttershark.arePopupsBlocked=function()
  * Add a window onload callback to the page load.
  * @param func The function to call.
  */
-net.guttershark.addLoadEvent=function(func)
+gs.addLoadEvent=function(func)
 {
 	var oldonload=window.onload;
 	if(typeof window.onload!='function')window.onload=func;
@@ -31,7 +30,7 @@ net.guttershark.addLoadEvent=function(func)
  * @caseInsensitive Whether or not to search for the parameter case insensitively.
  * @defaultValueIfNull A default value to return, if a parameter is not found, otherwise null will be returned.
  */
-net.guttershark.qsSafeValue=function(name,caseInsensitive,defaultValueIfNull)
+gs.qsSafeValue=function(name,caseInsensitive,defaultValueIfNull)
 {
 	name=name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
 	var r="[\\?&]"+name+"=([^&#]*)";
@@ -47,7 +46,7 @@ net.guttershark.qsSafeValue=function(name,caseInsensitive,defaultValueIfNull)
 /**
  * Finds a language code from the window location.
  */
-net.guttershark.findLangCode=function()
+gs.findLangCode=function()
 {
 	var l = window.location.toString().toLowerCase();
 	if(l.indexOf("en-us")>-1||l.indexOf("en_us")>-1) return "en-us"; //United States
@@ -93,58 +92,9 @@ net.guttershark.findLangCode=function()
 }
 
 /**
- * The Paths class is used for all Path definitions in guttershark.
- */
-net.guttershark.Paths=new function()
-{
-	var _paths={};
-	this.addPath=function(pathId,path)
-	{
-		if(!pathId)
-		{
-			alert("Parameter pathId required.");
-			return;
-		}
-		if(!path)
-		{
-			alert("Parameter path required.");
-			return;
-		}
-		_paths[pathId]=path;
-	}
-	this.getPath=function(pathIds)
-	{
-		if(!pathIds)
-		{
-			alert("Parameter pathIds required.");
-			return;
-		}
-		var fp = "";
-		for(var i = 0; i < pathIds.length; i++)
-		{
-			if(!_paths[pathIds[i]])
-			{
-				alert("Path for id {"+pathIds[i]+"} not defined.")
-				return;
-			}
-			fp += _paths[pathIds[i]];
-		}
-		return fp;
-	}
-	this.isPathDefined=function(path)
-	{
-		return !(_paths[path]===false);
-	}
-	this.assetLogicPing=function()
-	{
-		return true;
-	}
-}
-
-/**
  * Class for Cookies.
  */
-net.guttershark.Cookies=new function()
+gs.Cookies=new function()
 {
 	this.writeSessionCookie=function(cookieName,cookieValue)
 	{

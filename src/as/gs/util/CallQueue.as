@@ -118,7 +118,7 @@ package gs.util
 			if(!args)args=[];
 			var i:int=0;
 			var l:int=methods.length;
-			for(i;i<l;i++)addCall(methods[i],delays[i],args[i],edispatchers[i],eventTriggers[i]);
+			for(;i<l;i++)addCall(methods[int(i)],delays[int(i)],args[int(i)],edispatchers[int(i)],eventTriggers[int(i)]);
 			return this;
 		}
 

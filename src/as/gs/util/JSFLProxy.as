@@ -57,10 +57,10 @@ package gs.util
 			if(params.length>0)a="";
 			var i:int=0;
 			var l:int=params.length;
-			for(i;i<l;i++)
+			for(;i<l;i++)
 			{
-				if(callProps.escapeParams==true)a+="'"+escape(params[i].toString())+"'";
-				else a+="'"+params[i].toString()+"'";
+				if(callProps.escapeParams==true)a+="'"+escape(params[int(i)].toString())+"'";
+				else a+="'"+params[int(i)].toString()+"'";
 				if(i<params.length-1)a+=",";
 			}
 			var r:String;

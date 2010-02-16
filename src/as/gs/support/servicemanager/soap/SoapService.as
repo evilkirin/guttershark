@@ -260,7 +260,7 @@ package gs.support.servicemanager.soap
 			methodNamesCache=[];
 			var i:int=0;
 			var l:int=methods.length;
-			for(i;i<l;i++)methodNamesCache.push(methods[i].name);
+			for(;i<l;i++)methodNamesCache.push(methods[int(i)].name);
 			trace("Available Methods:");
 			trace(methodNamesCache);
 		}
@@ -272,7 +272,7 @@ package gs.support.servicemanager.soap
 		{
 			var i:int=0;
 			var l:int=methods.length;
-			for(i;i<l;i++)methodsLookup[methods[i].name]=methods[i];
+			for(;i<l;i++)methodsLookup[methods[int(i)].name]=methods[int(i)];
 		}
 		
 		/**

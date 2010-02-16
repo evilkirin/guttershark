@@ -176,9 +176,9 @@ package gs.display.xmlview
 			else
 			{
 				var i:int=0;
-				for(i;i<l;i++)
+				for(;i<l;i++)
 				{
-					ch=subs[i];
+					ch=subs[int(i)];
 					xv.addChild(ch);
 					xv[names[ch]]=ch;
 					delete names[ch];

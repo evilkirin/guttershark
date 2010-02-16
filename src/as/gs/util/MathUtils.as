@@ -116,8 +116,8 @@ package gs.util
 			var s:String="";
 			var i:int=0;
 			var x:int=0;
-			if(bigEndian) for(i;i<4;i++) s += HEX_CHARACTERS.charAt(( n >> ( ( 3 - i ) * 8 + 4 ) ) & 0xF) + HEX_CHARACTERS.charAt(( n >> ( ( 3 - i ) * 8 ) ) & 0xF);
-			else for(x;x<4;x++) s += HEX_CHARACTERS.charAt(( n >> ( x * 8 + 4 ) ) & 0xF) + HEX_CHARACTERS.charAt(( n >> ( x * 8 ) ) & 0xF);			
+			if(bigEndian) for(;i<4;i++)s+=HEX_CHARACTERS.charAt(( n >> ( ( 3 - int(i) ) * 8 + 4 ) ) & 0xF) + HEX_CHARACTERS.charAt(( n >> ( ( 3 - int(i) ) * 8 ) ) & 0xF);
+			else for(x;x<4;x++) s+=HEX_CHARACTERS.charAt(( n >> ( int(x) * 8 + 4 ) ) & 0xF) + HEX_CHARACTERS.charAt(( n >> ( int(x) * 8 ) ) & 0xF);
 			return s;
 		}
 		
@@ -310,7 +310,7 @@ package gs.util
 			if (n > 2 && n % 2 == 0) return false;
 			var l:Number=Math.sqrt(n);
 			var i:int=3;
-			for(i;i<=l;i+=2) if(n % i == 0) return false;
+			for(;i<=l;i+=2)if(n % int(i) == 0) return false;
 			return true;
 		}
 
@@ -513,11 +513,11 @@ package gs.util
 			{
 				var nums:Array=new Array();
 				i=min;
-				for(i;i<=max;i++)nums.push(i);
+				for(;i<=max;i++)nums.push(int(i));
 				i=1;
-				for(i;i<=count;i++) 
+				for(;i<=count;i++) 
 				{
-					var rn:Number=Math.floor(Math.random() * nums.length);
+					var rn:Number=Math.floor(Math.random()*nums.length);
 					rnds.push(nums[rn]);
 					nums.splice(rn,1);
 				}

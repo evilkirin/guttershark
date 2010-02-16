@@ -215,7 +215,7 @@ package gs.managers
 			{
 				var i:int=0;
 				var l:int=obj.length;
-				for(i;i<l;i++)register(obj[i],triggerEvent,trackingID,options);
+				for(;i<l;i++)register(obj[int(i)],triggerEvent,trackingID,options);
 				return;
 			}
 			if(!(obj is InteractiveObject))
@@ -245,7 +245,7 @@ package gs.managers
 			{
 				var i:int=0;
 				var l:int=obj.length;
-				for(i;i<l;i++)unregister(obj[i],triggerEvent);
+				for(;i<l;i++)unregister(obj[int(i)],triggerEvent);
 				return;
 			}
 			if(!(obj is InteractiveObject))return;
@@ -405,7 +405,7 @@ package gs.managers
 					{
 						var i:int=0;
 						var l:int=dd.length;
-						for(i;i<l;i++) lpos+=dd[i].toString();
+						for(;i<l;i++) lpos+=dd[int(i)].toString();
 					}
 				}
 				if(showTraces)trace("HITBOX: dynamic_fsCommand('" + lpos + "|" + lid + "')");

@@ -453,11 +453,14 @@ package gs.util
 			var m:uint=target.length;
 			if(n==0) return m;
 			if(m==0) return n;
-			for(i=0;i<=n;i++) d[int(i)]=new Array();
-			for(i=0;i<=n;i++) d[int(i)][0]=int(i);
-			for(j=0;j<=m;j++) d[0][int(j)]=int(j);
+			i=0;
+			for(;i<=n;i++)d[int(i)]=new Array();
+			i=0;
+			for(;i<=n;i++)d[int(i)][0]=int(i);
+			i=0;
+			for(;j<=m;j++)d[0][int(j)]=int(j);
 			i=1;
-			for(i;i<=n;i++)
+			for(;i<=n;i++)
 			{
 				var s_i:String=source.charAt(i-1);
 				j=1;

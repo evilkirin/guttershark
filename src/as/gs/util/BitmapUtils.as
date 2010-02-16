@@ -104,7 +104,8 @@ package gs.util
 			else 
 			{
 				cumul=dy / 2;
-				for(i=1;i<=dy;i++) 
+				i=1;
+				for(;i<=dy;i++)
 				{
 					y += yinc;
 					cumul += dx;

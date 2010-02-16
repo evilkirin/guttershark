@@ -133,9 +133,9 @@ package gs.util
 			var last:* =xml;
 			var node:String;
 			var value:String=null;
-			for(i;i<l;i++)
+			for(;i<l;i++)
 			{
-				node=nodes[i];
+				node=nodes[int(i)];
 				if(last.hasOwnProperty(node))
 				{
 					last=last[node];
@@ -172,9 +172,9 @@ package gs.util
 			var l:int=nodes.length;
 			var last:* =xml;
 			var node:String;
-			for(i;i<l;i++)
+			for(;i<l;i++)
 			{
-				node=nodes[i];
+				node=nodes[int(i)];
 				if(last.hasOwnProperty(node))
 				{
 					last=last[node];

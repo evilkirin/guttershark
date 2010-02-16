@@ -83,9 +83,10 @@ package gs.support.servicemanager.soap
 				var paramName:String="";
 				var value:String="";
 				var i:int=0;
-				for(i=0;i<mi.params.length;i++)
+				var l:int=mi.params.length;
+				for(;i<l;i++)
 				{
-					paramName=mi.params[i].toString();
+					paramName=mi.params[int(i)].toString();
 					value=props.params[paramName];
 					if(value is XML) value=value.toString();
 					params+='<'+paramName+'>'+value+'</'+paramName+'>';

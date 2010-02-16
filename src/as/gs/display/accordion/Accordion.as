@@ -145,9 +145,9 @@ package gs.display.accordion
 				var lp:BaseAccordionPane;
 				i=0;
 				restpanes.reverse();
-				for(i;i<l;i++)
+				for(;i<l;i++)
 				{
-					pn=restpanes[i];
+					pn=restpanes[int(i)];
 					if(lp) pn.y=lp.y-pn.labelBarHeight;
 					else pn.y=panesMask.height-pn.labelBarHeight;
 					if(panesContainer.contains(pn))panesContainer.removeChild(pn);
@@ -155,9 +155,9 @@ package gs.display.accordion
 				}
 				restpanes.reverse();
 				i=0;
-				for(i;i<l;i++)
+				for(;i<l;i++)
 				{
-					pn=restpanes[i];
+					pn=restpanes[int(i)];
 					panesContainer.addChild(pn);
 				}
 			}
@@ -174,9 +174,9 @@ package gs.display.accordion
 			var i:int=0;
 			var l:int=panes.length;
 			var pn:BaseAccordionPane;
-			for(i;i<l;i++)
+			for(;i<l;i++)
 			{
-				pn=panes[i];
+				pn=panes[int(i)];
 				indexLookup[pn]=i;
 			}
 		}
@@ -195,17 +195,17 @@ package gs.display.accordion
 				var lty:Number;
 				var lastpane:BaseAccordionPane;
 				var p:BaseAccordionPane;
-				for(i;i<len;i++)
+				for(;i<len;i++)
 				{
-					targetys[i] = Math.floor ( (lastpane) ? lty + lastpane.labelBar.height : 0 );
-					lastpane=panes[i];
+					targetys[int(i)] = Math.floor ( (lastpane) ? lty + lastpane.labelBar.height : 0 );
+					lastpane=panes[int(i)];
 					lty=targetys[targetys.length-1];
 				}
 				i=0;
-				for(i;i<len;i++)
+				for(;i<len;i++)
 				{
-					p=panes[i];
-					TweenLite.to(p,speed,{y:targetys[i],ease:Quad.easeOut});
+					p=panes[int(i)];
+					TweenLite.to(p,speed,{y:targetys[int(i)],ease:Quad.easeOut});
 					p.enabled=false;
 				}
 				if(sizeToContentPanes)
@@ -244,29 +244,29 @@ package gs.display.accordion
 					var lty:Number;
 					var ty:Number;
 					var lastpane:BaseAccordionPane;
-					for(i;i<len;i++)
+					for(;i<len;i++)
 					{
-						p=panes[i];
+						p=panes[int(i)];
 						if(i<=targetIndex)
 						{
 							ty = (lastpane) ? lty + lastpane.labelBar.height : 0;
 							targetys[i]=Math.floor(ty);
 						}
-						else if(i==(targetIndex+1))
+						else if(int(i)==(targetIndex+1))
 						{
 							ty = (lastpane) ? lty + lastpane.height : 0;
-							targetys[i]=Math.floor(ty);
+							targetys[int(i)]=Math.floor(ty);
 						}
-						else if(i>(targetIndex+1))
+						else if(int(i)>(targetIndex+1))
 						{
 							ty = lty + lastpane.labelBar.height;
-							targetys[i]=Math.floor(ty);
+							targetys[int(i)]=Math.floor(ty);
 						}
 						lastpane=p;
-						lty=targetys[targetys.length-1];
+						lty=targetys[int(targetys.length)-1];
 					}
 					i=0;
-					for(i;i<len;i++)TweenLite.to(panes[i],speed,{y:targetys[i],ease:Quad.easeOut});
+					for(;i<len;i++)TweenLite.to(panes[int(i)],speed,{y:targetys[int(i)],ease:Quad.easeOut});
 					var t:Number=getTotalLabelBarHeights();
 					t+=targetPane.content.height;
 					panesMask.height=t;
@@ -274,9 +274,9 @@ package gs.display.accordion
 				}
 				else
 				{
-					for(i;i<len;i++)
+					for(;i<len;i++)
 					{
-						p=panes[i];
+						p=panes[int(i)];
 						if(i>_currentIndex && i<=targetIndex)TweenLite.to(p,speed,{y:targetUpY(i),ease:Quad.easeOut});
 						else if(i>targetIndex)TweenLite.to(p,speed,{y:targetDownY(i),ease:Quad.easeOut});
 					}
@@ -291,7 +291,7 @@ package gs.display.accordion
 			var i:int=0;
 			var l:int=panes.length;
 			var t:Number=0;
-			for(i;i<l;i++)t+=panes[i].labelBar.height;
+			for(;i<l;i++)t+=panes[int(i)].labelBar.height;
 			return t;
 		}
 		
@@ -302,9 +302,9 @@ package gs.display.accordion
 		{
 			var i:int=0;
 			var total:Number=0;
-			for(i;i<index;i++)
+			for(;i<index;i++)
 			{
-				total+=(panes[i] as BaseAccordionPane).labelBar.height;
+				total+=BaseAccordionPane(panes[int(i)]).labelBar.height;
 			}
 			return total;
 		}
@@ -316,9 +316,9 @@ package gs.display.accordion
 		{
 			var i:int =panes.length-1;
 			var total:Number=0;
-			for(i;i>=index;i--)
+			for(;i>=index;i--)
 			{
-				total+=(panes[i] as BaseAccordionPane).labelBar.height;
+				total+=BaseAccordionPane(panes[int(i)]).labelBar.height;
 			}
 			return panesMask.height-total;
 		}

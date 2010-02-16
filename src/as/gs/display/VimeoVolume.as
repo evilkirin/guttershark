@@ -115,12 +115,12 @@ package gs.display
 			var i:int=0;
 			barsInMask=[];
 			var l:int=barsMask.numChildren;
-			for(i;i<l;i++) barsInMask.push(barsMask.getChildAt(i));
+			for(;i<l;i++) barsInMask.push(barsMask.getChildAt(int(i)));
 			i=0;
 			var bar:MovieClip;
-			for(i;i<l;i++)
+			for(;i<l;i++)
 			{
-				bar=barsInMask[i];
+				bar=barsInMask[int(i)];
 				bar.buttonMode = true;
 				bar.addEventListener(MouseEvent.MOUSE_OVER,onBarOver);
 				bar.addEventListener(MouseEvent.MOUSE_OUT,onBarOut);
@@ -225,9 +225,9 @@ package gs.display
 			var bar:MovieClip;
 			var i:int=0;
 			var l:int=barsInMask.length;
-			for(i;i<l;i++)
+			for(;i<l;i++)
 			{
-				bar=barsInMask[i];
+				bar=barsInMask[int(i)];
 				bar.removeEventListener(MouseEvent.MOUSE_OVER,onBarOver);
 				bar.removeEventListener(MouseEvent.MOUSE_OUT,onBarOut);
 				bar.removeEventListener(MouseEvent.MOUSE_DOWN,onDown);

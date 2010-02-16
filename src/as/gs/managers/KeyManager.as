@@ -189,7 +189,7 @@ package gs.managers
 			{
 				var l:int=obj.length;
 				var i:int=0;
-				for(i; i < l; i++) addMapping(obj[i],mapping,callback);
+				for(;i<l;i++)addMapping(obj[int(i)],mapping,callback);
 				return;
 			}
 			if(mapping.length == 1) addCharMapping(obj,mapping,callback);
@@ -217,7 +217,7 @@ package gs.managers
 			{
 				var i:int=0;
 				var l:int=obj.length;
-				for(i;i<l;i++) removeMapping(obj[i],mapping);
+				for(;i<l;i++)removeMapping(obj[int(i)],mapping);
 			}
 			if(mapping.length == 1) removeCharMapping(obj, mapping);
 			else if(mapping.indexOf("+") > -1) removeSequenceMapping(obj, mapping);
@@ -607,7 +607,7 @@ package gs.managers
 			if(char==null) char=String.fromCharCode(ke.charCode);
 			var test:String=char+"+";
 			var i:int=0;
-			for(i;i<4;i++)if(keysDown.indexOf(test)>-1)keysDown=keysDown.replace(test,"");
+			for(;i<4;i++)if(keysDown.indexOf(test)>-1)keysDown=keysDown.replace(test,"");
 			if(!keysDown||keysDown=="")return;
 			if(!sequenceCallbacks[scope][keysDown]) return;
 		}

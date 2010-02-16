@@ -70,12 +70,13 @@ package gs.util
 		{
 			var l:int=a.length;
 			var i:int=0;
-			for(i;i<l;i++)
+			var rand:int;
+			for(;i<l;i++)
 			{
-				var tmp:* =a[i];
-				var rand:int=int(Math.random()*l);
-				a[i]=a[rand];
-				a[rand]=tmp;
+				var tmp:* =a[int(i)];
+				rand=int(Math.random()*l);
+				a[int(i)]=a[rand];
+				a[int(rand)]=tmp;
 			}
 		}
 
@@ -91,9 +92,9 @@ package gs.util
 			var len:int=a.length;
 			var item:Object;
 			var i:int=0;
-			for(i;i<len;++i) 
+			for(;i<len;++i) 
 			{
-				item=a[i];
+				item=a[int(i)];
 				if(contains(newArray,item)) continue;
 				newArray.push(item);
 			}
@@ -111,7 +112,7 @@ package gs.util
 			if(arr1.length!=arr2.length) return false;
 			var l:int=arr1.length;
 			var i:int=0;
-			for(i;i<l;i++) if(arr1[i] !== arr2[i]) return false;
+			for(;i<l;i++) if(arr1[int(i)] !== arr2[int(i)]) return false;
 			return true;
 		}
 
@@ -125,7 +126,7 @@ package gs.util
 		{
 			var c:Array=b.concat();
 			var i:int=a.length-1;
-			for(i;i>-1;i--)c.unshift(a[i]);
+			for(;i>-1;i--)c.unshift(a[int(i)]);
 			return c;
 		}	
 
@@ -165,7 +166,7 @@ package gs.util
 			var o:Array=new Array();
 			var l:int=a.length;
 			var i:int=0;
-			for(i;i<l;i++)if(a[i]!=a[i+1])o.push(a[i]);
+			for(;i<l;i++)if(a[int(i)]!=a[int(i)+1])o.push(a[int(i)]);
 			return o;
 		}
 
@@ -206,7 +207,7 @@ package gs.util
 			if(c.length != d.length) return false;
 			var l:int=c.length;
 			var i:int=0;
-			for(i;i<l;i++)if(c[i]!==d[i]) return false;
+			for(;i<l;i++)if(c[int(i)]!==d[int(i)]) return false;
 			return true;
 		}
 
@@ -241,10 +242,10 @@ package gs.util
 		{
 			var l:int=a.length;
 			var i:int=0;
-			for(i;i<l;i++)
+			for(;i<l;i++)
 			{
-				if(!caseInsensitive)if(a[i][prop]==val)return i;
-				else if(a[i][prop].toUpperCase()==String(val).toUpperCase())return i;
+				if(!caseInsensitive)if(a[int(i)][prop]==val)return i;
+				else if(a[int(i)][prop].toUpperCase()==String(val).toUpperCase())return i;
 			}
 			return -1;
 		}
@@ -272,9 +273,9 @@ package gs.util
 		/**
 		 * Locate and return the (lowest) nearest neighbor or matching value in a <code>NUMERIC</code> sorted array of Numbers.
 		 * 
-		 * @param val 				the value to find match or find nearst match of.
-		 * @param range 			of values in array.
-		 * @param returnIndex 		if <code>true</code> return the array index of the neighbor, if <code>false</code> return the value of the neighbor.
+		 * @param val the value to find match or find nearst match of.
+		 * @param range of values in array.
+		 * @param returnIndex if <code>true</code> return the array index of the neighbor, if <code>false</code> return the value of the neighbor.
 		 * 
 		 * @example Using ArrayUtils.nearestNeighbor:
 		 * <listing>
@@ -289,11 +290,11 @@ package gs.util
 			var index:uint=0;
 			var l:int=range.length;
 			var i:int=1;
-			for(i;i<l;i++) 
+			for(;i<l;i++) 
 			{
-				if(Math.abs(range[i] - val) < Math.abs(nearest - val))
+				if(Math.abs(range[int(i)] - val) < Math.abs(nearest-val))
 				{
-					nearest=range[i];
+					nearest=range[int(i)];
 					index=i;
 				}
 			}
@@ -310,7 +311,7 @@ package gs.util
 			var i:int=a.length;
 			var min:Number=a[0];
 			var idx:int=0;
-			while (i-- > 1)if(a[i] < min) min=a[idx=i];
+			while(i-- > 1)if(a[i] < min) min=a[idx=i];
 			return idx;
 		}
 
