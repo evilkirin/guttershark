@@ -8,7 +8,7 @@ package gs.managers
 	import flash.utils.setTimeout;
 	
 	/**
-	 * The KeyManager class simplifies working with keyboard events.
+	 * [Deprecated (See gs.util.KeyHandler)] The KeyManager class simplifies working with keyboard events.
 	 * 
 	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 */
