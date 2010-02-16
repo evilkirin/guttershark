@@ -10,8 +10,7 @@ package gs.managers
 	import flash.utils.Dictionary;
 	
 	/**
-	 * The TrackingManager class contains shortcuts for
-	 * handling tracking.
+	 * The TrackingManager class contains shortcuts for handling tracking.
 	 * 
 	 * @example
 	 * <listing>	
