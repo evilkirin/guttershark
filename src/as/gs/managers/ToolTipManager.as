@@ -20,20 +20,22 @@ package gs.managers
 	 * 
 	 * @example Using tool tip manager.
 	 * <listing>	
+	 * //tooltip manager needs a container
 	 * var toolTipContainer:MovieClip = new MovieClip();
 	 * addChild(toolTipContainer);
 	 * 
+	 * //set the tool tip container
 	 * var ttm:ToolTipManager = new ToolTipManager();
 	 * ttm.toolTipHolder = toolTipContainer;
 	 * 
+	 * //a movie clip that requires a tooltip
 	 * var objNeedsTooltip:MovieClip = new MovieClip();
 	 * addChild(objNeedsTooltip);
 	 * 
-	 * //extend base tooltip for your own.
-	 * var tooltip:BaseToolTip = new BaseToolTip();
+	 * //create a tooltip instance; extend base tooltip for your own.
+	 * var tooltip:BaseToolTip=new BaseToolTip();
 	 * 
-	 * //tell the tool tip manager to manage this tooltip
-	 * //for the object.
+	 * //tell the tool tip manager to manage a tooltip for the object.
 	 * ttm.register(objNeedsTooltip,tooltip);
 	 * </listing>
 	 */
@@ -89,8 +91,6 @@ package gs.managers
 		private var shownInstance:*;
 		
 		/**
-		 * @private
-		 * 
 		 * Constructor for ToolTipManager instances.
 		 */
 		public function ToolTipManager()
@@ -160,7 +160,7 @@ package gs.managers
 		private function __onMouseMove(me:MouseEvent):void
 		{
 			clearTimeout(showTimeout);
-			if(shownInstance) shownInstance.hide();
+			if(shownInstance)shownInstance.hide();
 			hasStageListener=false;
 			stage.removeEventListener(MouseEvent.MOUSE_MOVE,__onMouseMove);
 		}
@@ -206,7 +206,7 @@ package gs.managers
 		 */
 		public function unregister(obj:Sprite):void
 		{
-			if(!obj) return;
+			if(!obj)return;
 			obj.removeEventListener(MouseEvent.MOUSE_OUT,__onMouseOut);
 			obj.removeEventListener(MouseEvent.MOUSE_OVER,__onMouseOver);
 			delete objects[obj];
@@ -218,6 +218,14 @@ package gs.managers
 		 */
 		public function dispose():void
 		{
+			objects=null;
+			toolTipHolder=null;
+			showAfterTime=NaN;
+			autoAdjustPointForStageConstraints=false;
+			hasStageListener=false;
+			clearTimeout(showTimeout);
+			stage=null;
+			shownInstance=null;
 		}
 	}
 }
