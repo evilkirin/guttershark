@@ -11,6 +11,23 @@ package gs.util
 	{
 		
 		/**
+		 * Get someone's age from a birthdate.
+		 */
+		public static function getAge(bDate:Date):int
+		{  
+			var cDate:Date=new Date();
+			var cMonth:int=cDate.getMonth();
+			var cDay:int=cDate.getDate();
+			var cYear:int=cDate.getFullYear(); 
+			var bMonth:int=bDate.getMonth();  
+			var bDay:int=bDate.getDate();
+			var bYear:int=bDate.getFullYear();
+			var ageYrs:int=cYear-bYear;
+			if(cDay<bMonth||(cMonth==bMonth && cDay<bDay)) ageYrs--; 
+			return ageYrs;  
+		}
+		
+		/**
 		 * 0 indexed array of months for use with <code>DateUtils.getMonth()</code>.
 		 */
 		public static function get months():Array 
