@@ -114,13 +114,13 @@ package gs.core
 		 * {
 		 *     if(model)
 		 *     {
-		 *         model.addPath("audio","../audio/");
-		 *         model.addPath("bmp","../bmp/");
-		 *         model.addPath("css","../css/");
-		 *         model.addPath("flv","../flv/");
-		 *         model.addPath("js","../js/");
-		 *         model.addPath("swf","../swf/");
-		 *         model.addPath("xml","../xml/");
+		 *         model.addPath("audio",(flashvars.audio)?flashvars.audio:"../audio/");
+		 *         model.addPath("bmp",(flashvars.bmp)?flashvars.bmp:"../bmp/");
+		 *         model.addPath("css",(flashvars.css)?flashvars.css:"../css/");
+		 *         model.addPath("flv",(flashvars.flv)?flashvars.flv:"../flv/");
+		 *         model.addPath("js",(flashvars.js)?flashvars.js:"../js/");
+		 *         model.addPath("swf",(flashvars.swf)?flashvars.swf:"../swf/");
+		 *         model.addPath("xml",(flashvars.xml)?flashvars.xml:"../xml/");
 		 *     }
 		 * }
 		 * </listing>

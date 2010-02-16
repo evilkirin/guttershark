@@ -4,7 +4,7 @@ package gs.managers
 	
 	import flash.utils.Dictionary;
 	import flash.utils.Proxy;
-	import flash.utils.flash_proxy;	
+	import flash.utils.flash_proxy;
 	
 	/**
 	 * The SoundManager class is a singleton that simplifies managing sounds.
@@ -63,7 +63,7 @@ package gs.managers
 	 * @see gs.support.soundmanager.AudioObject
 	 * @see gs.support.soundmanager.AudioGroup
 	 */
-	final public dynamic class SoundManager extends Proxy 
+	final public dynamic class SoundManager extends Proxy
 	{
 	
 		/**
