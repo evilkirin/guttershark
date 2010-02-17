@@ -38,13 +38,12 @@ package gs.util.autosuggest
 		/**
 		 * Constructor for AutoSuggest instances.
 		 * 
-		 * @param	terms	An array of strings to search through.
-		 * @param	caseSensitive	If case sensitivity matters.
-		 * @throws  ArgumentError	If the terms array is null.
+		 * @param terms An array of strings to search through.
+		 * @param caseSensitive If case sensitivity matters.
 		 */
-		public function AutoSuggest(terms:Array, caseSensitive:Boolean=false):void
+		public function AutoSuggest(terms:Array,caseSensitive:Boolean=false):void
 		{
-			if(!terms) throw new ArgumentError("The terms to search through must be provided");
+			if(!terms)throw new ArgumentError("Parameter {terms} cannot be null");
 			_terms=terms;
 			this.caseSensitive=caseSensitive;
 			terms.sort();

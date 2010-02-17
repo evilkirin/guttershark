@@ -2,7 +2,7 @@ package gs.display.text
 {
 	import gs.util.BitmapUtils;
 	import gs.util.FontUtils;
-
+	
 	import flash.display.Bitmap;
 	import flash.display.Sprite;
 	import flash.text.Font;
@@ -13,7 +13,7 @@ package gs.display.text
 	 * manages using embedded fonts or bitmapping the
 	 * text field after rendering system fonts.
 	 */
-	public class SmartText extends Sprite 
+	public class SmartText extends Sprite
 	{
 		
 		/**
