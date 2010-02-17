@@ -148,6 +148,7 @@ package gs.core
 		 * {
 		 *     model=new Model();
 		 *     if(flashvars.model)model.load(flashvars.model,onModelReady,onModelIOError,onModelSecurityError);
+		 *     else onModelReady();
 		 * }
 		 * </listing>
 		 */
