@@ -26,7 +26,7 @@ package gs.display.decorators
 		{
 			if(!decorate) throw new Error("Property {decorate} cannot be null.");
 			this.sprite=decorate;
-			methods=DecoratorUtils.gi().buildMethods(["dispose"]);
+			methods=DecoratorUtils.buildMethods(["dispose","playReverse"]);
 			props=new Dictionary();
 		}
 

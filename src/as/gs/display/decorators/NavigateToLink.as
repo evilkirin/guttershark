@@ -43,7 +43,7 @@ package gs.display.decorators
 		public function NavigateToLink(ml:Model,decorate:*,modelLinkId:String,reactToEvent:String="click")
 		{
 			if(!decorate)throw new Error("Parameter {sp} cannot be null.");
-			methods=DecoratorUtils.gi().buildMethods(["dispose","goToLink"]);
+			methods=DecoratorUtils.buildMethods(["dispose","goToLink"]);
 			props=new Dictionary();
 			sprite=decorate;
 			this.ml=ml;

@@ -104,7 +104,7 @@ package gs.display.decorators
 			if(!sounds) return;
 			this.sprite=decorate;
 			methods=new Dictionary();
-			props=DecoratorUtils.gi().buildProps(["clickSound","overSound","downSound","upSound","outSound","upOutsideSound","doubleClickSound"]);
+			props=DecoratorUtils.buildProps(["clickSound","overSound","downSound","upSound","outSound","upOutsideSound","doubleClickSound"]);
 			en=true;
 			snm=SoundManager.gi();
 			groupId=audioGroupName;
