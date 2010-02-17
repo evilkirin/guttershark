@@ -105,11 +105,15 @@ package gs.display
 		/**
 		 * Set references to each piece.
 		 * 
-		 * @param l The left section.
-		 * @param r The right section.
-		 * @param t The top section.
-		 * @param b The bottom section.
-		 * @param m The middle section.
+		 * @param tl The top left piece.
+		 * @param t The top piece.
+		 * @param tr The top right piece.
+		 * @param l The left piece.
+		 * @param m The mid piece.
+		 * @param r The right piece.
+		 * @param bl The bottom left piece.
+		 * @param b The bottom piece.
+		 * @param br The bottom right piece.
 		 */
 		public function setRefs(tl:Sprite,t:Sprite,tr:Sprite,l:Sprite,m:Sprite,r:Sprite,bl:Sprite,b:Sprite,br:Sprite):void
 		{
