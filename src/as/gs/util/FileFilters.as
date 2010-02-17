@@ -12,9 +12,19 @@ package gs.util
 	{
 		
 		/**
-		 * A FileFilter containing Bitmap extensions - it contains .jpg,.jpeg,.gif,.png,.bmp.
+		 * A FileFilter containing bitmap extensions - it contains .jpg,.jpeg,.gif,.png,.bmp.
 		 */
 		public static const BitmapFileFilter:FileFilter=new FileFilter("Images (*.jpg, *.jpeg, *.gif, *.png, *.bmp)","*.jpg;*.jpeg;*.gif;*.png;*.bmp");
+		
+		/**
+		 * A FileFilter containing video extensions - it contains .mov,.mp4,.f4v,.flv.
+		 */
+		public static const VideoFileFilter:FileFilter=new FileFilter("Video (*.mov, *.mp4, *.f4v, *.flv)","*.mov;*.mp4;*.f4v;*.flv");
+		
+		/**
+		 * A FileFilter containing the swf extension - it contains .swf.
+		 */
+		public static const SWFFileFilter:FileFilter=new FileFilter("SWF (*.swf)","*.swf");
 		
 		/**
 		 * A FileFilter containing text extensions - it contains .txt,.rtf.
