@@ -122,5 +122,15 @@ package gs.display
 		{
 			return left.y;
 		}
+		
+		/**
+		 * Dispose of this scale 3 clip.
+		 */
+		public function dispose():void
+		{
+			left=null;
+			mid=null;
+			right=null;
+		}
 	}
 }

@@ -1,7 +1,4 @@
--optimizations ( cast objects when accessing array[].) , cast to ints in loops, only use ints in loops)
-
 -finish scale9
 -number utils from exanimo
-
 -add bandwidth profiling in Preloader
 -pick apart the VideoLoad from Casa lib - it says something about being able to tell when enough miliseconds are available to play

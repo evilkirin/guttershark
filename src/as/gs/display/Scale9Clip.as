@@ -58,6 +58,48 @@ package gs.display
 		 */
 		public function Scale9Clip()
 		{
+			initPositions();
+		}
+		
+		/**
+		 * Initializes positions.
+		 */
+		private function initPositions():void
+		{
+			if(topLeft && top && topRight && left && mid && right && bottomLeft && bottom && bottomRight)
+			{
+				//top row
+				top.y = topLeft.y;
+				top.x = topLeft.x+topLeft.width;
+				topRight.y = topLeft.y;
+				topRight.x = top.x+top.width;
+				//middle row
+				left.y=topLeft.y+topLeft.height;
+				left.x=topLeft.x;
+				mid.x=left.x+left.width;
+				mid.y=topLeft.y+topLeft.height;
+				right.y=topLeft.y+topLeft.height;
+				right.x=mid.x+mid.width;
+				//bottom row
+				bottomLeft.y=left.y+left.height;
+				bottomLeft.x=topLeft.x;
+				bottom.y=left.y+left.height;
+				bottom.x=topLeft.x+topLeft.width;
+				bottomRight.y=right.y+right.height;
+				bottomRight.x=bottom.x+bottom.width;
+			}
+		}
+		
+		/**
+		 * Set's the size for width and height.
+		 * 
+		 * @param width The new width.
+		 * @param height The new height.
+		 */
+		public function setSize(width:Number,height:Number):void
+		{
+			this.width=width;
+			this.height=height;
 		}
 		
 		/**
@@ -80,6 +122,7 @@ package gs.display
 			bottomLeft=bl;
 			bottom=b;
 			bottomRight=br;
+			initPositions();
 		}
 		
 		/**
@@ -87,9 +130,8 @@ package gs.display
 		 */
 		override public function set height(val:Number):void
 		{
-			mid.height=val-top.height;
-			left.height=right.height=mid.height+top.height+bottom.height;
-			bottom.y=top.y+top.height+mid.height;
+			left.height=mid.height=right.height=val-(top.height+bottom.height);
+			bottomLeft.y=bottom.y=bottomRight.y=mid.y+mid.height;
 		}
 		
 		/**
@@ -105,8 +147,9 @@ package gs.display
 		 */
 		override public function set width(val:Number):void
 		{
-			top.width=mid.width=bottom.width=val-right.width;
-			right.x=left.x+top.width+left.width;
+			top.width = mid.width =bottom.width = val-(left.width+right.width);
+			top.x = mid.x = bottom.x = topLeft.x + topLeft.width;
+			topRight.x = right.x = bottomRight.x = top.x + top.width;
 		}
 		
 		/**
@@ -122,14 +165,17 @@ package gs.display
 		 */
 		override public function set x(val:Number):void
 		{
+			topLeft.x=left.x=bottomLeft.x=val;
+			top.x=mid.x=bottom.x=topLeft.x+topLeft.width;
+			topRight.x=right.x=bottomRight.x=top.x+top.width;
 		}
-		
+
 		/**
 		 * x position
 		 */
 		override public function get x():Number
 		{
-			return left.x;
+			return topLeft.x;
 		}
 		
 		/**
@@ -137,7 +183,9 @@ package gs.display
 		 */
 		override public function set y(val:Number):void
 		{
-			
+			topLeft.y=top.y=topRight.y=val;
+			left.y=mid.y=right.y=topLeft.y+topLeft.height;
+			bottomLeft.y=bottom.y=bottomRight.y=mid.y+mid.height;
 		}
 		
 		/**
@@ -145,7 +193,23 @@ package gs.display
 		 */
 		override public function get y():Number
 		{
-			return left.y;
+			return topLeft.y;
+		}
+		
+		/**
+		 * Dispose of this scale 9 clip.
+		 */
+		public function dispose():void
+		{
+			topLeft=null;
+			top=null;
+			topRight=null;
+			left=null;
+			mid=null;
+			right=null;
+			bottomLeft=null;
+			bottom=null;
+			bottomRight=null;
 		}
 	}
 }
