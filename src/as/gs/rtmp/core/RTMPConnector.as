@@ -100,9 +100,9 @@ package gs.rtmp.core
 			var l:int=conAttempts.length;
 			var ncc:NCConnector;
 			var conn:String;
-			for(i;i<l;i++)
+			for(;i<l;i++)
 			{
-				conn=conAttempts[i].protocol + "://" + domain + ":"+ conAttempts[i].port + path;
+				conn=conAttempts[int(i)].protocol + "://" + domain + ":"+ conAttempts[int(i)].port+path;
 				if(connections.hasConnection(conn))
 				{
 					var n:NetConnection=connections.getConnection(conn);
