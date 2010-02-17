@@ -52,8 +52,6 @@ package gs.util
 			bmp.smoothing=true;
 			bmp.x=obj.x;
 			bmp.y=obj.y;
-			(obj.parent as Sprite).addChild(bmp);
-			obj.visible=false;
 			return bmp;
 		}
 		
