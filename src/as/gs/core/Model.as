@@ -287,6 +287,7 @@ package gs.core
 				trace("WARNING: Parameter {id} was null, returning null");
 				return null;
 			}
+			if(!_models[id])_models[id]=new Model();
 			return _models[id];
 		}
 		
@@ -298,6 +299,13 @@ package gs.core
 		 */
 		public static function set(id:String,ml:Model):void
 		{
+			if(_models[id] && !Model(_models[id]).xml && ml.xml)
+			{
+				ml.id=null;
+				Model(_models[id]).xml=ml.xml;
+				Model(_models[id]).clearCache();
+				return;
+			}
 			if(!ml.id)ml.id=id;
 			_models[id]=ml;
 		}
