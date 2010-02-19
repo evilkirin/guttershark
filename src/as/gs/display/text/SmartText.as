@@ -58,9 +58,18 @@ package gs.display.text
 		
 		/**
 		 * Text value.
+		 * 
+		 * <p>Use this method to set the text on the text field. If
+		 * the text can't be displayed in the text field because of
+		 * missing glyphs, then the textfield is rendered with system
+		 * fonts, and bitmapped. The bitmapped display object is added
+		 * to the display list, and the text field is removed. They
+		 * will the two will swap depending on if the text can
+		 * be displayed in the text field.</p>
 		 */
 		public function set text(val:String):void
 		{
+			if(field.text==val)return;
 			if(!field)
 			{
 				trace("WARNING: SmartText instance's field property is null, not doing anything.");
@@ -83,6 +92,14 @@ package gs.display.text
 		
 		/**
 		 * Text value.
+		 * 
+		 * <p>Use this method to set the text on the text field. If
+		 * the text can't be displayed in the text field because of
+		 * missing glyphs, then the textfield is rendered with system
+		 * fonts, and bitmapped. The bitmapped display object is added
+		 * to the display list, and the text field is removed. The
+		 * two will swap depending on if the text can be displayed in
+		 * the text field.</p>
 		 */
 		public function get text():String
 		{
