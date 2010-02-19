@@ -46,10 +46,10 @@ package gs.util.autosuggest
 		/**
 		 * Constructor for AutoSuggestMatch instances.
 		 * 
-		 * @param	term	The un-changed term from the auto suggest search terms.
-		 * @param	highlightedTerm		An HTML wrapped representation of the term.
+		 * @param term The un-changed term from the auto suggest search terms.
+		 * @param highlightedTerm An HTML wrapped representation of the term.
 		 */
-		public function AutoSuggestMatch(term:String, highlightedTerm:String):void
+		public function AutoSuggestMatch(term:String,highlightedTerm:String):void
 		{
 			this.term=term;
 			this.highlightedTerm=highlightedTerm;

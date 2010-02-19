@@ -31,22 +31,16 @@ package gs.util.autosuggest
 		private var _terms:Array;
 		
 		/**
-		 * If the search is case sensitive
-		 */
-		private var caseSensitive:Boolean;
-		
-		/**
 		 * Constructor for AutoSuggest instances.
 		 * 
 		 * @param terms An array of strings to search through.
 		 * @param caseSensitive If case sensitivity matters.
 		 */
-		public function AutoSuggest(terms:Array,caseSensitive:Boolean=false):void
+		public function AutoSuggest(terms:Array):void
 		{
 			if(!terms)throw new ArgumentError("Parameter {terms} cannot be null");
 			_terms=terms;
-			this.caseSensitive=caseSensitive;
-			terms.sort();
+			_terms.sort();
 		}
 		
 		/**
@@ -78,88 +72,104 @@ package gs.util.autosuggest
 		 * }
 		 * </listing>
 		 * 
-		 * @param term The term to search for.
-		 * @param returnLowercaseMatches Return all lowercase matches.
-		 * @return Array An array of AutoSuggestMatches.
+		 * @param str The string to search for.
+		 * @param caseSensitive Whether or not the search is case sensitive.
+		 * @param matchAnywhere Whether or not the search string has to be matched form the beginnging (^) of the string, or can the search string
+		 * be located anywhere in the string and still be considered a match.
+		 * @param returnLowercaseMatches Whether or not to return the matches as all lowercase strings.
 		 */
-		public function search(term:String,returnLowercaseMatches:Boolean=true):Array
+		public function search(str:String,caseSensitive:Boolean=false,matchAnywhere:Boolean=false,returnLowercaseMatches:Boolean=true):Array
 		{
-			if(!caseSensitive) term=term.toLowerCase();
+			if(!str||str=="")return[];
+			if(!caseSensitive)str=str.toLowerCase();
+			var finalResults:Array=[];
 			var resultsTop:Array=[];
-			//var resultsContains:Array=[];
+			var resultsContains:Array=[];
 			var termsLen:int=_terms.length;
 			var regexTop:RegExp;
-			//var regexContains:RegExp;
+			var regexContains:RegExp;
 			var regexExact:RegExp;
 			var exactMatch:*;
 			if(caseSensitive)
 			{
-				regexExact=new RegExp("^" + term + "$","i");
-				regexTop=new RegExp("^" + term,"i");
-				//regexContains=new RegExp(term,"i");
+				regexExact=new RegExp("^"+str+"$","");
+				regexTop=new RegExp("^"+str,"");
+				regexContains=new RegExp(str,"");
 			}
 			else
 			{
-				regexExact=new RegExp("^" + term + "$","");
-				regexTop=new RegExp("^" + term,"");
-				//regexContains=new RegExp(term,"");
+				regexExact=new RegExp("^"+str+"$","i");
+				regexTop=new RegExp("^"+str,"i");
+				regexContains=new RegExp(str,"i");
 			}
-			for(var i:int=0; i < termsLen; i++)
+			var i:int=0;
+			for(;i<termsLen;i++)
 			{
-				var nterm:String=(caseSensitive) ? _terms[i] : _terms[i].toLowerCase();
-				if(returnLowercaseMatches) nterm=nterm.toLowerCase();
+				var oterm:String=_terms[i];
+				var nterm:String=(caseSensitive)?_terms[i]:_terms[i].toLowerCase();
+				if(returnLowercaseMatches)nterm=nterm.toLowerCase();
 				var matchExact:Object=nterm.match(regexExact);
 				var matchTop:Object=nterm.match(regexTop);
-				//var matchContains:Object=nterm.match(regexContains);
-				var highlightedTerm:String;
+				var matchContains:Object=nterm.match(regexContains);
 				var matchf:AutoSuggestMatch;
+				var highlightedTerm:String;
+				var pre:String;
+				var colorized:String;
+				var post:String;
 				if(matchExact)
 				{
-					highlightedTerm="<span class='suggestedTerm'><span class='matchedLetters'>" + nterm + "</span></span>";
-					exactMatch=new AutoSuggestMatch(nterm, highlightedTerm);
+					highlightedTerm="<span class='suggestedTerm'><span class='matchedLetters'>"+oterm+"</span></span>";
+					exactMatch=new AutoSuggestMatch(oterm,highlightedTerm);
 				}
 				else if(matchTop)
 				{
-					highlightedTerm="<span class='suggestedTerm'>" + nterm.substr(0,matchTop.index) + "<span class='matchedLetters'>" + nterm.substr(matchTop.index,matchTop[0].length) + "</span>" + nterm.substr((matchTop.index + matchTop[0].length), nterm.length) + "</span>";
-					matchf=new AutoSuggestMatch(nterm, highlightedTerm);
+					highlightedTerm="<span class='suggestedTerm'>"+oterm.substr(0,matchTop.index)+"<span class='matchedLetters'>"+oterm.substr(matchTop.index,matchTop[0].length)+"</span>"+oterm.substr((matchTop.index+matchTop[0].length),oterm.length)+"</span>";
+					matchf=new AutoSuggestMatch(oterm,highlightedTerm);
 					resultsTop.push(matchf);
 				}
-				/*else if(matchContains)
+				else if(matchContains)
 				{
-					highlightedTerm="<span class='suggestedTerm'>";					
-					pre=nterm.substr(0,matchContains.index);
-					colorized="<span class='matchedLetters'>" + nterm.substr(matchContains.index,matchContains[0].length) + "</span>";
-					post=nterm.substr((matchContains.index + matchContains[0].length), nterm.length) + "</span>";
-					highlightedTerm += pre + colorized + post;
-					matchf=new AutoSuggestMatch(nterm, highlightedTerm);
-					resultsContains.push(matchf);	
-				}*/
+					highlightedTerm="<span class='suggestedTerm'>";
+					pre=oterm.substr(0,matchContains.index);
+					colorized="<span class='matchedLetters'>"+oterm.substr(matchContains.index,matchContains[0].length)+"</span>";
+					post=oterm.substr((matchContains.index+matchContains[0].length),oterm.length)+"</span>";
+					highlightedTerm+=pre+colorized+post;
+					matchf=new AutoSuggestMatch(oterm,highlightedTerm);
+					resultsContains.push(matchf);
+				}
 			}
 			resultsTop.sortOn("term");
-			//resultsContains.sortOn("term");
-			var finalResults:Array=resultsTop.concat();
-			if(exactMatch) finalResults.unshift(exactMatch);
+			resultsContains.sortOn("term");
+			if(resultsTop.length>0)finalResults=resultsTop.concat();
+			if(matchAnywhere && resultsContains.length>0)finalResults=finalResults.concat(resultsContains);
+			if(exactMatch)finalResults.unshift(exactMatch);
 			return finalResults;
 		}
 		
 		/**
-		 * Set the terms to search through.
-		 * 
-		 * @param terms An array of strings.
+		 * The terms to search through.
 		 */
 		public function set terms(terms:Array):void
 		{
-			if(!terms) throw new ArgumentError("Terms cannot be null");
+			if(!terms)throw new ArgumentError("Terms cannot be null");
 			_terms=terms;
+			_terms.sort();
 		}
 		
 		/**
-		 * Dispose of internal objects in memory.
+		 * The terms to search through.
+		 */
+		public function get terms():Array
+		{
+			return _terms;
+		}
+		
+		/**
+		 * Dispose of this auto suggest instance.
 		 */
 		public function dispose():void
 		{
 			_terms=null;
-			caseSensitive=false;
 		}
 	}
 }
