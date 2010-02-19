@@ -1,8 +1,8 @@
 package gs.display.tooltip
 {
-	import com.greensock.TweenLite;
+	import com.greensock.TweenMax;
 	import com.greensock.easing.Quad;
-	
+
 	import flash.display.Sprite;
 	import flash.geom.Point;
 
@@ -24,7 +24,7 @@ package gs.display.tooltip
 		protected var newCoords:Point;
 		
 		/**
-		 * Cosntructor for BaseToolTip intances.
+		 * Constructor for BaseToolTip intances.
 		 */
 		public function BaseToolTip()
 		{
@@ -47,7 +47,7 @@ package gs.display.tooltip
 			}
 			alpha=0;
 			visible=true;
-			TweenLite.to(this,.2,{autoAlpha:1,ease:Quad.easeOut});
+			TweenMax.to(this,.2,{autoAlpha:1,ease:Quad.easeOut});
 		}
 		
 		/**
