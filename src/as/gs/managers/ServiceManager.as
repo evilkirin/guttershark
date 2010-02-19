@@ -103,8 +103,7 @@ package gs.managers
 		 */
 		public static function set(id:String,sm:ServiceManager):void
 		{
-			if(!id)return;
-			if(!sm)return;
+			if(!id || !sm)return;
 			_sms[id]=sm;
 		}
 		
