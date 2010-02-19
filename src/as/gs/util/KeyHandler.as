@@ -347,7 +347,6 @@ package gs.util
 		{
 			var char:String=getShortcutForKey(e.keyCode);
 			if(!char)char=String.fromCharCode(e.charCode);
-			//trace("char",char);
 			if(type==SINGLE && char==shortcut)
 			{
 				callback();
@@ -371,7 +370,7 @@ package gs.util
 					clearKeys();
 					return;
 				}
-				for(;i<l;i++)if(down[i]==splits[i])tmp.shift();
+				for(;i<l;i++)if(down[int(i)]==splits[int(i)])tmp.shift();
 				if(tmp.length < 1)
 				{
 					callback();
@@ -405,7 +404,6 @@ package gs.util
 		{
 			var char:String=getShortcutForKey(e.keyCode);
 			if(!char)char=String.fromCharCode(e.charCode);
-			//trace("key up",char);
 			if(type==MODIFIED)
 			{
 				downd[char]=false;
@@ -450,9 +448,9 @@ package gs.util
 		 */
 		public function set autoTarget(obj:DisplayObject):void
 		{
+			removeAutoListeners();
 			_autoTarget=obj;
-			if(!obj)removeAutoListeners();
-			else addAutoListeners();
+			addAutoListeners();
 		}
 		
 		/**
@@ -460,6 +458,7 @@ package gs.util
 		 */
 		private function addAutoListeners():void
 		{
+			if(!_autoTarget)return;
 			_autoTarget.addEventListener(Event.ADDED_TO_STAGE,onAutoOnStage);
 			_autoTarget.addEventListener(Event.REMOVED_FROM_STAGE,onAutoOffStage);
 		}
@@ -469,6 +468,7 @@ package gs.util
 		 */
 		private function removeAutoListeners():void
 		{
+			if(!_autoTarget)return;
 			_autoTarget.removeEventListener(Event.ADDED_TO_STAGE,onAutoOnStage);
 			_autoTarget.removeEventListener(Event.REMOVED_FROM_STAGE,onAutoOnStage);
 		}
