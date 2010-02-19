@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<model>
+	
+	<stylesheets>
+		<stylesheet id="auto">
+			<![CDATA[
+				.suggestedTerm {
+					color:#ff0066;
+				}
+				.matchedLetters {
+					color:#000000;
+				}
+			]]>
+		</stylesheet>
+	</stylesheets>
+	
+	<textAttributes>
+		<attribute id="result" styleSheetId="auto" antiAliasType="advanced" />
+	</textAttributes>
+	
+</model>
