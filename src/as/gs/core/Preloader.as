@@ -207,7 +207,12 @@ package gs.core
 		 * How many pixels are full.
 		 */
 		private var _pixelsFull:Number;
-
+		
+		/**
+		 * Last calculated kbps.
+		 */
+		private var lastkbps:Number;
+		
 		/**
 		 * Constructor for Preloader instances.
 		 * 
@@ -230,6 +235,17 @@ package gs.core
 			_working=false;
 		}
 		
+		/**
+		 * Kilobytes per second of the currently loading asset.
+		 */
+		public function get kbps():Number
+		{
+			if(!currentItem && lastkbps)return lastkbps;
+			if(!currentItem)return -1;
+			lastkbps=currentItem.kbps;
+			return lastkbps;
+		}
+
 		/**
 		 * Add items to the controller to load - if the preloader is currently working,
 		 * these items will be appended to the items to load.

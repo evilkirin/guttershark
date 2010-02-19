@@ -1,5 +1,6 @@
 package gs.support.preloading
 {
+	import flash.utils.getTimer;
 	import gs.core.*;
 	import gs.support.preloading.events.*;
 	import gs.support.preloading.workers.*;
@@ -53,6 +54,11 @@ package gs.support.preloading
 		public var data:*;
 		
 		/**
+		 * Download start time.
+		 */
+		private var startTime:Number;
+		
+		/**
 		 * Constructor for Asset instances.
 		 * 
 		 * @param source The source URL to the asset.
@@ -76,7 +82,7 @@ package gs.support.preloading
 			}
 			else this.libraryName = libraryName;
 		}
-
+		
 		/**
 		 * @private
 		 * 
@@ -92,6 +98,7 @@ package gs.support.preloading
 			addListenersToWorker();
 			worker.loaderContext=loaderContext;
 			worker.load(this);
+			startTime=getTimer();
 		}
 		
 		/**
@@ -122,12 +129,18 @@ package gs.support.preloading
 			worker.addEventListener(SecurityErrorEvent.SECURITY_ERROR,onSecurityError);
 		}
 		
+		/**
+		 * On complete
+		 */
 		private function onComplete(e:AssetCompleteEvent):void
 		{
 			controller.complete(e);
 			dispose();
 		}
 		
+		/**
+		 * On error.
+		 */
 		private function onError(e:AssetErrorEvent):void
 		{
 			if(!controller)
@@ -139,6 +152,9 @@ package gs.support.preloading
 			dispose();
 		}
 		
+		/**
+		 * On http status.
+		 */
 		private function onHTTPStatus(h:AssetStatusEvent):void
 		{
 			if(!controller)
@@ -157,6 +173,15 @@ package gs.support.preloading
 		{
 			dispose();
 			throw se;
+		}
+		
+		/**
+		 * @private
+		 * kilobytes per second.
+		 */
+		public function get kbps():Number
+		{
+			return worker.bytesLoaded/(getTimer()-startTime);
 		}
 		
 		/**
