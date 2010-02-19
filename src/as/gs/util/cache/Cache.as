@@ -34,7 +34,7 @@ package gs.util.cache
 		/**
 		 * Constructor for Cache instances.
 		 * 
-		 * @param purgeAllTimeout An interval that purges all items in the cache for every time the interval is called.
+		 * @param purgeAllTimeout An interval that purges all items in the cache every time the interval is called.
 		 */
 		public function Cache(purgeAllInterval:int=-1)
 		{
