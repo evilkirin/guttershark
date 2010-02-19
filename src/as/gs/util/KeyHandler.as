@@ -357,7 +357,6 @@ package gs.util
 				down.push(char);
 				var i:int=0;
 				var l:int=down.length;
-				var tmp:Array=splits.concat();
 				if(splits.length > down.length)
 				{
 					clearTimeout(sequenceTimeout);
@@ -370,6 +369,7 @@ package gs.util
 					clearKeys();
 					return;
 				}
+				var tmp:Array=splits.concat();
 				for(;i<l;i++)if(down[int(i)]==splits[int(i)])tmp.shift();
 				if(tmp.length < 1)
 				{
