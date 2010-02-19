@@ -91,12 +91,56 @@ package gs.managers
 		private var shownInstance:*;
 		
 		/**
+		 * Tool tip manager lookup.
+		 */
+		private static var _ttm:Dictionary = new Dictionary(true);
+		
+		/**
 		 * Constructor for ToolTipManager instances.
 		 */
-		public function ToolTipManager()
+		public function ToolTipManager(holder:Sprite = null)
 		{
 			super();
 			objects=new Dictionary();
+			if(holder)toolTipHolder=holder;
+		}
+		
+		/**
+		 * Get a tool tip manager instance.
+		 * 
+		 * @param id The tool tip manager id.
+		 */
+		public static function get(id:String):ToolTipManager
+		{
+			if(!id)
+			{
+				trace("WARNING: Parameter {id} was null, returning null.");
+				return null;
+			}
+			return _ttm[id];
+		}
+		
+		/**
+		 * Save a tool tip manager instance.
+		 * 
+		 * @param id The tool tip manager id.
+		 * @param ttm The too tip manager instance.
+		 */
+		public static function set(id:String, ttm:ToolTipManager):void
+		{
+			if(!id||!ttm)return;
+			_ttm[id]=ttm;
+		}
+		
+		/**
+		 * Unset (delete) a tool tip manager instance.
+		 * 
+		 * @param id The tool tip manager id.
+		 */
+		public static function unset(id:String):void
+		{
+			if(!id)return;
+			delete _ttm[id];
 		}
 		
 		/**
