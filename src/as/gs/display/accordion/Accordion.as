@@ -32,7 +32,7 @@ package gs.display.accordion
 		/**
 		 * Whether or not you can close all panels - this
 		 * is only useful if you enable sizeToContentPanes
-		 * as wells.
+		 * as well.
 		 */
 		public var canCloseAll:Boolean;
 		
@@ -324,7 +324,7 @@ package gs.display.accordion
 		}
 		
 		/**
-		 * @inheritDoc
+		 * The accordion height.
 		 */
 		override public function set height(h:Number):void
 		{
@@ -332,7 +332,7 @@ package gs.display.accordion
 		}
 		
 		/**
-		 * @inheritDoc
+		 * The accordion height.
 		 */
 		override public function get height():Number
 		{
@@ -340,7 +340,7 @@ package gs.display.accordion
 		}
 		
 		/**
-		 * @inheritDoc
+		 * The accordion width.
 		 */
 		override public function set width(w:Number):void
 		{
@@ -348,7 +348,7 @@ package gs.display.accordion
 		}
 		
 		/**
-		 * @inheritDoc
+		 * The accordion width.
 		 */
 		override public function get width():Number
 		{
