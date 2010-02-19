@@ -12,7 +12,7 @@ package gs.util.cache
 	 * var cache:Cache=new Cache();
 	 * var toCache:Object={myKey:"Hello",myOtherKey:"World"};
 	 * cache.cacheObject("tocache",toCache);
-	 * trace(cache.getCachedObject("tocache"));
+	 * trace(cache.getCachedObject("tocache").myKey);
 	 * </listing>
 	 * 
 	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
