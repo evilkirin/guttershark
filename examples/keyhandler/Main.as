@@ -6,7 +6,7 @@ package
 	import flash.display.MovieClip;
 	import flash.display.Sprite;
 	import flash.utils.setTimeout;
-
+	
 	public class Main extends Sprite
 	{
 		
