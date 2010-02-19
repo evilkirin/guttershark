@@ -12,6 +12,7 @@ package
 		
 		override protected function onModelReady():void
 		{
+			model.addPath("bmp","../bmp/");
 			trace( model.getAssetsForPreload() );
 			trace( model.getAssetGroup("sounds") );
 			trace( model.getAssetByLibraryName("asset2") );
