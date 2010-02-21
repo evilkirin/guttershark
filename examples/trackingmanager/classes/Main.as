@@ -2,11 +2,12 @@ package
 {
 	import gs.core.DocumentController;
 	import gs.core.Preloader;
-
+	import gs.util.MathUtils;
+	
 	import flash.display.MovieClip;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
-
+	
 	public class Main extends DocumentController
 	{
 		
@@ -25,16 +26,28 @@ package
 			preloader.start();
 		}
 		
-		override protected function onPreloadComplete(e:Event):void
-		{
-			initTracking();
-		}
-		
 		override protected function initTracking():void
 		{
 			super.initTracking();
 			tracking.showTraces=true;
-			tracking.register(clip,MouseEvent.CLICK,"onClipClick");
+			
+			var options:Object = {
+				assertMethod:test1,
+				dynamicData:dd1
+			};
+			
+			tracking.register(clip,MouseEvent.CLICK,"onClipClick",options);
+			//setTimeout(tracking.unregister,5000,clip,"click");
+		}
+		
+		private function test1():Boolean
+		{
+			return MathUtils.randBool();
+		}
+		
+		private function dd1():Array
+		{
+			return [null,null,"_test"];
 		}
 	}
 }

@@ -1,14 +1,11 @@
 package gs.managers 
 {
-	import gs.util.ObjectUtils;
+	import gs.support.tracking.TrackingHandler;
 	import gs.util.PlayerUtils;
-	import flash.display.InteractiveObject;
-	import flash.events.Event;
-	import flash.events.StatusEvent;
+
 	import flash.external.ExternalInterface;
-	import flash.net.LocalConnection;
 	import flash.utils.Dictionary;
-	
+
 	/**
 	 * The TrackingManager class contains shortcuts for handling tracking.
 	 * 
@@ -19,8 +16,7 @@ package gs.managers
 	 * addChild(myMovieClip);
 	 * 
 	 * //setup tracking manager
-	 * var tracking:TrackingManager = new TrackingManager();
-	 * tracking.xml = myXMLInstance;
+	 * var tracking:TrackingManager = new TrackingManager(myXMLInstance);
 	 * 
 	 * //register an object to fire a tracking event.
 	 * tracking.register(myMovieClip,MouseEvent.CLICK,"onMyMovieClipClick"); //onMyMovieClipClick = tracking id. (see below).
@@ -64,8 +60,9 @@ package gs.managers
 	 * 
 	 * <p>Available options:</p>
 	 * <ul>
+	 * <li><b>assertTarget</b> (Object) - An object to use for asserting properties and methods.</li>
 	 * <li><b>assertProp</b> (String) - A property on the object firing the event to assert. (true: tracking fires, false:tracking not fired).</li>
-	 * <li><b>assertMethod</b> (Function) - A method to call for a boolean result. (true: tracking fires, false:tracking not fired).</li>
+	 * <li><b>assertMethod</b> (Function) - A function to call for a boolean result. (true: tracking fires, false:tracking not fired).</li>
 	 * <li><b>whenTrue</b> (String) - A tracking ID to fire when assertProp or assertMethod is true.</li>
 	 * <li><b>whenFalse</b> (String) - A tracking ID to fire when assertProp or assertMethod is false.</li>
 	 * <li><b>dynamicData</b> (Function) - A function to call to get dynamic data to append to a tracking tag. The dynamic
@@ -112,11 +109,6 @@ package gs.managers
 		public var useGuttersharkJSTracking:Boolean;
 		
 		/**
-		 * A local connection for omniture.
-		 */
-		private var lc:LocalConnection;
-		
-		/**
 		 * Tracking manager instances.
 		 */
 		private static var _tms:Dictionary=new Dictionary(true);
@@ -131,13 +123,13 @@ package gs.managers
 		 * 
 		 * @param _xml An xml object that conforms to the tracking xml format.
 		 */
-		public function TrackingManager(_xml:XML=null)
+		public function TrackingManager(_xml:XML)
 		{
+			if(!_xml)throw new ArgumentError("Parameter {_xml} cannot be null.");
 			trackWhenStandalone=true;
+			enabled=true;
 			objs=new Dictionary(true);
-			if(_xml)xml=_xml;
-			lc=new LocalConnection();
-			lc.addEventListener(StatusEvent.STATUS,onLCStatus);
+			this._xml=_xml;
 		}
 		
 		/**
@@ -164,6 +156,7 @@ package gs.managers
 		public static function set(id:String, tm:TrackingManager):void
 		{
 			if(!id||!tm)return;
+			if(!tm.id)tm.id=id;
 			_tms[id]=tm;
 		}
 		
@@ -202,35 +195,14 @@ package gs.managers
 		 * @param trackingID The tracking id from tracking XML.
 		 * @param options Additional options.
 		 */
-		public function register(obj:*,triggerEvent:String,trackingID:String=null,options:Object=null):void
+		public function register(obj:*,event:String,id:String=null,options:Object=null):void
 		{
-			if(!enabled)
-			{
-				trace("WARNING: Tracking not enabled, not registering object.");
-				return;
-			}
 			if(!obj)throw new ArgumentError("Parameter {obj} cannot be null.");
-			if(!triggerEvent)throw new ArgumentError("Parameter {trigger} cannot be null");
-			if(obj is Array)
-			{
-				var i:int=0;
-				var l:int=obj.length;
-				for(;i<l;i++)register(obj[int(i)],triggerEvent,trackingID,options);
-				return;
-			}
-			if(!(obj is InteractiveObject))
-			{
-				trace("WARNING: The object attempted to register is not an InteractiveObject, not registering it.");
-				return;
-			}
-			if(!xml)
-			{
-				trace("WARNING: Tracking xml is not set. Not doing anything.");
-				return;
-			}
+			if(!event)throw new ArgumentError("Parameter {event} cannot be null");
+			var th:TrackingHandler=new TrackingHandler(this,id,obj,event,options);
 			if(!objs[obj])objs[obj]=new Dictionary(true);
-			objs[obj][triggerEvent]={options:options,trackingID:trackingID,triggerEvent:triggerEvent,obj:obj};
-			obj.addEventListener(triggerEvent,onEvent,false,0,true);
+			if(objs[obj][event])trace("WARNING: Overwriting a previous tracking handler.");
+			objs[obj][event]=th;
 		}
 		
 		/**
@@ -239,183 +211,218 @@ package gs.managers
 		 * @param obj An object (InteractiveObject, or Array) of objects to unregister.
 		 * @param triggerEvent The event which triggers the tracking call.
 		 */
-		public function unregister(obj:*,triggerEvent:String):void
+		public function unregister(obj:*,event:String):void
 		{
-			if(obj is Array)
-			{
-				var i:int=0;
-				var l:int=obj.length;
-				for(;i<l;i++)unregister(obj[int(i)],triggerEvent);
-				return;
-			}
-			if(!(obj is InteractiveObject))return;
-			obj.removeEventListener(triggerEvent,onEvent,false);
-			delete objs[obj][triggerEvent];
+			if(!obj||!event)return;
+			TrackingHandler(objs[obj][event]).dispose();
+			delete objs[obj][event];
 			delete objs[obj];
 		}
 		
 		/**
-		 * When an event is fired, which should trigger a tracking
-		 * call.
+		 * @private
+		 * Called from a TrackingHandler instance.
+		 * 
+		 * @param id The tracking id.
+		 * @param obj The object that triggers the tracking event.
+		 * @param options The tracking options.
 		 */
-		private function onEvent(e:Event):void
+		public function track(th:TrackingHandler):void
 		{
-			if(!enabled) return;
-			if(!trackWhenStandalone && (PlayerUtils.isIDEPlayer()||PlayerUtils.isStandAlonePlayer())) return;
-			var trackobj:Object=e.currentTarget;
-			if(!trackobj)trackobj=e.target;
-			var obj:Object=objs[trackobj];
-			if(!obj)
-			{
-				trace("WARNING: An object that was registered for events, which fired the trigger event, couldn't follow through. The tracking event was not fired.");
-				return;
-			}
-			obj=obj[e.type]; //set this to the lookup dict.
-			if(!obj)return; //if no event was registered.
-			var dd:*;
-			var options:Object=obj.options;
-			if(options && options.dynamicData)dd=options.dynamicData();
-			//checks options like this:
-			//{assertProp:"myProp",whenTrue:"trackID",whenFalse:"trackID"};
-			var assertRes:*;
-			if(options && options.assertProp && options.whenFalse && options.whenTrue)
-			{
-				obj.trackingID=(Boolean(trackobj[options.assertProp])) ? options.whenTrue : options.whenFalse;
-			}
-			else if(options && options.assertMethod && options.whenFalse && options.whenTrue)
-			{
-				assertRes=options.assertMethod();
-				obj.trackingID=(Boolean(assertRes)) ? options.whenTrue : options.whenFalse;
-			}
-			else
-			{
-				//{assertProp:"myProp",whenTrue:"trackID"}; //if false, trackID is null.
-				//{assertProp:"myProp",whenFalse:"trackID"}; //if true, trackID is null.
-				if(options && options.assertProp && options.whenFalse && !options.whenTrue)
-				{
-					assertRes=Boolean(trackobj[options.assertProp]);
-					if(!assertRes && options.whenFalse) obj.trackingID = options.whenFalse;
-				}
-				else if(options && options.assertProp && !options.whenFalse && options.whenTrue)
-				{
-					assertRes=Boolean(trackobj[options.assertProp]);
-					if(assertRes && options.whenTrue) obj.trackingID = options.whenTrue;
-				}
-			}
-			
-			if(options && !options.whenFalse && !options.whenTrue)
-			{
-				//check for these options:
-				//{assertProp:"myPropety"};
-				//{assertMethod:"myMethod"};
-				if(options && options.assertProp && !trackobj[options.assertProp]) return;
-				if(options && options.assertMethod && !trackobj[options.assertMethod]()) return;	
-			}
-			
-			var trackingID:String=obj.trackingID;
-			if(!trackingID)
-			{
-				trace("WARNING: The trackingID was null. Not tacking anything.");
-				return;
-			}
-			if(useGuttersharkJSTracking)
-			{
-				ExternalInterface.call("flashTrack",trackingID,options.dynamicData());
-				return;
-			}
-			var tracknode:* =xml..track.(@id==trackingID);
-			if(!tracknode || tracknode.toXMLString()=="")
-			{
-				trace("ERROR: The tracking id {"+trackingID+"} doesn't exist in the tracking xml. Not firing any tracking.");
-				return;
-			}
-			if(tracknode.hasOwnProperty("webtrends")) //webtrends
-			{
-				var appendData:Array;
-				if(options && options.dynamicData) appendData=options.dynamicData();
-				var tagStr:String=tracknode.webtrends.toString();
-				var parts:Array=tagStr.split(",");
-				var dcsuri:String=parts[0];
-				var ti:String=parts[1];
-				var cg_n:String=parts[2];
-				if(!cg_n)cg_n="undefined";
-				if(appendData)
-				{
-					if(appendData[0]!=null)dcsuri+=appendData[0];
-					if(appendData[1]!=null)ti+=appendData[1];
-					if(appendData[2]!=null)cg_n+=appendData[2];
-				}
-				if(showTraces)
-				{
-					trace(">>track webtrends");
-					trace("dcsMultiTrack","DCS.dcsuri",dcsuri,"WT.ti",ti,"WT_cg_n",cg_n);
-				}
-				if(!ExternalInterface.available)
-				{
-					trace("WARNING: ExternalInterface is not available for webtrends.");
-					return;
-				}
-				ExternalInterface.call("dcsMultiTrack","DCS.dcsuri",dcsuri,"WT.ti",ti,"WT_cg_n",cg_n);
-			}
-			if(tracknode.hasOwnProperty("ganalytics")) //ganalytics
-			{
-				//implement ganalytics.
-			}
-			if(tracknode.hasOwnProperty("omniture")) //omniture
-			{
-				var objk:Object={addVars:{}};
-				var omniNode:* =tracknode.omniture.children();
-				var node:*;
-				for each(node in omniNode)
-				{
-					if(node.name().toString()=="trackId")objk.trackId=node.toString();
-					objk.addVars[node.name().toString()]=node.toString();
-				}
-				if(showTraces)
-				{
-					trace(">>track omniture");
-					ObjectUtils.dump(objk);
-				}
-				lc.send("TrackingConnection","trackItem",objk);
-			}
-			if(tracknode.hasOwnProperty("atlas")) //atlas
-			{
-				//implement atlas
-			}
-			if(tracknode.hasOwnProperty("hitbox")) //hitbox
-			{
-				var lid:String;
-				var lpos:String;
-				if(tracknode.hitbox.hasOwnProperty("lid")) lid=tracknode.hitbox.lid.toString();
-				if(tracknode.hitbox.hasOwnProperty("lpos")) lpos=tracknode.hitbox.lpos.toString();
-				if(!lid || !lpos)
-				{
-					trace("WARNING: Hitbox could not fire, missing {lid} or {lpos}");
-					return;
-				}
-				if(!ExternalInterface.available)
-				{
-					trace("WARNING: ExternalInterface is not available for hitbox.");
-					return;
-				}
-				if(options && options.dynamicData)
-				{
-					//var dd:* =options.dynamicData();
-					if(dd is Array)
-					{
-						var i:int=0;
-						var l:int=dd.length;
-						for(;i<l;i++) lpos+=dd[int(i)].toString();
-					}
-				}
-				if(showTraces)trace("HITBOX: dynamic_fsCommand('" + lpos + "|" + lid + "')");
-				ExternalInterface.call("dynamic_fsCommand('" + lpos + "|" + lid + "')");
-			}
+			if(!enabled || (!trackWhenStandalone && (PlayerUtils.isIDEPlayer()||PlayerUtils.isStandAlonePlayer()))) return;
+			var options:Object=th.options;
+			var obj:* =th.obj;
+			var id:String=th.id;
+			if(!options)options={};
+			var node:XMLList=getNode(id);
+			if(node.hasOwnProperty("omniture"))omniture(id,obj,options);
+			if(node.hasOwnProperty("atlas"))atlas(id,obj,options);
+			if(node.hasOwnProperty("ganalytics"))ganalytics(id,obj,options);
+			if(node.hasOwnProperty("hitbox"))hitbox(id,obj,options);
+			if(node.hasOwnProperty("webtrends"))webtrends(id,obj,options);
 		}
 		
-		private function onLCStatus(e:StatusEvent):void
+		/**
+		 * Get dynamic data.
+		 */
+		private function getDynamicData(options:Object):*
 		{
-			if(e.code=="error")trace("WARNING: Could not send tracking message to omniture.");
+			if(!options)return {};
+			if(options.dynamicData!=null && (options.dynamicData is Function))return options.dynamicData();
+			return {};
+		}
+		
+		/**
+		 * Figures out assertions and tells whether or not to continue.
+		 */
+		private function assertions(obj:*,options:Object):Boolean
+		{
+			if(!options)return true;
+			var target:Object=obj;
+			if(options.assertTarget)target=options.assertTarget;
+			if(!options.whenFalse && !options.whenTrue)
+			{
+				if(options.assertProp && !Boolean(target[options.assertProp]))return false;
+				if(options.assertMethod != null && !Boolean(options.assertMethod()))return false;
+			}
+			return true;
+		}
+		
+		/**
+		 * Get's an id when there are assertions that require
+		 * getting a different id when true/false.
+		 */
+		private function getAssertTrackId(obj:*,options:Object):String
+		{
+			if(!options)return null;
+			var res:String=null;
+			var target:Object=obj;
+			if(options.assertTarget)target=options.assertTarget;
+			if(options.assertProp && options.whenFalse && options.whenTrue)
+			{
+				res=(Boolean(target[options.assertProp]) ? options.whenTrue:options.whenFalse);
+			}
+			if(options.assertMethod != null && options.whenFalse && options.whenTrue)
+			{
+				res=String(Boolean(options.assertMethod()) ? options.whenTrue:options.whenFalse);
+			}
+			if(options.assertProp && options.whenFalse && !options.whenTrue)
+			{
+				if(!Boolean(target[options.assertProp]))res=options.whenFalse;
+			}
+			if(options.assertProp && !options.whenFalse && options.whenTrue)
+			{
+				if(Boolean(target[options.assertProp]))res=options.whenTrue;
+			}
+			return res;
+		}
+		
+		/**
+		 * Get's the xml node for a track id.
+		 */
+		private function getNode(id:String):XMLList
+		{
+			return xml.track.(@id==id);
+		}
+		
+		/**
+		 * Get's the correct id to fire, figuring out if there are
+		 * different id's to use when assertions are present.
+		 */
+		private function getId(id:String,obj:*,options:Object):String
+		{
+			if(id)return id;
+			else id=getAssertTrackId(obj,options);
+			return id;
+		}
+		
+		/**
+		 * Fires omniture.
+		 */
+		private function omniture(id:String,obj:*,options:Object):void
+		{
+			if(!assertions(obj,options))return;
+			var node:*;
+			var dd:* =getDynamicData(options);
+			var fid:String=getId(id,obj,options);
+			if(!fid)return;
+			node=getNode(fid).omniture;
+		}
+		
+		/**
+		 * Fires atlas.
+		 */
+		private function atlas(id:String,obj:*,options:Object):void
+		{
+			if(!assertions(obj,options))return;
+			var node:*;
+			var dd:* =getDynamicData(options);
+			var fid:String=getId(id,obj,options);
+			if(!fid)return;
+			node=getNode(fid).atlas;
+		}
+		
+		/**
+		 * Fires google analytics.
+		 */
+		private function ganalytics(id:String,obj:*,options:Object):void
+		{
+			if(!assertions(obj,options))return;
+			var node:*;
+			var dd:* =getDynamicData(options);
+			var fid:String=getId(id,obj,options);
+			if(!fid)return;
+			node=getNode(fid).ganalytics;
+		}
+		
+		/**
+		 * Fires hitbox.
+		 */
+		private function hitbox(id:String,obj:*,options:Object):void
+		{
+			if(!assertions(obj,options))return;
+			var node:*;
+			var dd:* =getDynamicData(options);
+			var fid:String=getId(id,obj,options);
+			if(!fid)return;
+			node=getNode(fid).hitbox;
+			var lid:String;
+			var lpos:String;
+			if(node.hasOwnProperty("lid"))lid=node.lid.toString();
+			if(node.hasOwnProperty("lpos"))lpos=node.lpos.toString();
+			if(!lid||!lpos)
+			{
+				trace("WARNING: Hitbox could not fire, missing {lid} or {lpos}");
+				return;
+			}
+			if(!ExternalInterface.available)
+			{
+				trace("WARNING: ExternalInterface is not available for hitbox.");
+				return;
+			}
+			if(dd && (dd is Array))
+			{
+				var i:int=0;
+				var l:int=dd.length;
+				for(;i<l;i++)lpos+=String(dd[int(i)]);
+			}
+			if(showTraces)trace("HITBOX: dynamic_fsCommand('"+lpos+"|"+lid+"')");
+			ExternalInterface.call("dynamic_fsCommand('"+lpos+"|"+lid+"')");
+		}
+		
+		/**
+		 * Fires webtrends.
+		 */
+		private function webtrends(id:String,obj:*,options:Object):void
+		{
+			if(!assertions(obj,options))return;
+			var node:*;
+			var dd:* =getDynamicData(options);
+			var fid:String=getId(id,obj,options);
+			if(!fid)return;
+			node=getNode(fid).webtrends;
+			var parts:Array=node.toString().split(",");
+			var dcsuri:String=parts[0];
+			var ti:String=parts[1];
+			var cg_n:String=parts[2];
+			if(!cg_n)cg_n="undefined";
+			if(dd && (dd is Array))
+			{
+				if(dd[0])dcsuri+=String(dd[0]);
+				if(dd[1])ti+=String(dd[1]);
+				if(dd[2])cg_n+=String(dd[2]);
+			}
+			if(showTraces)
+			{
+				trace(">>track webtrends");
+				trace("dcsMultiTrack","DCS.dcsuri",dcsuri,"WT.ti",ti,"WT_cg_n",cg_n);
+			}
+			if(!ExternalInterface.available)
+			{
+				trace("WARNING: ExternalInterface is not available for webtrends.");
+				return;
+			}
+			ExternalInterface.call("dcsMultiTrack","DCS.dcsuri",dcsuri,"WT.ti",ti,"WT_cg_n",cg_n);
 		}
 		
 		/**
@@ -423,17 +430,14 @@ package gs.managers
 		 */
 		public function dispose():void
 		{
-			var obj:*;
-			var target:*;
-			lc.removeEventListener(StatusEvent.STATUS,onLCStatus);
-			for(obj in objs)
-			{
-				target=objs[obj.obj][obj.triggerEvent];
-				unregister(target,obj.triggerEvent);
-				objs[obj.obj][obj.triggerEvent]=null;
-				delete objs[obj.obj][obj.triggerEvent];
-			}
-			TrackingManager.unset(id);
+			objs=new Dictionary(true);
+			objs=null;
+			if(id)TrackingManager.unset(id);
+			_xml=null;
+			enabled=false;
+			showTraces=false;
+			useGuttersharkJSTracking=false;
+			trackWhenStandalone=false;
 		}
 	}
 }

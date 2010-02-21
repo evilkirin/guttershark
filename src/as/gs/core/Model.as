@@ -14,7 +14,7 @@ package gs.core
 	import flash.system.*;
 	import flash.text.*;
 	import flash.utils.*;
-
+	
 	/**
 	 * The Model class contains shortcuts for parsing a model xml file.
 	 * 
