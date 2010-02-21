@@ -27,6 +27,16 @@ package gs.util
 		public static const SWFFileFilter:FileFilter=new FileFilter("SWF (*.swf)","*.swf");
 		
 		/**
+		 * A FileFilter containing the css extension - it contains .css.
+		 */
+		public static const CSSFileFilter:FileFilter=new FileFilter("CSS (*.css)","*.css");
+		
+		/**
+		 * A FileFilter containing the html extension - it contains .html.
+		 */
+		public static const HTMLFileFilter:FileFilter=new FileFilter("HTML (*.html, *.htm)","*.html;*.htm");
+		
+		/**
 		 * A FileFilter containing text extensions - it contains .txt,.rtf.
 		 */
 		public static const TextFileFilter:FileFilter=new FileFilter("Text Files (*.txt, *.rtf)", "*.txt;*.rtf");
