@@ -240,8 +240,8 @@ package gs.core
 		 */
 		public function get kbps():Number
 		{
-			if(!currentItem && lastkbps)return lastkbps;
-			if(!currentItem)return -1;
+			if(!currentItem&&lastkbps)return lastkbps;
+			if(!currentItem&&!lastkbps)return -1;
 			lastkbps=currentItem.kbps;
 			return lastkbps;
 		}
