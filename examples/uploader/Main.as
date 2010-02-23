@@ -9,7 +9,7 @@ package
 	import flash.events.MouseEvent;
 	import flash.events.ProgressEvent;
 
-	public class Main extends Sprite 
+	public class Main extends Sprite
 	{
 		
 		public var fileref:FileRef;
