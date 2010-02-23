@@ -26,7 +26,7 @@
 	</stylesheets>
 	
 	<textAttributes>
-		<attribute id="attr1" styleSheetId='style1' stringId="string1" wrapInBodySpan="false" />
+		<attribute id="attr1" styleSheetId='style1' stringId="string1" wrapInBodySpan="true" />
 	</textAttributes>
 	
 </model>
