@@ -211,6 +211,7 @@ package gs.util.fileref
 		 * @param selected The onSelected callback.
 		 * @param progress The onProgress callback.
 		 * @param uploadData The onUploadData callback.
+		 * @param open The onOpen callback.
 		 * @param status The onHTTPStatus callback.
 		 * @param ioerror The onIOError callback.
 		 * @param securityerror The onSecurityError callback.
