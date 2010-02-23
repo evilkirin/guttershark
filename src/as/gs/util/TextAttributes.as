@@ -157,6 +157,7 @@ package gs.util
 		{
 			var tmp:String=text;
 			if(!text)tmp=tf.text;
+			if(textFormat&&styleSheet) trace("WARNING: TextAttributes can't apply both text formats and stylesheets, stylesheets will take precedence over text formats");
 			if(textFormat)
 			{
 				tf.defaultTextFormat=textFormat;
