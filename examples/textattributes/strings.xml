@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <strings>
-	<string id="string1"><![CDATA[<span class='body'>hello <span class='test'>world</span></span>]]></string>
+	<string id="string1"><![CDATA[hello <span class='test'>world</span>]]></string>
 </strings>
