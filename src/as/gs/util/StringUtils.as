@@ -18,11 +18,21 @@ package gs.util
 		
 		/**
 		 * Returns a string wrapped in a span with a custom class. This
-		 * returns a string like: <code>&lt;span class='myClass'&gt;myText&lt;/span&gt;
+		 * returns a string like: <code>&lt;span class='myClass'&gt;myText&lt;/span&gt;</code>
 		 */
 		public static function styleString(txt:String,style:String):String
 		{
 			return '<span class="'+style+'">'+txt+'</span>';
+		}
+		
+		/**
+		 * Wraps the provided string in a span with class body.
+		 * 
+		 * <p>Like this: <code>&lt;span class='myClass'&gt;myText&lt;/span&gt;</code></p>
+		 */
+		public static function wrapInBodySpan(str:String):String
+		{
+			return '<span class="body">'+str+'</span>';
 		}
 		
 		/**
