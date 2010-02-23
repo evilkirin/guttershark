@@ -76,37 +76,44 @@ package gs.util
 	[Event("ioError", type="flash.events.IOErrorEvent")]
 	
 	/**
-	 * Dispatched when the file to uploads' size limit is to large.
+	 * Dispatched when the size of the file to upload is too large.
 	 * 
 	 * @eventType flash.events.Event
 	 */
 	[Event("sizeLimitExceeded", type="flash.events.Event")]
 	
 	/**
-	 * The FileRef class is a simple wrapper around FileReference
-	 * for uploading and downloading a file.
+	 * The FileRef class is a wrapper around FileReference
+	 * for uploading, downloading, simplifying upload size
+	 * limits and events.
 	 * 
 	 * <p>It simplifies the FileReference by handling all the events
 	 * for you, and using callbacks.</p>
 	 * 
 	 * @example Using the Uploader class
 	 * <listing>	
-	 * public class Main extends Sprite
+	 * public class Main extends Sprite 
 	 * {
 	 * 
-	 *  public var uploader:Uploader;
-	 *  public var selectFile:MovieClip; //clip on the stage.
+	 *  public var fileref:FileRef;
+	 *  public var selectFile:MovieClip;
 	 *  
 	 *  public function Main()
 	 *  {
-	 *      uploader=new Uploader();
-	 *      uploader.setCallbacks(onComplete,onCancel,onSelected,onProgress);
+	 *      fileref=new FileRef(FileRef.ONE_MB);
+	 *      fileref.setCallbacks(onComplete,onCancel,onSelected);
+	 *      fileref.setAlternateCallbacks(onSizeTooBig,onProgress);
 	 *      selectFile.addEventListener(MouseEvent.CLICK,onSelectFile);
 	 *  }
 	 *  
 	 *  private function onSelectFile(e:MouseEvent):void
 	 *  {
-	 *      uploader.browse([FileFilters.BitmapFileFilter]);
+	 *      fileref.browse([FileFilters.BitmapFileFilter]);
+	 *  }
+	 *  
+	 *  private function onSizeTooBig():void
+	 *  {
+	 *      trace("too big");
 	 *  }
 	 *  
 	 *  private function onComplete():void
@@ -122,13 +129,16 @@ package gs.util
 	 *  private function onSelected():void
 	 *  {
 	 *      trace("selected");
-	 *      uploader.uploadTo("http://uploader/upload.php");
+	 *      trace(fileref.fr.size);
+	 *      //you could manually check file size if you wanted to..
+	 *      //FileRef.exceedsSizeLimit(fileref,1); //Checks if size is > 1KB
+	 *      fileref.upload("http://uploader/upload.php");
 	 *  }
 	 *  
 	 *  private function onProgress():void
 	 *  {
 	 *      trace("progress");
-	 *      var pe:ProgressEvent = uploader.progressEvent;
+	 *      var pe:ProgressEvent = fileref.progressEvent;
 	 *      trace(MathUtils.spread(pe.bytesLoaded,pe.bytesTotal,100));
 	 *  }
 	 * }
@@ -509,6 +519,7 @@ package gs.util
 			onUploadData=null;
 			uploadCompleteData=null;
 			httpStatus=0;
+			progressEvent=null;
 		}
 	}
 }
