@@ -63,9 +63,10 @@ ${ASDOC}asdoc \
 -exclude-classes gs.display.particle.stencil.IRendererEffect \
 -exclude-classes gs.easing.Quad \
 -exclude-classes gs.display.ScrollContainer \
+-exclude-classes gs.display.video.FLVPlayer \
+-exclude-classes gs.util.fileref.Downloader \
 -exclude-classes com.asual.swfaddress.SWFAddress \
 -exclude-classes com.asual.swfaddress.SWFAddressEvent \
--exclude-classes gs.display.video.FLVPlayer \
 -exclude-classes fl.video.SeekBarAccImpl \
 -exclude-classes fl.video.VolumeBarAccImpl \
 -exclude-classes fl.events.ColorPickerEvent \
@@ -178,4 +179,5 @@ ${ASDOC}asdoc \
 -package gs.util.iters "The gs.util.iters package contains utility iterators." \
 -package gs.util.collections "The gs.util.collections package contains utility collections." \
 -package gs.util.filters "The gs.util.filters package contains utility classes that simplify working with filters." \
+-package gs.util.fileref "The gs.util.fileref package contains utility classes for working with FileReference and FileReferenceList." \
 -package gs.util.geom "The gs.util.geom package contains classes that define basic geometry."
