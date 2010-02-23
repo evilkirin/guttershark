@@ -5,7 +5,7 @@ package
 
 	import flash.events.Event;
 	import flash.text.TextField;
-
+	
 	public class Main extends DocumentController
 	{
 		
@@ -17,9 +17,8 @@ package
 			return {model:"model.xml"};
 		}
 		
-		override protected function onModelReady():void
+		override protected function startPreload():void
 		{
-			super.onModelReady();
 			preloader=new Preloader();
 			preloader.addEventListener(Event.COMPLETE,onPreloadComplete);
 			preloader.addItems(model.getAssetsForPreload());
