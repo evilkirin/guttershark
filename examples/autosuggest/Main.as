@@ -41,7 +41,7 @@ package
 			var i:int=0;
 			var l:int=matches.length;
 			for(;i<l;i++)trace(matches[i].term,matches[i].highlightedTerm);
-			result.htmlText=StringUtils.styleString(matches[0].highlightedTerm,"body");
+			result.htmlText=StringUtils.wrapInBodySpan(matches[0].highlightedTerm);
 		}
 		
 		override protected function flashvarsForStandalone():Object
