@@ -123,6 +123,8 @@ package gs.util.fileref
 	 *  }
 	 * }
 	 * </listing>
+	 * 
+	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 */
 	public class Uploader extends EventDispatcher 
 	{
