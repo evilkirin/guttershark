@@ -24,10 +24,10 @@ package gs.util
 		 * @param zincReturnsStandaloneFlashvars Whether or not the zinc player should return standalone flashvars
 		 * - note that you need to use <code>PlayerUtils.gi().isZinc = true</code>.
 		 */
-		public static function getFlashvars(obj:DisplayObject,flashvarsForStandalone:Function,zincReturnsStandaloneFlashvars:Boolean=false):Object
+		public static function getFlashvars(obj:DisplayObject,flashvarsForStandalone:Function=null,zincReturnsStandaloneFlashvars:Boolean=false):Object
 		{
-			if(PlayerUtils.isStandAlonePlayer()||PlayerUtils.isIDEPlayer()) return flashvarsForStandalone();
-			else if(zincReturnsStandaloneFlashvars && PlayerUtils.isZinc) return flashvarsForStandalone();
+			if(flashvarsForStandalone!= null && (PlayerUtils.isStandAlonePlayer()||PlayerUtils.isIDEPlayer())) return flashvarsForStandalone();
+			else if(flashvarsForStandalone!= null && (zincReturnsStandaloneFlashvars && PlayerUtils.isZinc)) return flashvarsForStandalone();
 			else return obj.root.loaderInfo.parameters;
 		}
 		
