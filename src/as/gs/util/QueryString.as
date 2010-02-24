@@ -44,6 +44,15 @@ package gs.util
 		private var read:Boolean;
 		
 		/**
+		 * Constructor for QueryString instances.
+		 */
+		public function QueryString()
+		{
+			readParams();
+			paramsCache=new Dictionary(true);
+		}
+		
+		/**
 		 * Read all parameters. Returns an associative array with each parameters.
 		 * Parameters are cached after 1 execution. You can force a re-read.
 		 * 
@@ -52,10 +61,9 @@ package gs.util
 		 */
 		private function readParams():void
 		{
-			var _params:Dictionary=new Dictionary(true);
 			var _queryString:String;
 			if(Capabilities.playerType == "Standalone" || Capabilities.playerType == "External") return;
-			_queryString=ExternalInterface.call("window.location.search.substring", 1);
+			_queryString=ExternalInterface.call("window.location.search.substring",1);
 			if(_queryString)
 			{
 				var params:Array=_queryString.split('&');
@@ -69,22 +77,14 @@ package gs.util
 					{
 						var key:String=kvPair.substring(0,index);
 						var value:String=kvPair.substring(index+1);
-						_params[key]=value;
+						paramsCache[key]=value;
 					}
 				}
-			}			
-			paramsCache=_params;
+			}
 		}
 		
 		/**
-		 * Allows you to set the query string data.
-		 * 
-		 * <p>This is avaiable
-		 * for situations when you are testing an application in the Flash IDE,
-		 * but still need to rely on query string parameters. You can provide
-		 * a hardcoded query string dictionary so that this class won't break
-		 * your work, or cause you to have to treat logic differently just to
-		 * work in the IDE.</p>
+		 * Set your own hard coded querystring data.
 		 */
 		public function set querystringData(data:Dictionary):void
 		{
@@ -93,17 +93,17 @@ package gs.util
 		}
 		
 		/**
-		 * Read a property from deeplink data.
+		 * Get a querystring parameter.
 		 */
 		flash_proxy override function getProperty(name:*):*
 		{
 			if(!read)readParams();
-			if(paramsCache[name])return paramsCache[name];
-			else return null;
+			if(paramsCache[String(name)])return paramsCache[String(name)];
+			return null;
 		}
 		
 		/**
-		 * Set a property from deeplink data.
+		 * Set a querystring parameter.
 		 */
 		flash_proxy override function setProperty(name:*,value:*):void
 		{
@@ -111,7 +111,7 @@ package gs.util
 		}
 		
 		/**
-		 * Dispose of the internally cached query string parameters.
+		 * Dispose of this querystring.
 		 */
 		public function dispose():void
 		{
