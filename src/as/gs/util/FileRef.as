@@ -1,5 +1,7 @@
 package gs.util
 {
+	import flash.utils.clearTimeout;
+	import flash.utils.setTimeout;
 	import gs.util.StringUtils;
 
 	import flash.events.DataEvent;
@@ -246,12 +248,18 @@ package gs.util
 		private var hasSelected:Boolean;
 		
 		/**
+		 * A timeout set when waiting to dispatch the complete event.
+		 */
+		private var waitingForData:Number;
+		
+		/**
 		 * Constructor for FileRef instances.
 		 * 
 		 * @param size A maximum file size for uploads in kilobytes (default is 3MB).
 		 */
 		public function FileRef(_uploadSizeLimit:Number=3072)
 		{
+			waitingForData=NaN;
 			uploadSizeLimit=_uploadSizeLimit;
 		}
 
@@ -430,6 +438,16 @@ package gs.util
 		 */
 		private function _onUploadComplete(e:Event):void
 		{
+			waitingForData=setTimeout(reallyComplete,100,e); //slight timeout to wait for the upload data event (if it fires).
+		}
+		
+		/**
+		 * Actually fires complete event.
+		 */
+		private function reallyComplete(e:Event):void
+		{
+			clearTimeout(waitingForData);
+			waitingForData=NaN;
 			if(onComplete!=null)onComplete();
 			else dispatchEvent(e);
 		}
@@ -439,9 +457,17 @@ package gs.util
 		 */
 		private function _onUploadCompleteData(e:DataEvent):void
 		{
+			var dc:Boolean=false;
+			if(!isNaN(waitingForData))dc=true;
 			uploadCompleteData=e.data;
 			if(onUploadData!=null)onUploadData();
 			else dispatchEvent(e);
+			if(dc)
+			{
+				clearTimeout(waitingForData);
+				waitingForData=NaN;
+				reallyComplete(new Event(Event.COMPLETE));
+			}
 		}
 		
 		/**
