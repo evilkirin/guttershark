@@ -4,7 +4,7 @@ package gs.util
 	import flash.system.Capabilities;
 	import flash.utils.Dictionary;
 	import flash.utils.Proxy;
-	import flash.utils.flash_proxy;		
+	import flash.utils.flash_proxy;
 
 	/**
 	 * The QueryString class reads query string parameters in the web browsers address bar.
@@ -39,17 +39,12 @@ package gs.util
 		private var paramsCache:Dictionary;
 		
 		/**
-		 * Whether or not the params were read yet.
-		 */
-		private var read:Boolean;
-		
-		/**
 		 * Constructor for QueryString instances.
 		 */
 		public function QueryString()
 		{
-			readParams();
 			paramsCache=new Dictionary(true);
+			readParams();
 		}
 		
 		/**
@@ -61,24 +56,27 @@ package gs.util
 		 */
 		private function readParams():void
 		{
-			var _queryString:String;
+			var qs:String;
+			var splits:Array;
 			if(Capabilities.playerType == "Standalone" || Capabilities.playerType == "External") return;
-			_queryString=ExternalInterface.call("window.location.search.substring",1);
-			if(_queryString)
+			qs=ExternalInterface.call("window.location.search.substring",1);
+			if(qs)
 			{
-				var params:Array=_queryString.split('&');
+				if(qs.indexOf("&") < 0 && qs.indexOf("=") < 0) return;
+				if(qs.indexOf("&") < 0 && qs.indexOf("=") > -1)
+				{
+					splits=qs.split("=");
+					paramsCache[splits[0]]=splits[1];
+					return;
+				}
+				splits=qs.split("&");
+				var kvpair:Array;
 				var i:int=0;
-				var index:int=-1;
-				var l:int=params.length;
+				var l:int=splits.length;
 				for(;i<l;i++)
 				{
-					var kvPair:String=params[int(i)];
-					if((index=kvPair.indexOf("=")) > 0)
-					{
-						var key:String=kvPair.substring(0,index);
-						var value:String=kvPair.substring(index+1);
-						paramsCache[key]=value;
-					}
+					kvpair=splits[int(i)].split("=");
+					paramsCache[kvpair[0]]=kvpair[1];
 				}
 			}
 		}
@@ -97,7 +95,6 @@ package gs.util
 		 */
 		flash_proxy override function getProperty(name:*):*
 		{
-			if(!read)readParams();
 			if(paramsCache[String(name)])return paramsCache[String(name)];
 			return null;
 		}
@@ -107,7 +104,7 @@ package gs.util
 		 */
 		flash_proxy override function setProperty(name:*,value:*):void
 		{
-			paramsCache[name]=value;
+			paramsCache[String(name)]=value;
 		}
 		
 		/**
@@ -116,7 +113,6 @@ package gs.util
 		public function dispose():void
 		{
 			paramsCache=null;
-			read=false;
 		}
 	}
 }

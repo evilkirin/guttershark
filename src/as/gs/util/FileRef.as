@@ -291,9 +291,9 @@ package gs.util
 		 */
 		public function setAlternateCallbacks(size:Function=null,progress:Function=null,open:Function=null,ioerror:Function=null,security:Function=null,status:Function=null):void
 		{
-			onOpen=open;
 			onProgress=progress;
 			onUploadSizeLimitExceeded=size;
+			onOpen=open;
 			onHTTPStatus=status;
 			onIOError=ioerror;
 			onSecurityError=security;
@@ -513,6 +513,7 @@ package gs.util
 		 */
 		private function _onProgress(e:ProgressEvent):void
 		{
+			if(e.bytesLoaded<0)return;
 			progressEvent=e;
 			if(onProgress!=null)onProgress();
 			else dispatchEvent(e);
@@ -525,6 +526,16 @@ package gs.util
 		{
 			if(onOpen!=null)onOpen();
 			else dispatchEvent(e);
+		}
+		
+		/**
+		 * Resets the internal FileReference state.
+		 */
+		public function reset():void
+		{
+			removeListeners();
+			fr=new FileReference();
+			addListeners();
 		}
 		
 		/**
