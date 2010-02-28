@@ -1,7 +1,6 @@
 package gs.core 
 {
 	import gs.managers.AssetManager;
-	import gs.managers.TrackingManager;
 	import gs.util.FlashvarUtils;
 	import gs.util.StageRef;
 	import gs.util.Strings;
@@ -24,11 +23,6 @@ package gs.core
 		 * A model instance.
 		 */
 		protected var model:Model;
-		
-		/**
-		 * A tracking manager instance.
-		 */
-		protected var tracking:TrackingManager;
 		
 		/**
 		 * A preloader instance.
@@ -201,7 +195,6 @@ package gs.core
 		 * {
 		 *     model.registerFonts();
 		 *     initStrings();
-		 *     initTracking();
 		 *     registerInstances();
 		 * }
 	     * </listing>
@@ -210,7 +203,6 @@ package gs.core
 		{
 			model.registerFonts();
 			initStrings();
-			initTracking();
 			registerInstances();
 		}
 		
@@ -223,7 +215,6 @@ package gs.core
 		 * protected function registerInstances():void
 		 * {
 		 *      if(model)Model.set("main",model);
-		 *      if(tracking)TrackingManager.set("main",tracking);
 		 *      if(flashvars)Flashvars.set("main",flashvars);
 		 *      Document.set("main",this);
 		 * }
@@ -232,7 +223,6 @@ package gs.core
 		protected function registerInstances():void
 		{
 			if(model)Model.set("main",model);
-			if(tracking)TrackingManager.set("main",tracking);
 			if(flashvars)FlashvarUtils.set("main",flashvars);
 			Document.set("main",this);
 		}
@@ -257,25 +247,6 @@ package gs.core
 		}
 		
 		/**
-		 * Initialize a tracking manager.
-		 * 
-		 * <p>If an asset is available in the AssetManager called
-		 * "tracking" it will initialize the tracking property for you</p>
-		 * 
-		 * @example
-		 * <listing>	
-		 * protected function initTracking():void
-		 * {
-		 *     if(AssetManager.isAvailable("tracking"))tracking=new TrackingManager(AssetManager.getXML("tracking"));
-		 * }
-		 * </listing>
-		 */
-		protected function initTracking():void
-		{
-			if(AssetManager.isAvailable("tracking"))tracking=new TrackingManager(AssetManager.getXML("tracking"));
-		}
-		
-		/**
 		 * A hook called just before the startPreload method is called.
 		 * 
 		 * <p>This is called after initStage, initFlashvars, and
@@ -288,12 +259,10 @@ package gs.core
 		 */
 		override public function dispose():void
 		{
-			tracking.dispose();
 			model.dispose();
 			preloader.dispose();
 			preloader=null;
 			model=null;
-			tracking=null;
 			flashvars=null;
 		}
 	}
