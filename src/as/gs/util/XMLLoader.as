@@ -72,8 +72,6 @@ package gs.util
 		/**
 		 * Load an xml file.
 		 * 
-		 * @param request A URLRequest to the xml file.
-		 * 
 		 * @example Load an xml file:
 		 * <listing>	
 		 * import gs.util.XMLLoader;
@@ -105,6 +103,11 @@ package gs.util
 		 *     trace(xloader.data);
 		 * }
 		 * </listing>
+		 * 
+		 * @param request A URLRequest to the xml file.
+		 * @param complete A complete handler function.
+		 * @param ioerror An IOError event handler function.
+		 * @param securityerror A SecurityErrorEvent handler function.
 		 */
 		public function load(request:URLRequest,complete:Function=null,ioerror:Function=null,securityerror:Function=null):void
 		{
