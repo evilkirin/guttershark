@@ -118,7 +118,7 @@ package gs.display.shapes
 		 * @param _strokeWeight The stroke weight if a stroke is used (pass NaN if you don't want any stroke).
 		 * @param drawAfterInit Whether or not to draw the vectors after initialization.
 		 */
-		public function RoundRect(_width:Number,_height:Number,_fillCornerRadius:Number=5,_strokeCornerRadius:Number=5,_fillColor:Number=0xff0066,_strokeColor:Number=NaN,_strokeWeight:Number=NaN,drawAfterInit:Boolean=false)
+		public function RoundRect(_width:Number,_height:Number,_fillCornerRadius:Number=5,_strokeCornerRadius:Number=5,_fillColor:Number=0xff0066,_strokeColor:Number=NaN,_strokeWeight:Number=NaN,drawAfterInit:Boolean=true)
 		{
 			super();
 			fill=new Sprite();
