@@ -56,6 +56,7 @@ package gs.util
 		 */
 		private function readParams():void
 		{
+			if(!ExternalInterface.available)return;
 			var qs:String;
 			var splits:Array;
 			if(Capabilities.playerType == "Standalone" || Capabilities.playerType == "External") return;
