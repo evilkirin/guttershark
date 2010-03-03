@@ -1,6 +1,7 @@
 package gs.util 
 {
 	import flash.text.StyleSheet;
+	import flash.utils.Dictionary;
 
 	/**
 	 * The StyleSheetUtils class contains utility methods for working
@@ -10,6 +11,25 @@ package gs.util
 	 */
 	public class StyleSheetUtils
 	{
+		
+		private static var _ss:Dictionary = new Dictionary(true);
+		
+		public static function get(id:String):StyleSheet
+		{
+			if(!id)return null;
+			return StyleSheet(_ss[id]);
+		}
+		
+		public static function set(id:String,s:StyleSheet):void
+		{
+			if(!id || !s)return;
+			_ss[id]=s;
+		}
+		
+		public function unset(id:String):void
+		{
+			delete _ss[id];
+		}
 		
 		/**
 		 * Merge any number of stylesheets into one new
