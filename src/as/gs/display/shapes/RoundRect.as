@@ -18,7 +18,7 @@ package gs.display.shapes
 		public var fill:Sprite;
 		
 		/**
-		 * The Stroke.
+		 * The stroke.
 		 */
 		public var stroke:Sprite;
 		
@@ -149,9 +149,9 @@ package gs.display.shapes
 		public function setSize(w:Number,h:Number):void
 		{
 			var sd:Boolean=false;
-			if(w!=width||h!=height) sd=true;
-			width=w;
-			height=h;
+			if(w!=_width||h!=_height) sd=true;
+			_width=w;
+			_height=h;
 			if(sd)draw();
 		}
 		
