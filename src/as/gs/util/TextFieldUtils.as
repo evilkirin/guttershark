@@ -58,6 +58,17 @@ package gs.util
 		}
 		
 		/**
+		 * Restrict a text field to a list of emails (emails with "," or " ").
+		 * 
+		 * @param tf The text field to restrict.
+		 */
+		public static function restrictToListOfEmails(tf:TextField):void
+		{
+			if(!tf)throw new ArgumentError("Parameter {tf} cannot be null");
+			tf.restrict=" \,a-zA-Z0-9@._-";
+		}
+		
+		/**
 		 * Restrict a text field to file path only characters (win|unix).
 		 * 
 		 * @param tf The text field to restrict.
