@@ -44,6 +44,29 @@ package gs.util
 		}
 		
 		/**
+		 * Returns an array split on commas (,), and any spaces
+		 * are removed.
+		 * 
+		 * @param str A string of comma seperated email addresses.
+		 */
+		public static function getEmailsFromEmailList(str:String):Array
+		{
+			var splits:Array = str.split(",");
+			var i:int=0;
+			var l:int=splits.length;
+			var s:String;
+			var res:Array = [];
+			for(;i<l;i++)
+			{
+				if(splits[i] == "") continue;
+				s=splits[i].replace(/\s+/g,"");
+				if(s=="")continue;
+				res.push(s);
+			}
+			return res;
+		}
+		
+		/**
 		 * Convert a style sheet formatted color (#ff0099) to
 		 * a whole integer.
 		 * 
