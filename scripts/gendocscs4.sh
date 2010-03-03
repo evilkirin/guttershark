@@ -141,6 +141,7 @@ ${ASDOC}asdoc \
 -package gs.display.accordion "The gs.display.accordion package contains classes that implement an accordion component." \
 -package gs.display.list "The gs.display.list package contains classes that implement a list component." \
 -package gs.display.flv "The gs.display.flv package contains classes that implement flv." \
+-package gs.display.shapes "The gs.display.shapes package contains re-usable shapes." \
 -package gs.display.tabbar "The gs.display.tabbar package contains classes that implement a tab bar component." \
 -package gs.display.text "The gs.display.text package contains classes that help render text." \
 -package gs.display.buttons "The gs.display.buttons package contains base classes for generic buttons." \
