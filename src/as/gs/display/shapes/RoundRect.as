@@ -38,34 +38,64 @@ package gs.display.shapes
 		public var fillColor:Number;
 		
 		/**
-		 * Corner radius for all four corners.
+		 * Corner radius for all four corners of the fill.
 		 */
-		public var cornerRadius:Number;
+		public var fillCornerRadius:Number;
 		
 		/**
-		 * Top left radius if using complex corners.
+		 * Corner radius for all four corners of the stroke.
 		 */
-		protected var topLeftRadius:Number;
+		public var strokeCornerRadius:Number;
 		
 		/**
-		 * Top right radius if using complex corners.
+		 * Top left fill radius if using complex corners.
 		 */
-		protected var topRightRadius:Number;
+		protected var fillTopLeftRadius:Number;
 		
 		/**
-		 * Bottom left radius if using complex corners.
+		 * Top right fill radius if using complex corners.
 		 */
-		protected var bottomLeftRadius:Number;
+		protected var fillTopRightRadius:Number;
 		
 		/**
-		 * Bottom right radius if using complex corners.
+		 * Bottom left fill radius if using complex corners.
 		 */
-		protected var bottomRightRadius:Number;
+		protected var fillBottomLeftRadius:Number;
 		
 		/**
-		 * Whether or not to draw with complex radiuses (individual radiuses for each corner.).
+		 * Bottom right fill radius if using complex corners.
 		 */
-		protected var useComplex:Boolean;
+		protected var fillBottomRightRadius:Number;
+		
+		/**
+		 * Top left stroke radius if using complex corners.
+		 */
+		protected var strokeTopLeftRadius:Number;
+		
+		/**
+		 * Top right stroke radius if using complex corners.
+		 */
+		protected var strokeTopRightRadius:Number;
+		
+		/**
+		 * Bottom left stroke radius if using complex corners.
+		 */
+		protected var strokeBottomLeftRadius:Number;
+		
+		/**
+		 * Bottom right stroke radius if using complex corners.
+		 */
+		protected var strokeBottomRightRadius:Number;
+		
+		/**
+		 * Whether or not to draw the fill with complex radiuses (individual radiuses for each corner).
+		 */
+		protected var useComplexFill:Boolean;
+		
+		/**
+		 * Whether or not to draw the stroke with complex radiuses (individiaul radiuses for each corner).
+		 */
+		protected var useComplexStroke:Boolean;
 		
 		/**
 		 * Width.
@@ -88,39 +118,63 @@ package gs.display.shapes
 		 * @param _strokeWeight The stroke weight if a stroke is used (pass NaN if you don't want any stroke).
 		 * @param drawAfterInit Whether or not to draw the vectors after initialization.
 		 */
-		public function RoundRect(_width:Number,_height:Number,_cornerRadius:Number=5,_fillColor:Number=0xff0066,_strokeColor:Number=NaN,_strokeWeight:Number=NaN,drawAfterInit:Boolean=false)
+		public function RoundRect(_width:Number,_height:Number,_fillCornerRadius:Number=5,_strokeCornerRadius:Number=5,_fillColor:Number=0xff0066,_strokeColor:Number=NaN,_strokeWeight:Number=NaN,drawAfterInit:Boolean=false)
 		{
 			super();
 			fill=new Sprite();
 			stroke=new Sprite();
-			this._strokeColor=0;
-			this._strokeWeight=0;
 			addChild(stroke);
 			addChild(fill);
+			fillCornerRadius=_fillCornerRadius;
+			strokeCornerRadius=_strokeCornerRadius;
+			fillColor=_fillColor;
+			this._strokeColor=0;
+			this._strokeWeight=0;
 			this._width=_width;
 			this._height=_height;
-			cornerRadius=_cornerRadius;
-			fillColor=_fillColor;
 			if(!isNaN(_strokeColor))this._strokeColor=_strokeColor;
 			if(!isNaN(_strokeWeight))this._strokeWeight=_strokeWeight;
 			if(drawAfterInit)draw();
 		}
 		
 		/**
-		 * Set the complex corner radiuses.
+		 * Set the complex corner radiuses for the fill.
 		 * 
 		 * @param topleft The top left radius.
 		 * @param topright The top right radius.
 		 * @param bottomleft The bottom left radius.
 		 * @param bottomright The bottom right radius.
 		 */
-		public function setComplexCornerRadiuses(topleft:Number,topright:Number,bottomleft:Number,bottomright:Number):void
+		public function setFillComplexCornerRadiuses(topleft:Number,topright:Number,bottomleft:Number,bottomright:Number):void
 		{
-			useComplex=true;
-			topLeftRadius=topleft;
-			topRightRadius=topright;
-			bottomLeftRadius=bottomleft;
-			bottomRightRadius=bottomright;
+			useComplexFill=true;
+			var sd:Boolean=false;
+			if(fillTopLeftRadius!=topleft||fillTopRightRadius!=topright||fillBottomLeftRadius!=bottomleft||fillBottomRightRadius!=bottomright)sd=true;
+			fillTopLeftRadius=topleft;
+			fillTopRightRadius=topright;
+			fillBottomLeftRadius=bottomleft;
+			fillBottomRightRadius=bottomright;
+			if(sd)draw();
+		}
+		
+		/**
+		 * Set the complex corner radiuses for the stroke.
+		 * 
+		 * @param topleft The top left radius.
+		 * @param topright The top right radius.
+		 * @param bottomleft The bottom left radius.
+		 * @param bottomright The bottom right radius.
+		 */
+		public function setStrokeComplexCornerRadiuses(topleft:Number,topright:Number,bottomleft:Number,bottomright:Number):void
+		{
+			useComplexStroke=true;
+			var sd:Boolean=false;
+			if(strokeTopLeftRadius!=topleft||strokeTopRightRadius!=topright||strokeBottomLeftRadius!=bottomleft||strokeBottomRightRadius!=bottomright)sd=true;
+			strokeTopLeftRadius=topleft;
+			strokeTopRightRadius=topright;
+			strokeBottomLeftRadius=bottomleft;
+			strokeBottomRightRadius=bottomright;
+			if(sd)draw();
 		}
 		
 		/**
@@ -128,7 +182,8 @@ package gs.display.shapes
 		 */
 		public function clearComplexCornerRadiuses():void
 		{
-			useComplex=false;
+			useComplexFill=false;
+			useComplexStroke=false;
 		}
 
 		/**
@@ -217,8 +272,8 @@ package gs.display.shapes
 		private function drawFill():void
 		{
 			fill.graphics.beginFill(fillColor);
-			if(useComplex)fill.graphics.drawRoundRectComplex(strokeWeight,strokeWeight,_width-(strokeWeight*2),_height-(strokeWeight*2),cornerRadius,cornerRadius,cornerRadius,cornerRadius);
-			else fill.graphics.drawRoundRect(strokeWeight,strokeWeight,_width-(strokeWeight*2),_height-(strokeWeight*2),cornerRadius);
+			if(useComplexFill)fill.graphics.drawRoundRectComplex(strokeWeight,strokeWeight,_width-(strokeWeight*2),_height-(strokeWeight*2),fillTopLeftRadius,fillTopRightRadius,fillBottomLeftRadius,fillBottomRightRadius);
+			else fill.graphics.drawRoundRect(strokeWeight,strokeWeight,_width-(strokeWeight*2),_height-(strokeWeight*2),fillCornerRadius);
 		}
 		
 		/**
@@ -227,8 +282,8 @@ package gs.display.shapes
 		private function drawStroke():void
 		{
 			stroke.graphics.beginFill(strokeColor);
-			if(useComplex)stroke.graphics.drawRoundRectComplex(0,0,_width,_height,cornerRadius,cornerRadius,cornerRadius,cornerRadius);
-			else stroke.graphics.drawRoundRect(0,0,_width,_height,cornerRadius);
+			if(useComplexStroke)stroke.graphics.drawRoundRectComplex(0,0,_width,_height,strokeTopLeftRadius,strokeTopRightRadius,strokeBottomLeftRadius,strokeBottomRightRadius);
+			else stroke.graphics.drawRoundRect(0,0,_width,_height,strokeCornerRadius);
 		}
 		
 		/**
@@ -243,12 +298,18 @@ package gs.display.shapes
 			_strokeWeight=NaN;
 			_strokeColor=NaN;
 			fillColor=NaN;
-			cornerRadius=NaN;
-			topLeftRadius=NaN;
-			topRightRadius=NaN;
-			bottomLeftRadius=NaN;
-			bottomRightRadius=NaN;
-			useComplex=false;
+			fillCornerRadius=NaN;
+			strokeCornerRadius=NaN;
+			fillTopLeftRadius=NaN;
+			fillTopRightRadius=NaN;
+			fillBottomLeftRadius=NaN;
+			fillBottomRightRadius=NaN;
+			strokeTopLeftRadius=NaN;
+			strokeTopRightRadius=NaN;
+			strokeBottomLeftRadius=NaN;
+			strokeBottomRightRadius=NaN;
+			useComplexFill=false;
+			useComplexStroke=false;
 			_width=NaN;
 			_height=NaN;
 		}
