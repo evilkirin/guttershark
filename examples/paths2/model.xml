@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<model>
+	<assets>
+		<asset libraryName="test" source="test.jpg" path="bitmaps" />
+	</assets>
+</model>
