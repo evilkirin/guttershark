@@ -28,6 +28,7 @@ package gs.util
 		{
 			if(flashvarsForStandalone!= null && (PlayerUtils.isStandAlonePlayer()||PlayerUtils.isIDEPlayer())) return flashvarsForStandalone();
 			else if(flashvarsForStandalone!= null && (zincReturnsStandaloneFlashvars && PlayerUtils.isZinc)) return flashvarsForStandalone();
+			else if(flashvarsForStandalone!= null && PlayerUtils.isAirApplication()) return flashvarsForStandalone();
 			else return obj.root.loaderInfo.parameters;
 		}
 		
