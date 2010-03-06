@@ -63,24 +63,24 @@ package gs.support.preloading
 		 * 
 		 * @param source The source URL to the asset.
 		 * @param libraryName The name to be used in the AssetManager.
-		 * @param forceFileType	Force the asset's file type (file extension without the ".", EX: xml).
+		 * @param forceType Force the asset's type (jpg,jpeg,bmp,png,gif,mp3,xml,swf,flv,m4v,mp4,json,zip,txt,text).
 		 */
-		public function Asset(source:String, libraryName:String = null, forceFileType:String = null)
+		public function Asset(source:String, libraryName:String = null, forceType:String = null)
 		{
-			if(!forceFileType)
+			if(!forceType)
 			{
-				var fileType:String = StringUtils.findFileType(source);
-				if(!fileType) throw new Error("The filetype could not be found for this item: " + source);
-				this.fileType = fileType;
+				var fileType:String=StringUtils.findFileType(source);
+				if(!fileType)throw new Error("The filetype could not be found for this item: " + source);
+				this.fileType=fileType;
 			}
-			else this.fileType = forceFileType;
+			else this.fileType=forceType;
 			this.source = source;
 			if(!libraryName)
 			{
 				trace("WARNING: No library name was supplied for asset with source {"+source+"} using the source as the libraryName");
-				this.libraryName = source;
+				this.libraryName=source;
 			}
-			else this.libraryName = libraryName;
+			else this.libraryName=libraryName;
 		}
 		
 		/**
