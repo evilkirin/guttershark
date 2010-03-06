@@ -316,9 +316,16 @@ package gs.service.http
 		private function execute():void
 		{
 			if(tries==0 && onFirstCall!=null)onFirstCall();
-			if(tries>retries && onTimeout!=null)if(onTimeout != null) onTimeout();
-			else if(tries > retries) dispatchEvent(new HTTPCallEvent(HTTPCallEvent.TIMEOUT));
-			if(tries>retries)return;
+			if(tries>retries && onTimeout!=null)
+			{
+				onTimeout();
+				return;
+			}
+			else if(tries > retries)
+			{
+				dispatchEvent(new HTTPCallEvent(HTTPCallEvent.TIMEOUT));
+				return;
+			}
 			removeEventListeners();
 			loader=null;
 			loader=new URLLoader();
