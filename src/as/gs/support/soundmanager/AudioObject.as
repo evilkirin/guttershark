@@ -548,11 +548,9 @@ package gs.support.soundmanager
 		 */
 		public function set vl(level:Number):void
 		{
-			//trace(transform);
 			transform.volume=level;
-			trace(channel);
-			//if(type=="s")channel.soundTransform=transform;
-			//else obj.soundTransform=transform;
+			if(type=="s")channel.soundTransform=transform;
+			else obj.soundTransform=transform;
 		}
 		
 		/**
@@ -704,8 +702,6 @@ package gs.support.soundmanager
 			super.removeEventListener(type,listener,useCapture);
 			if(type==AudioEvent.PROGRESS&&!hasEventListener(AudioEvent.PROGRESS))stopProgressEvents();
 		}
-		
-		
 		
 		/**
 		 * Dispose of this audible object.
