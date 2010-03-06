@@ -1,6 +1,12 @@
 package gs.support.preloading.workers
 {
-	import flash.utils.Dictionary;
+	import gs.support.preloading.Asset;
+	import gs.support.preloading.events.AssetCompleteEvent;
+	import gs.support.preloading.events.AssetErrorEvent;
+	import gs.support.preloading.events.AssetOpenEvent;
+	import gs.support.preloading.events.AssetProgressEvent;
+	import gs.support.preloading.events.AssetStatusEvent;
+
 	import flash.display.Loader;
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
@@ -10,13 +16,7 @@ package gs.support.preloading.workers
 	import flash.events.SecurityErrorEvent;
 	import flash.net.URLRequest;
 	import flash.system.LoaderContext;
-	
-	import gs.support.preloading.Asset;
-	import gs.support.preloading.events.AssetCompleteEvent;
-	import gs.support.preloading.events.AssetErrorEvent;
-	import gs.support.preloading.events.AssetOpenEvent;
-	import gs.support.preloading.events.AssetProgressEvent;
-	import gs.support.preloading.events.AssetStatusEvent;		
+	import flash.utils.Dictionary;
 
 	/**
 	 * Dispatched when the worker has completed downloading the asset.
@@ -158,8 +158,6 @@ package gs.support.preloading.workers
 		private static var defaultsRegistered:Boolean;
 		
 		/**
-		 * @private
-		 * 
 		 * Registers the default worker instances internally. The default types are:
 		 * 
 		 * <ul>
@@ -175,6 +173,9 @@ package gs.support.preloading.workers
 		 * <li>flv</li>
 		 * <li>f4v</li>
 		 * <li>mp4</li>
+		 * <li>json</li>
+		 * <li>txt</li>
+		 * <li>text</li>
 		 * </ul>
 		 */
 		public static function RegisterDefaultWorkers():void
@@ -195,6 +196,9 @@ package gs.support.preloading.workers
 			RegisterWorkerForFileType("mp3",SoundWorker);
 			RegisterWorkerForFileType("aif",SoundWorker);
 			RegisterWorkerForFileType("css",StyleSheetWorker);
+			RegisterWorkerForFileType("json",JSONWorker);
+			RegisterWorkerForFileType("text",TextWorker);
+			RegisterWorkerForFileType("txt",TextWorker);
 		}
 		
 		/**
