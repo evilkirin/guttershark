@@ -10,6 +10,8 @@ package gs.core
 	/**
 	 * The DocumentController class is a document class
 	 * that contains default startup logic.
+	 * 
+	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 */
 	public class DocumentController extends Document
 	{

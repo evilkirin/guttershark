@@ -4,6 +4,8 @@ package gs.service.http
 	
 	/**
 	 * The HTTPCallEvent is dispatched from HTTPCall instances.
+	 * 
+	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 */
 	public class HTTPCallEvent extends Event
 	{

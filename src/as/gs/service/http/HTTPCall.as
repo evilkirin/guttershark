@@ -21,6 +21,8 @@ package gs.service.http
 	 * <p>The HTTPCall class also adds timeouts, retries, and gives you the
 	 * option of setting callback functions for events instead of
 	 * using addEventListener.</p>
+	 * 
+	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 */
 	public class HTTPCall extends EventDispatcher
 	{

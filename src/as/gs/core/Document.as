@@ -6,6 +6,8 @@ package gs.core
 	/**
 	 * The Document class is a stub for a flash
 	 * document class.
+	 * 
+	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 */
 	public class Document extends Sprite
 	{

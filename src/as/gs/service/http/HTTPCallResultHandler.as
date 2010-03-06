@@ -13,6 +13,8 @@ package gs.service.http
 	 * 
 	 * <p>It's used to process the response before a result or fault
 	 * is passed back to your onResult or onFault hander function.</p>
+	 * 
+	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 */
 	public class HTTPCallResultHandler
 	{

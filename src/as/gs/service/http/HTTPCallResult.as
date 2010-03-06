@@ -6,7 +6,9 @@ package gs.service.http
 	 * The HTTPCallResult class is a result wrapper for successful http calls.
 	 * 
 	 * <p>Properties on this object will be set according
-	 * to the http call instance's responseFormat.</p> 
+	 * to the http call instance's responseFormat.</p>
+	 * 
+	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 */
 	public class HTTPCallResult
 	{

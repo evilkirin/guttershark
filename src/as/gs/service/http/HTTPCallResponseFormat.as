@@ -4,6 +4,8 @@ package gs.service.http
 	/**
 	 * The HTTPCallResponseFormat class is an enumeration of constants
 	 * for HTTPCall#responseFormat.
+	 * 
+	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 */
 	public class HTTPCallResponseFormat 
 	{
