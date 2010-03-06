@@ -1,5 +1,6 @@
 package gs.managers
 {
+	import com.adobe.serialization.json.JSON;
 	import gs.display.flv.FLV;
 	import gs.util.*;
 
@@ -109,6 +110,35 @@ package gs.managers
 			if(!libraryName)throw new ArgumentError("Parameter {libraryName} cannot be null");
 			if(!assets[libraryName]) throw new Error("Item not registered in library with the id: " + libraryName);
 			return assets[libraryName];
+		}
+		
+		/**
+		 * Returns a JSON object that was loaded with a preloader.
+		 * 
+		 * @param libraryName The library name used when the asset was registered.
+		 */
+		public static function getJSON(libraryName:String):Object
+		{
+			if(!libraryName)throw new ArgumentError("Parameter {libraryName} cannot be null");
+			if(assets[libraryName]!=null)
+			{
+				var s:String=assets[libraryName].data.toString();
+				if(s=="")return {};
+				return JSON.decode(s);
+			}
+			throw(new Error("No JSON Object available for libraryName {" + libraryName + "}"));
+		}
+		
+		/**
+		 * Get an asset that was loaded as text.
+		 * 
+		 * @param libraryName The library name used when the asset was registered.
+		 */
+		public static function getText(libraryName:String):String
+		{
+			if(!libraryName)throw new ArgumentError("Parameter {libraryName} cannot be null");
+			if(assets[libraryName]!=null)return assets[libraryName].data.toString();
+			throw(new Error("No JSON Object available for libraryName {" + libraryName + "}"));
 		}
 		
 		/**
