@@ -1,5 +1,6 @@
 package gs.core
 {
+	import gs.service.http.HTTPCall;
 	import gs.managers.*;
 	import gs.support.preloading.*;
 	import gs.util.NavigateToURL;
@@ -57,6 +58,7 @@ package gs.core
 	 *        &lt;attribute id="myTextAttribute2" styleSheetId='someStyleSheetId' /&gt; &lt;!-- you don't have to use every attribute, it will only apply what's here. --&gt;
 	 *    &lt/textAttributes&gt;
 	 *    
+	 *    &lt;!--THIS TYPE OF SERVICES NODE WILL BE DEPRECATED--&gt;
 	 *    &lt;services&gt;
 	 *        &lt;!-- remoting --&gt;
 	 *        &lt;gateway id="amfphp" path="amfphp" url="http://localhost/amfphp/gateway.php" objectEncoding="3" /&gt;
@@ -70,6 +72,19 @@ package gs.core
 	 *        &lt;!-- soap --&gt;
 	 *        &lt;wsdl id="myWSDL" endpoint="http://example.com/?wsdl" attempts="3" timeout="3000" /&gt;
 	 *        &lt;service id="myWSDL" wsdl="myWSDL" /&gt;
+	 *    &lt;/services&gt;
+	 *    
+	 *    &lt;!--NEW SERVICES--&gt;
+	 *    &lt;services&gt;
+	 *        &lt;http&gt;
+	 *            &lt;call id="google" url="http://www.google.com/" method="GET||POST" responseFormat="text" retries="1" timeout="1500"  /&gt;
+	 *        &lt;/http&gt;
+	 *        &lt;remoting&gt;
+	 *            &lt;-- to be determined --&gt;
+	 *        &lt;/remoting&gt;
+	 *        &lt;soap&gt;
+	 *            &lt;-- to be determined --&gt;
+	 *        &lt;/soap&gt;
 	 *    &lt;/services&gt;
 	 *    
 	 *    &lt;security&gt;
@@ -969,6 +984,28 @@ package gs.core
 					else Font.registerFont(AssetManager.getClass(child.@libraryName));
 				}
 			}
+		}
+		
+		/**
+		 * Get an HTTPCall instance by id.
+		 * 
+		 * @param id The call id.
+		 */
+		public function getHTTPCallById(id:String,onResult:Function=null,onFault:Function=null,onTimeout:Function=null,onRetry:Function=null,onFirstCall:Function=null,onProgress:Function=null,onHTTPStatus:Function=null,onOpen:Function=null,onIOError:Function=null,onSecurityError:Function=null,resultHandler:Class=null):HTTPCall
+		{
+			var node:XMLList=services.http..call.(@id==id);
+			var url:String=node.@url;
+			var method:String="GET";
+			var responseFormat:String="variables";
+			var timeout:int=1500;
+			var retries:int=1;
+			if(node.hasOwnProperty("@method"))method=node.@method;
+			if(node.hasOwnProperty("@timeout"))timeout=int(node.@timeout);
+			if(node.hasOwnProperty("@retries"))retries=int(node.@retries);
+			if(node.hasOwnProperty("@responseFormat"))responseFormat=node.@responseFormat.toString();
+			var hc:HTTPCall=new HTTPCall(url,method,null,timeout,retries,responseFormat,resultHandler);
+			hc.setCallbacks(onResult,onFault,onTimeout,onRetry,onFirstCall,onProgress,onHTTPStatus,onOpen,onIOError,onSecurityError);
+			return hc;
 		}
 
 		/**
