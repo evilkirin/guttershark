@@ -13,6 +13,13 @@ ${ASDOC}asdoc \
 -main-title "Guttershark Flash API Docs" \
 -window-title "Guttershark Flash API Docs" \
 -output ./docs/ \
+-exclude-classes com.adobe.serialization.json.JSON \
+-exclude-classes com.adobe.serialization.json.JSONDecoder \
+-exclude-classes com.adobe.serialization.json.JSONEncoder \
+-exclude-classes com.adobe.serialization.json.JSONParseError \
+-exclude-classes com.adobe.serialization.json.JSONToken \
+-exclude-classes com.adobe.serialization.json.JSONTokenizer \
+-exclude-classes com.adobe.serialization.json.JSONTokenType \
 -exclude-classes com.greensock.TweenLite \
 -exclude-classes com.greensock.TweenMax \
 -exclude-classes com.greensock.OverwriteManager \
@@ -156,6 +163,10 @@ ${ASDOC}asdoc \
 -package gs.rtmp.core "The gs.rtmp.core package contains the core RTMP connection classes." \
 -package gs.rtmp.rso "The gs.rtmp.rso package contains classes for Remote Shared Objects with RTMP." \
 -package gs.rtmp.conference "The gs.rtmp.conference package contains classes for building conference rooms with RTMP." \
+-package gs.service "The gs.service package contains classes that simplify http, remoting, and soap services." \
+-package gs.service.http "The gs.service.http package contains classes that simplify http." \
+-package gs.service.soap "The gs.service.soap package contains classes that simplify soap services." \
+-package gs.service.remoting "The gs.service.remoting package contains classes that simplify remoting services." \
 -package gs.support "The gs.support package contains all classes that support, managers,controllers and events and generally aren't used directly, with the exception of a couple classes." \
 -package gs.display.view "The gs.display.view package contains view classes." \
 -package gs.display.xmlview "The gs.display.xmlview package contains classes for working with and creating views from an xml source." \
