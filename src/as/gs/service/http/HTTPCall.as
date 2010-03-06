@@ -316,6 +316,7 @@ package gs.service.http
 		private function execute():void
 		{
 			if(tries==0 && onFirstCall!=null)onFirstCall();
+			else if(tries==0)dispatchEvent(new HTTPCallEvent(HTTPCallEvent.FIRST_CALL));
 			if(tries>retries && onTimeout!=null)
 			{
 				onTimeout();
