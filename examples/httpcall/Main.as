@@ -19,14 +19,14 @@ package
 		{
 			hc=new HTTPCall("http://www.google.com/");
 			hc.responseFormat=HTTPCallResponseFormat.TEXT;
-			hc.setCallbacks(onResult);
+			hc.setCallbacks({onResult:result});
 			hc.send();
 			
 			HTTPCall.set("test",hc);
 			trace(HTTPCall.get("test"));
 		}
 		
-		protected function onResult(r:HTTPCallResult):void
+		protected function result(r:HTTPCallResult):void
 		{
 			trace(r.text);
 		}
