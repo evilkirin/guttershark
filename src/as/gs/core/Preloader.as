@@ -67,62 +67,14 @@ package gs.core
 	 * <p>By default, the Preloader loads all swf's and bitmap's into the same
 	 * application domain. Unless specified otherwise in the constructor.</p>
 	 * 
-	 * @example Using the Preloader:
-	 * <listing>		
-	 * import gs.core.Preloader;
-	 * import gs.managers.AssetManager;
-	 * import gs.support.preloading.Asset;
+	 * <p><b>Examples</b> are in the <a target="_blank" href="http://gitweb.codeendeavor.com/?p=guttershark.git;a=summary">guttershark</a>
+	 * repository.</p>
 	 * 
-	 * public class PreloaderTest extends DocumentController 
-	 * {
-	 *    
-	 *    public var preloader:MovieClip;
-	 *    
-	 *    public function PreloaderTest()
-	 *    {
-	 *        super();
-	 *    }
-	 *    
-	 *    private function setupComplete():void
-	 *    {
-	 *        pc = new Preloader(400);
-	 *        var assets:Array = [
-	 *           new Asset("assets/jpg1.jpg","jpg1"),
-	 *           new Asset("assets/jpg2.jpg","jpg2"),	
-	 *           new Asset("assets/png1.png","png1"),
-	 *           new Asset("assets/png2.png","png2"),
-	 *           new Asset("swfload_test.swf","swf1"),
-	 *           new Asset("assets/sound1.mp3","snd1"),
-	 *           new Asset("assets/Pizza_Song.flv","pizza")
-	 *       ];
-	 *       pc.addItems(assets);
-	 *       pc.addEventListener(PreloadProgressEvent.PROGRESS,onPCProgress);
-	 *       pc.addEventListener(AssetCompleteEvent.COMPLETE,onPCAssetComplete);
-	 *       pc.addEventListener(Event.COMPLETE,onPCComplete);
-	 *       pc.prioritize(assets[4]); //prioritize the swf.
-	 *       pc.start(); //start it
-	 *       pc.pause(); //pause it
-	 *       setTimeout(pc.start,4000); //resume it
-	 *    }
-	 *    
-	 *    private function onPCProgress(pe:PreloadProgressEvent):void
-	 *    {
-	 *        trace(pe);
-	 *        preloader.width = pe.pixels
-	 *    }
-	 *    
-	 *    private function onPCAssetComplete(e:AssetCompleteEvent):void
-	 *    {
-	 *        trace(e);
-	 *    }
-	 *    
-	 *    private function onPCComplete(e:Event):void
-	 *    {
-	 *        addChild(AssetManager.getMovieClipFromSWFLibrary("swf1", "Test"));
-	 *        addChild(AssetManager.getBitmap("jpg1"));
-	 *    }
-	 * }
-	 * </listing>
+	 * <ul>
+	 * <li>examples/preload</li>
+	 * <li>examples/preload1</li>
+	 * <li>examples/preload_json</li>
+	 * </ul>
 	 * 
 	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 * 

@@ -1,11 +1,11 @@
 package gs.service.http 
 {
 	import flash.utils.ByteArray;
-
+	
 	import gs.util.StringUtils;
-
+	
 	import com.adobe.serialization.json.JSON;
-
+	
 	import flash.net.URLVariables;
 	
 	/**
@@ -15,6 +15,8 @@ package gs.service.http
 	 * is passed back to your onResult or onFault hander function.</p>
 	 * 
 	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
+	 * 
+	 * @see gs.service.http.HTTPCall
 	 */
 	public class HTTPCallResultHandler
 	{

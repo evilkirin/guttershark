@@ -13,76 +13,6 @@ package gs.service.http
 	import flash.utils.Dictionary;
 	import flash.utils.clearTimeout;
 	import flash.utils.setTimeout;
-
-	/**
-	 * Dispatched when the service call is complete.
-	 * 
-	 * @eventType gs.service.http.HTTPServiceEvent
-	 */
-	[Event("complete", type="gs.services.http.HTTPServiceEvent")]
-	
-	/**
-	 * Dispatched the first time the service call is sent.
-	 * 
-	 * @eventType gs.service.http.HTTPServiceEvent
-	 */
-	[Event("firstCall", type="gs.services.http.HTTPServiceEvent")]
-	
-	/**
-	 * Dispatched when all retries have attempted and failed.
-	 * 
-	 * @eventType gs.service.http.HTTPServiceEvent
-	 */
-	[Event("timeout", type="gs.services.http.HTTPServiceEvent")]
-	
-	/**
-	 * Dispatched each time a retry is sent.
-	 * 
-	 * @eventType gs.service.http.HTTPServiceEvent
-	 */
-	[Event("retry", type="gs.services.http.HTTPServiceEvent")]
-	
-	/**
-	 * Dispatched when the service call fails.
-	 * 
-	 * @eventType gs.service.http.HTTPServiceEvent
-	 */
-	[Event("fault", type="gs.services.http.HTTPServiceEvent")]
-	
-	/**
-	 * Dispatched on IOError.
-	 * 
-	 * @eventType flash.events.IOErrorEvent
-	 */
-	[Event("ioError", type="flash.events.IOErrorEvent")]
-	
-	/**
-	 * Dispatched for progress updates.
-	 * 
-	 * @eventType flash.events.ProgressEvent
-	 */
-	[Event("progress", type="flash.events.ProgressEvent")]
-	
-	/**
-	 * Dispatched for security errors.
-	 * 
-	 * @eventType flash.events.SecurityErrorEvent
-	 */
-	[Event("securityError", type="flash.events.SecurityErrorEvent")]
-	
-	/**
-	 * Dispatched for http status events whose status code is not 0 and not 200.
-	 * 
-	 * @eventType flash.events.HTTPStatusEvent
-	 */
-	[Event("httpStatus", type="flash.events.HTTPStatusEvent")]
-	
-	/**
-	 * Dispatched when the request is opened.
-	 * 
-	 * @eventType flash.events.Event
-	 */
-	[Event("open", type="flash.events.Event")]
 	
 	/**
 	 * The HTTPCall class simplifies http requests.
@@ -90,6 +20,12 @@ package gs.service.http
 	 * <p>The HTTPCall class also adds timeouts, retries, and gives you the
 	 * option of setting callback functions for events instead of
 	 * using addEventListener.</p>
+	 * 
+	 * <p><b>Examples</b> are in the <a target="_blank" href="http://gitweb.codeendeavor.com/?p=guttershark.git;a=summary">guttershark</a> repository.</p>
+	 * <ul>
+	 * <li>examples/httpcall</li>
+	 * <li>examples/httpcall2</li>
+	 * </ul>
 	 * 
 	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 */

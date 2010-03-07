@@ -59,29 +59,14 @@ package gs.core
 	 *        &lt;attribute id="myTextAttribute2" styleSheetId='someStyleSheetId' /&gt; &lt;!-- you don't have to use every attribute, it will only apply what's here. --&gt;
 	 *    &lt/textAttributes&gt;
 	 *    
-	 *    &lt;!--THIS TYPE OF SERVICES NODE WILL BE DEPRECATED--&gt;
-	 *    &lt;services&gt;
-	 *        &lt;!-- remoting --&gt;
-	 *        &lt;gateway id="amfphp" path="amfphp" url="http://localhost/amfphp/gateway.php" objectEncoding="3" /&gt;
-	 *        &lt;service id="test" gateway="amfphp" endpoint="Test" limiter="true" attempts="4" timeout="1000" /&gt;
-	 *        
-	 *        &lt;!-- http --&gt;
-	 *        &lt;service id="foo" url="http://localhost/" attempts="4" timeout="1000" /&gt;
-	 *        &lt;service id="sessionDestroy" path="sessiondestroy" url="http://tagsf/services/codeigniter/session/destroy" attempts="4" timeout="1000" responseFormat="variables" /&gt;
-	 *        &lt;service id="ci" url="http://tagsf/services/codeigniter/" attempts="4" timeout="1000" responseFormat="variables" /&gt;
-	 *        
-	 *        &lt;!-- soap --&gt;
-	 *        &lt;wsdl id="myWSDL" endpoint="http://example.com/?wsdl" attempts="3" timeout="3000" /&gt;
-	 *        &lt;service id="myWSDL" wsdl="myWSDL" /&gt;
-	 *    &lt;/services&gt;
-	 *    
-	 *    &lt;!--NEW SERVICES--&gt;
 	 *    &lt;services&gt;
 	 *        &lt;http&gt;
 	 *            &lt;call id="google" url="http://www.google.com/" method="GET||POST" responseFormat="text" retries="1" timeout="1500"  /&gt;
 	 *        &lt;/http&gt;
 	 *        &lt;remoting&gt;
-	 *            &lt;-- to be determined --&gt;
+	 *            &lt;service id="amfphp" gateway="http://guttershark_amfphp/gateway.php"&gt;
+	 *                &lt;call id="Echoer.echoString" endpoint="Echoer" method="echoString" /&gt;
+	 *            &lt;/service&gt;
 	 *        &lt;/remoting&gt;
 	 *        &lt;soap&gt;
 	 *            &lt;-- to be determined --&gt;
@@ -141,33 +126,33 @@ package gs.core
 	 * 
 	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 * 
-	 * <p>
-	 * <b>Examples</b><br/>
-	 * The examples are in the guttershark repository.
-	 * </p>
+	 * <p><b>Examples</b> are in the <a target="_blank" href="http://gitweb.codeendeavor.com/?p=guttershark.git;a=summary">guttershark</a>
+	 * repository.</p>
 	 * 
 	 * <p>
 	 * <ul>
-	 * <li>examples/allowdomain/Main.as</li>
-	 * <li>examples/assets/Main.as</li>
-	 * <li>examples/assets2/Main.as</li>
-	 * <li>examples/attributes/Main.as</li>
-	 * <li>examples/colors/Main.as</li>
-	 * <li>examples/fontlibs/Main.as</li>
-	 * <li>examples/fontlibs2/Main.as</li>
-	 * <li>examples/links/Main.as</li>
-	 * <li>examples/localization/Main.as</li>
-	 * <li>examples/model/Main.as</li>
-	 * <li>examples/paths/Main.as</li>
-	 * <li>examples/policyfiles/Main.as</li>
-	 * <li>examples/preload/Main.as</li>
-	 * <li>examples/preload1/Main.as</li>
-	 * <li>examples/properties/Main.as</li>
-	 * <li>examples/services/Main.as</li>
-	 * <li>examples/stylesheets/Main.as</li>
-	 * <li>examples/textformats/Main.as</li>
-	 * <li>examples/textattributes/Main.as</li>
-	 * <li>examples/xmlview/classes/Main.as</li>
+	 * <li>examples/allowdomain</li>
+	 * <li>examples/assets</li>
+	 * <li>examples/assets2</li>
+	 * <li>examples/attributes</li>
+	 * <li>examples/colors</li>
+	 * <li>examples/fontlibs</li>
+	 * <li>examples/fontlibs2</li>
+	 * <li>examples/httpcall2</li>
+	 * <li>examples/links</li>
+	 * <li>examples/localization</li>
+	 * <li>examples/model</li>
+	 * <li>examples/paths</li>
+	 * <li>examples/policyfiles</li>
+	 * <li>examples/preload</li>
+	 * <li>examples/preload1</li>
+	 * <li>examples/properties</li>
+	 * <li>examples/remoting2</li>
+	 * <li>examples/services</li>
+	 * <li>examples/stylesheets</li>
+	 * <li>examples/textformats</li>
+	 * <li>examples/textattributes</li>
+	 * <li>examples/xmlview</li>
 	 * </ul>
 	 * </p>
 	 */

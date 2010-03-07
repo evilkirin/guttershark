@@ -6,6 +6,8 @@ package gs.service.http
 	 * for HTTPCall#responseFormat.
 	 * 
 	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
+	 * 
+	 * @see gs.service.http.HTTPCall
 	 */
 	public class HTTPCallResponseFormat 
 	{

@@ -12,9 +12,15 @@ package gs.service.remoting
 	import flash.utils.setTimeout;
 
 	/**
-	 * The RemotingCall class is what does the real work in
-	 * making remoting calls. The RemotingService class uses
-	 * this internally.
+	 * The RemotingCall class sends remoting calls.
+	 * 
+	 * <p><b>Examples</b> are in the <a target="_blank" href="http://gitweb.codeendeavor.com/?p=guttershark.git;a=summary">guttershark</a> repository.</p>
+	 * <ul>
+	 * <li>examples/remoting</li>
+	 * <li>examples/remoting2</li>
+	 * </ul>
+	 * 
+	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 */
 	public class RemotingCall
 	{

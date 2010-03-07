@@ -9,6 +9,8 @@ package gs.service.http
 	 * to the http call instance's responseFormat.</p>
 	 * 
 	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
+	 * 
+	 * @see gs.service.http.HTTPCall
 	 */
 	public class HTTPCallResult
 	{
