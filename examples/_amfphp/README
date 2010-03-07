@@ -1,0 +1,5 @@
+-This is an amfphp install used for any examples that require it.
+-You'll need to install a vhost for apache. See the "vhosts" file for an example.
+-You'll also need to update your /etc/hosts file and add an entry for: 127.0.0.1 guttershark_amfphp
+-Once you have the vhost installed, restart apache, then hit this url: http://guttershark_amfphp/gateway.php
+-You should see a message from amfphp saying it's correctly installed.

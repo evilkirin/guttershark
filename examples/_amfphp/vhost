@@ -1,0 +1,12 @@
+
+#example vhost definition for apache
+#you'll need to make sure the full path is correct.
+
+<VirtualHost *:80>
+    ServerName guttershark_amfphp
+    DocumentRoot "/Users/aaronsmith/Development/git/guttershark/examples/_amfphp/amfphp"
+</VirtualHost>
+<Directory "/Users/aaronsmith/Development/git/guttershark/examples/_amfphp/amfphp">
+    Order Allow,Deny
+    Allow from all
+</Directory>
