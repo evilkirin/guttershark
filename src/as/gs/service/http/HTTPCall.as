@@ -1,7 +1,6 @@
 package gs.service.http 
 {
 	import flash.events.Event;
-	import flash.events.EventDispatcher;
 	import flash.events.HTTPStatusEvent;
 	import flash.events.IOErrorEvent;
 	import flash.events.ProgressEvent;
@@ -14,7 +13,7 @@ package gs.service.http
 	import flash.utils.Dictionary;
 	import flash.utils.clearTimeout;
 	import flash.utils.setTimeout;
-	
+
 	/**
 	 * Dispatched when the service call is complete.
 	 * 
@@ -94,7 +93,7 @@ package gs.service.http
 	 * 
 	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 */
-	public class HTTPCall extends EventDispatcher
+	public class HTTPCall
 	{
 		
 		/**
@@ -289,29 +288,35 @@ package gs.service.http
 		/**
 		 * Set callbacks for events.
 		 * 
-		 * @param _onResult The on result handler.
-		 * @param _onFault The on fault handler.
-		 * @param _onTimeout The timeout handler.
-		 * @param _onRetry The on retry handler.
-		 * @param _onFirstCall The on first call handler.
-		 * @param _onProgress The on progress handler.
-		 * @param _onHTTPStatus The on http status handler.
-		 * @param _onOpen The on open handler.
-		 * @param _onIOError The on io error handler.
-		 * @param _onSecurityError The on security error handler.
+		 * <p>You can supply these callbacks:</p>
+		 * 
+		 * <ul>
+		 * <li>onResult The on result handler.</li>
+		 * <li>onFault The on fault handler.</li>
+		 * <li>onTimeout The timeout handler.</li>
+		 * <li>onRetry The on retry handler.</li>
+		 * <li>onFirstCall The on first call handler.</li>
+		 * <li>onProgress The on progress handler.</li>
+		 * <li>onHTTPStatus The on http status handler.</li>
+		 * <li>onOpen The on open handler.</li>
+		 * <li>onIOError The on io error handler.</li>
+		 * <li>onSecurityError The on security error handler.</li>
+		 * </ul>
+		 * 
+		 * @param callbacks The callbacks.
 		 */
-		public function setCallbacks(_onResult:Function=null,_onFault:Function=null,_onTimeout:Function=null,_onRetry:Function=null,_onFirstCall:Function=null,_onProgress:Function=null,_onHTTPStatus:Function=null,_onOpen:Function=null,_onIOError:Function=null,_onSecurityError:Function=null):void
+		public function setCallbacks(callbacks:Object):void
 		{
-			onOpen=_onOpen;
-			onHTTPStatus=_onHTTPStatus;
-			onIOError=_onIOError;
-			onResult=_onResult;
-			onFault=_onFault;
-			onTimeout=_onTimeout;
-			onRetry=_onRetry;
-			onFirstCall=_onFirstCall;
-			onSecurityError=_onSecurityError;
-			onProgress=_onProgress;
+			onOpen=callbacks.onOpen;
+			onHTTPStatus=callbacks.onHTTPStatus;
+			onIOError=callbacks.onIOError;
+			onResult=callbacks.onResult;
+			onFault=callbacks.onFault;
+			onTimeout=callbacks.onTimeout;
+			onRetry=callbacks.onRetry;
+			onFirstCall=callbacks.onFirstCall;
+			onSecurityError=callbacks.onSecurityError;
+			onProgress=callbacks.onProgress;
 		}
 		
 		/**
@@ -386,17 +391,12 @@ package gs.service.http
 		private function execute():void
 		{
 			if(tries==0 && onFirstCall!=null)onFirstCall();
-			else if(tries==0)dispatchEvent(new HTTPCallEvent(HTTPCallEvent.FIRST_CALL));
 			if(tries>retries && onTimeout!=null)
 			{
 				onTimeout();
 				return;
 			}
-			else if(tries > retries)
-			{
-				dispatchEvent(new HTTPCallEvent(HTTPCallEvent.TIMEOUT));
-				return;
-			}
+			else if(tries > retries)return;
 			removeEventListeners();
 			loader=null;
 			loader=new URLLoader();
@@ -408,7 +408,6 @@ package gs.service.http
 			addEventListeners();
 			sent=true;
 			if(tries>0&&onRetry!=null)onRetry();
-			else if(tries>0 && onRetry==null)dispatchEvent(new HTTPCallEvent(HTTPCallEvent.RETRY));
 			tries++;
 			try{loader.load(request);}catch(e:*){}
 			clearTimeout(timeoutid);
@@ -417,7 +416,7 @@ package gs.service.http
 		}
 		
 		/**
-		 * Call timeout handler.
+		 * Internal call timeout handler.
 		 */
 		protected function _timeout():void
 		{
@@ -426,7 +425,7 @@ package gs.service.http
 		}
 		
 		/**
-		 * Call complete handler.
+		 * Internal call complete handler.
 		 */
 		protected function _complete(e:Event):void
 		{
@@ -435,9 +434,7 @@ package gs.service.http
 			var reshandler:* =new resultHandler();
 			var res:* =reshandler.process(this);
 			if(res is HTTPCallResult && onResult!=null)onResult(res);
-			else if(res is HTTPCallResult && onResult==null)dispatchEvent(new HTTPCallEvent(HTTPCallEvent.COMPLETE,false,false,res));
 			if(res is HTTPCallFault && onFault!=null)onFault(res);
-			else if(res is HTTPCallFault && onFault==null) dispatchEvent(new HTTPCallEvent(HTTPCallEvent.FAULT,false,false,null,res));
 		}
 		
 		/**
@@ -446,7 +443,6 @@ package gs.service.http
 		protected function _onProgress(e:ProgressEvent):void
 		{
 			if(onProgress!=null)onProgress(e);
-			else dispatchEvent(e);
 		}
 		
 		/**
@@ -455,7 +451,6 @@ package gs.service.http
 		protected function _onOpen(e:Event):void
 		{
 			if(onOpen!=null)onOpen();
-			else dispatchEvent(e);
 		}
 		
 		/**
@@ -465,7 +460,6 @@ package gs.service.http
 		{
 			if(e.status!=0&&e.status!=200)return;
 			if(onHTTPStatus!=null)onHTTPStatus(e);
-			else dispatchEvent(e);
 		}
 		
 		/**
@@ -474,7 +468,6 @@ package gs.service.http
 		protected function _onIOError(e:IOErrorEvent):void
 		{
 			if(onIOError!=null)onIOError();
-			else dispatchEvent(e);
 		}
 		
 		/**
@@ -483,7 +476,6 @@ package gs.service.http
 		protected function _onSecurityError(e:SecurityErrorEvent):void
 		{
 			if(onSecurityError!=null)onSecurityError();
-			else dispatchEvent(e);
 		}
 
 		/**
