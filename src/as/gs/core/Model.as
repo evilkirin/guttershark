@@ -1,7 +1,8 @@
 package gs.core
 {
-	import gs.service.http.HTTPCall;
 	import gs.managers.*;
+	import gs.service.http.HTTPCall;
+	import gs.service.remoting.RemotingCall;
 	import gs.support.preloading.*;
 	import gs.util.NavigateToURL;
 	import gs.util.StringUtils;
@@ -10,12 +11,12 @@ package gs.core
 	import gs.util.TextAttributes;
 	import gs.util.XMLLoader;
 	import gs.util.cache.*;
-	
+
 	import flash.net.*;
 	import flash.system.*;
 	import flash.text.*;
 	import flash.utils.*;
-	
+
 	/**
 	 * The Model class contains shortcuts for parsing a model xml file.
 	 * 
@@ -991,7 +992,7 @@ package gs.core
 		 * 
 		 * @param id The call id.
 		 */
-		public function getHTTPCallById(id:String,onResult:Function=null,onFault:Function=null,onTimeout:Function=null,onRetry:Function=null,onFirstCall:Function=null,onProgress:Function=null,onHTTPStatus:Function=null,onOpen:Function=null,onIOError:Function=null,onSecurityError:Function=null,resultHandler:Class=null):HTTPCall
+		public function getHTTPCallById(id:String):HTTPCall
 		{
 			var node:XMLList=services.http..call.(@id==id);
 			var url:String=node.@url;
@@ -1003,11 +1004,35 @@ package gs.core
 			if(node.hasOwnProperty("@timeout"))timeout=int(node.@timeout);
 			if(node.hasOwnProperty("@retries"))retries=int(node.@retries);
 			if(node.hasOwnProperty("@responseFormat"))responseFormat=node.@responseFormat.toString();
-			var hc:HTTPCall=new HTTPCall(url,method,null,timeout,retries,responseFormat,resultHandler);
-			hc.setCallbacks(onResult,onFault,onTimeout,onRetry,onFirstCall,onProgress,onHTTPStatus,onOpen,onIOError,onSecurityError);
-			return hc;
+			return new HTTPCall(url,method,null,timeout,retries,responseFormat);
 		}
-
+		
+		/**
+		 * Get a remoting call by service, and call id.
+		 * 
+		 * @param id The id of the remoting call.
+		 */
+		public function getRemotingCallById(serviceId:String,callId:String):RemotingCall
+		{
+			var snode:XMLList=services.remoting..service.(@id==serviceId);
+			var cnode:XMLList=snode..call.(@id==callId);
+			var gateway:String=snode.@gateway;
+			var encoding:int=3;
+			var timeout:int=1500;
+			var retries:int=1;
+			var endpoint:String;
+			var method:String;
+			if(snode.hasOwnProperty("@timeout"))timeout=int(snode.@timeout);
+			if(snode.hasOwnProperty("@retries"))retries=int(snode.@retries);
+			if(snode.hasOwnProperty("@encoding"))encoding=int(snode.@encoding);
+			if(cnode.hasOwnProperty("@timeout"))timeout=int(cnode.@timeout);
+			if(cnode.hasOwnProperty("@retries"))retries=int(cnode.@retries);
+			if(cnode.hasOwnProperty("@encoding"))encoding=int(cnode.@encoding);
+			if(cnode.hasOwnProperty("@endpoint"))endpoint=String(cnode.@endpoint);
+			if(cnode.hasOwnProperty("@method"))method=String(cnode.@method);
+			return new RemotingCall(gateway,endpoint,method,encoding,timeout,retries);
+		}
+		
 		/**
 		 * Clears the internal cache.
 		 * 
