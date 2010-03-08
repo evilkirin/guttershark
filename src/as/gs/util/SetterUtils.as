@@ -227,7 +227,7 @@ package gs.util
 		}
 		
 		/**
-		 * Set the x property on multiple object.
+		 * Set the x property on multiple objects.
 		 * 
 		 * @param value The x value.
 		 * @param ..objs An array of objects with the x property.
@@ -239,14 +239,14 @@ package gs.util
 			var a:Array=objs;
 			if(objs[0] is Array)a=objs[0];
 			l=a.length;
-			for(;k<l;k++)DisplayObject(a[int(k)]).x=value;
+			for(;k<l;k++)a[int(k)].x=value;
 		}
 		
 		/**
-		 * Set the y property on multiple object.
+		 * Set the y property on multiple objects.
 		 * 
 		 * @param value The y value.
-		 * @param ..objs An array of objects with the x property.
+		 * @param ..objs An array of objects with the y property.
 		 */
 		public static function y(value:Number, ...objs:Array):void
 		{
@@ -255,7 +255,39 @@ package gs.util
 			var a:Array=objs;
 			if(objs[0] is Array)a=objs[0];
 			l=a.length;
-			for(;k<l;k++)DisplayObject(a[int(k)]).y=value;
+			for(;k<l;k++)a[int(k)].y=value;
+		}
+		
+		/**
+		 * Set the width property on multiple objects.
+		 * 
+		 * @param value The width value.
+		 * @param ..objs An array of objects with the width property.
+		 */
+		public static function width(value:Number, ...objs:Array):void
+		{
+			var l:int;
+			var k:int=0;
+			var a:Array=objs;
+			if(objs[0] is Array)a=objs[0];
+			l=a.length;
+			for(;k<l;k++)a[int(k)].width=value;
+		}
+		
+		/**
+		 * Set the height property on multiple objects.
+		 * 
+		 * @param value The width value.
+		 * @param ..objs An array of objects with the height property.
+		 */
+		public static function height(value:Number, ...objs:Array):void
+		{
+			var l:int;
+			var k:int=0;
+			var a:Array=objs;
+			if(objs[0] is Array)a=objs[0];
+			l=a.length;
+			for(;k<l;k++)a[int(k)].height=value;
 		}
 		
 		/**
