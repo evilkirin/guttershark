@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<model>
+	<services>
+		<soap>
+			<service id="resolveIP" wsdl="http://ws.cdyne.com/ip2geo/ip2geo.asmx?WSDL" timeout="3000" retries="1" />
+		</soap>
+	</services>
+</model>

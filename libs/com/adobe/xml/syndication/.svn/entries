@@ -1,0 +1,77 @@
+8
+
+dir
+22
+http://interactive.mccannsf.com/svn/repos/libmccannsf/AS3/flash/com/adobe/xml/syndication
+http://interactive.mccannsf.com/svn/repos/libmccannsf
+
+
+
+2008-05-07T06:49:08.665692Z
+1
+asmith
+
+
+svn:special svn:externals svn:needs-lock
+
+atom
+dir
+
+Namespaces.as
+file
+
+
+
+
+2008-02-25T19:13:46.000000Z
+0667bde1131e146d7334cbb44103e8a5
+2008-05-07T06:49:08.665692Z
+1
+asmith
+has-props
+
+ParsingTools.as
+file
+
+
+
+
+2008-02-25T19:13:46.000000Z
+0d236c7cf303aeeb4b637e89b1a81935
+2008-05-07T06:49:08.665692Z
+1
+asmith
+has-props
+
+rss
+dir
+
+NewsParser.as
+file
+
+
+
+
+2008-02-25T19:13:46.000000Z
+1865295e99767016adab7b341c5d63f3
+2008-05-07T06:49:08.665692Z
+1
+asmith
+has-props
+
+generic
+dir
+
+NewsFeedElement.as
+file
+
+
+
+
+2008-02-25T19:13:46.000000Z
+cfc5cc5a5fb5f9f80c316ea65f1335b5
+2008-05-07T06:49:08.665692Z
+1
+asmith
+has-props
+

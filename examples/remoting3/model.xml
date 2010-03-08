@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<model>
+	<services>
+		<remoting>
+			<service id="amfphp" gateway="http://guttershark_amfphp/gateway.php" endpoint="Echoer" />
+		</remoting>
+	</services>
+</model>

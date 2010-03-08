@@ -1,0 +1,2 @@
+Demonstrates the query string object. Open the index.html file with a querystring like this: ?helloWorld=test.
+And if you have flashtracer installed you can see the result.

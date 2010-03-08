@@ -1,0 +1,29 @@
+8
+
+dir
+22
+http://interactive.mccannsf.com/svn/repos/libmccannsf/AS3/flash/com/adobe/webapis/events
+http://interactive.mccannsf.com/svn/repos/libmccannsf
+
+
+
+2008-05-07T06:49:08.665692Z
+1
+asmith
+
+
+svn:special svn:externals svn:needs-lock
+
+ServiceEvent.as
+file
+
+
+
+
+2008-02-25T19:13:47.000000Z
+bba816d07a9fa710a8239c42dd2742bf
+2008-05-07T06:49:08.665692Z
+1
+asmith
+has-props
+
