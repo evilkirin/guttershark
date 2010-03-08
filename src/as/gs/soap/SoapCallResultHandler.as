@@ -7,6 +7,8 @@ package gs.soap
 	 * responses or faults.
 	 * 
 	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
+	 * 
+	 * @see gs.soap.SoapService
 	 */
 	public class SoapCallResultHandler
 	{

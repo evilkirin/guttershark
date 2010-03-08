@@ -7,6 +7,8 @@ package gs.soap
 	 * is passed to your onFault handlers.
 	 * 
 	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
+	 * 
+	 * @see gs.soap.SoapService
 	 */
 	final public class SoapCallFault
 	{

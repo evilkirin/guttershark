@@ -80,7 +80,7 @@ package gs.model
 	 *            &lt;/service&gt;
 	 *        &lt;/remoting&gt;
 	 *        &lt;soap&gt;
-	 *            &lt;-- to be determined --&gt;
+	 *            &lt;service id="resolveIP" wsdl="http://ws.cdyne.com/ip2geo/ip2geo.asmx?WSDL" timeout="3000" retries="1" /&gt;
 	 *        &lt;/soap&gt;
 	 *    &lt;/services&gt;
 	 *    

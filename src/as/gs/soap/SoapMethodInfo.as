@@ -8,6 +8,8 @@ package gs.soap
 	 * wsdl.
 	 * 
 	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
+	 * 
+	 * @see gs.soap.SoapService
 	 */
 	final public class SoapMethodInfo
 	{
