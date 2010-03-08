@@ -26,6 +26,8 @@ package gs.util
 	 * var xns:XMLNamespaceProxy=new XMLNamespaceProxy(xml,ns);
 	 * trace(xns.node.node);
 	 * </listing>
+	 * 
+	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 */
 	dynamic public class XMLNamespaceProxy extends Proxy
 	{

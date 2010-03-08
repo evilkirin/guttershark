@@ -2,7 +2,9 @@
 <model>
 	<services>
 		<http>
-			<call id="google" url="http://www.google.com/" responseFormat="text" />
+			<service id="google" url="http://www.google.com/">
+				<call id="home" responseFormat="text" />
+			</service>
 		</http>
 	</services>
 </model>

@@ -1,11 +1,11 @@
 package gs.display.tabbar 
 {
-	import gs.support.bindings.PropertyChangeEvent;
-	
+	import gs.util.bindings.PropertyChangeEvent;
+
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.events.MouseEvent;
-	import flash.utils.Dictionary;		
+	import flash.utils.Dictionary;
 
 	/**
 	 * Dispatched any time a view change occurs.
@@ -31,6 +31,10 @@ package gs.display.tabbar
 	 * 
 	 * <p>This class does not manage any visual
 	 * aspects of the tab bar.</p>
+	 * 
+	 * <p><b>Examples</b> are in the <a target="_blank" href="http://gitweb.codeendeavor.com/?p=guttershark.git;a=summary">guttershark</a> repository.</p>
+	 * 
+	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 */
 	public class TabBar extends EventDispatcher
 	{

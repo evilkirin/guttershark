@@ -1,9 +1,9 @@
 package
 {
-	import gs.core.DocumentController;
-	import gs.service.remoting.RemotingCall;
-	import gs.service.remoting.RemotingCallFault;
-	import gs.service.remoting.RemotingCallResult;
+	import gs.control.DocumentController;
+	import gs.remoting.RemotingCall;
+	import gs.remoting.RemotingCallFault;
+	import gs.remoting.RemotingCallResult;
 
 	public class Main extends DocumentController
 	{

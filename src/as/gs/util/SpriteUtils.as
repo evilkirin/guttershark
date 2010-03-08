@@ -4,6 +4,8 @@ package gs.util
 	
 	/**
 	 * The SpriteUtils class contains utility methods for sprites.
+	 * 
+	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 */
 	public class SpriteUtils 
 	{

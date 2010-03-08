@@ -1,7 +1,7 @@
 package
 {
+	import gs.control.DocumentController;
 	import gs.util.StringUtils;
-	import gs.core.DocumentController;
 	import gs.util.autosuggest.AutoSuggest;
 
 	import flash.events.Event;

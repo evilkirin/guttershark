@@ -5,6 +5,8 @@ package gs.display.tabbar
 	/**
 	 * The ITabButton interface defines a contract
 	 * for buttons that work with the TabBar class.
+	 * 
+	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 */
 	public interface ITabButton extends IEventDispatcher
 	{

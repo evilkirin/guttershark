@@ -1,8 +1,9 @@
 package
 {
-	import gs.core.Model;
+	import gs.model.Model;
+
 	import flash.display.Sprite;
-	
+
 	public class Main extends Sprite 
 	{
 		

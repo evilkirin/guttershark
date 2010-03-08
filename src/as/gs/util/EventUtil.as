@@ -10,6 +10,8 @@ package gs.util
 	 * 
 	 * <p>This class is literally just a wrapper around
 	 * calling ".addEventLitener(TYPE, handler)"</p>
+	 * 
+	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 */
 	public class EventUtil
 	{

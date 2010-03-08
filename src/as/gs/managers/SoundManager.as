@@ -1,7 +1,7 @@
 package gs.managers
 {
-	import gs.support.soundmanager.AudioGroup;
-	
+	import gs.audio.AudioGroup;
+
 	import flash.utils.Dictionary;
 	import flash.utils.Proxy;
 	import flash.utils.flash_proxy;

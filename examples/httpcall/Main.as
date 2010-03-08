@@ -1,9 +1,9 @@
 package
 {
-	import gs.core.DocumentController;
-	import gs.service.http.HTTPCall;
-	import gs.service.http.HTTPCallResponseFormat;
-	import gs.service.http.HTTPCallResult;
+	import gs.control.DocumentController;
+	import gs.http.HTTPCall;
+	import gs.http.HTTPCallResponseFormat;
+	import gs.http.HTTPCallResult;
 
 	public class Main extends DocumentController
 	{

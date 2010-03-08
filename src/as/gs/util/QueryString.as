@@ -9,24 +9,7 @@ package gs.util
 	/**
 	 * The QueryString class reads query string parameters in the web browsers address bar.
 	 * 
-	 * @example Using the QueryString class when the swf is in a browser:
-	 * <listing>	
-	 * var qs:QueryString=new QueryString();
-	 * trace(qs.myQueryStringVariable);
-	 * trace(qs.section);
-	 * trace(qs.videoID);
-	 * </listing>
-	 * 
-	 * <p>You can also fake querystring parameters if needed (probably for testing).</p>
-	 * 
-	 * @example Using the QueryString class outside of a browser:
-	 * <listing>	
-	 * var qs:QueryString=new QueryString();
-	 * var fakeQS:Dictionary=new Dictionary();
-	 * fakeQS['videoID']=100;
-	 * qs.querystringData=fakeQS;
-	 * trace(qs.videoID);
-	 * </listing>
+	 * <p><b>Examples</b> are in the <a target="_blank" href="http://gitweb.codeendeavor.com/?p=guttershark.git;a=summary">guttershark</a> repository.</p>
 	 * 
 	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 */

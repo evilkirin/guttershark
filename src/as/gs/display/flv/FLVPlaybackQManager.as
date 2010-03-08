@@ -17,24 +17,9 @@ package gs.display.flv
 	 * to play videos in a queue. It uses an FLVPlayback for 
 	 * the VideoPlayer stack functionality.
 	 * 
-	 * @example Setup example:
-	 * <listing>	
-	 * myFLVPlayback.align = VideoAlign.BOTTOM_LEFT;
-	 * myFLVPlayback.scaleMode = VideoScaleMode.NO_SCALE;
-	 * myFLVPlayback.ncMgr.timeout = 10000;
-	 * myFLVPlayback.playheadUpdateInterval = 1300;
-	 * queuePlaybackManager = new FLVPlaybackQManager();
-	 * queuePlaybackManager.player = myFLVPlayback;
-	 * var queue:Array = [
-	 *   "assets/flv/6000_EGG.flv",
-	 *   "assets/flv/6001_EGG.flv",
-	 *   "assets/flv/6002_EGG.flv",
-	 *   "rtmp://cp44952.edgefcs.net/ondemand/streamingVideos/high/2035_RES.flv"
-	 * ];
-	 * queuePlaybackManager.queue = queue;
-	 * queuePlaybackManager.streamAttemptTimeBeforeFail = 10;
-	 * queuePlaybackManager.start();
-	 * </listing>
+	 * <p><b>Examples</b> are in the <a target="_blank" href="http://gitweb.codeendeavor.com/?p=guttershark.git;a=summary">guttershark</a> repository.</p>
+	 * 
+	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 */
 	public class FLVPlaybackQManager extends EventDispatcher
 	{

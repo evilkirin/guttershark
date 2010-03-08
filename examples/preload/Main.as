@@ -1,9 +1,9 @@
 package  
 {
-	import gs.core.DocumentController;
-	import gs.core.Preloader;
+	import gs.control.DocumentController;
+	import gs.events.PreloadProgressEvent;
 	import gs.managers.AssetManager;
-	import gs.support.preloading.events.PreloadProgressEvent;
+	import gs.preloading.Preloader;
 
 	import com.greensock.TweenMax;
 

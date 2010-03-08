@@ -1,10 +1,11 @@
 package
 {
-	import gs.support.bindings.*;
-	import gs.util.*;
-
+	import gs.util.CallQueue;
+	import gs.util.bindings.BindableObject;
+	import gs.util.bindings.BindingUtils;
+	
 	import flash.display.Sprite;
-
+	
 	public class ObjectProxyTestsMain extends Sprite
 	{
 		

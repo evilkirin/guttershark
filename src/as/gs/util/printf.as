@@ -46,9 +46,9 @@ package gs.util
 	 * 
 	 * //octal
 	 * trace( printf("this is %o.",32) ); //this is 040
-	 * 
-	 * 
 	 * </listing>
+	 * 
+	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 */
 	public function printf(raw:String, ...rest):String
 	{

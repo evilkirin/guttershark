@@ -1,0 +1,7 @@
+audio group
+audio object
+dispose RemotingCall method
+
+-Add relative voluming into AudioGroup and AudioObject.
+-Remove sound manager?
+-Add limiter to FileRef so it won't do more than one

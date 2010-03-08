@@ -1,6 +1,7 @@
 package
 {
-	import gs.core.*;
+	import gs.control.DocumentController;
+	import gs.preloading.Preloader;
 
 	import flash.events.Event;
 	import flash.text.TextField;

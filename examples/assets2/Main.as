@@ -1,6 +1,6 @@
 package
 {
-	import gs.core.Document;
+	import gs.control.Document;
 	import gs.managers.AssetManager;
 
 	public class Main extends Document

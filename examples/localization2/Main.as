@@ -1,8 +1,8 @@
 package
 {
-	import gs.core.DocumentController;
-	import gs.core.Preloader;
-	import gs.support.preloading.Asset;
+	import gs.control.DocumentController;
+	import gs.preloading.Asset;
+	import gs.preloading.Preloader;
 
 	import flash.events.Event;
 

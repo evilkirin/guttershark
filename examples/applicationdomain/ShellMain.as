@@ -1,9 +1,9 @@
 package
 {
-	import gs.core.Preloader;
 	import gs.display.GSSprite;
 	import gs.managers.AssetManager;
-	import gs.support.preloading.Asset;
+	import gs.preloading.Asset;
+	import gs.preloading.Preloader;
 
 	import flash.events.Event;
 

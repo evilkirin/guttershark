@@ -1,7 +1,7 @@
 package 
 {
-	import gs.core.*;
-	import gs.support.preloading.Asset;
+	import gs.control.DocumentController;
+	import gs.preloading.Asset;
 
 	public class Main extends DocumentController
 	{

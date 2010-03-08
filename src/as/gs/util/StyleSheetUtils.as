@@ -12,20 +12,39 @@ package gs.util
 	public class StyleSheetUtils
 	{
 		
+		/**
+		 * Internal lookup for saved stylesheets.
+		 */
 		private static var _ss:Dictionary = new Dictionary(true);
 		
+		/**
+		 * Get a stylesheet.
+		 * 
+		 * @param id The stylesheet id.
+		 */
 		public static function get(id:String):StyleSheet
 		{
 			if(!id)return null;
 			return StyleSheet(_ss[id]);
 		}
 		
+		/**
+		 * Save a stylesheet.
+		 * 
+		 * @param id The stylesheet id.
+		 * @param s The stylesheet.
+		 */
 		public static function set(id:String,s:StyleSheet):void
 		{
 			if(!id || !s)return;
 			_ss[id]=s;
 		}
 		
+		/**
+		 * Delete (unset) a stylesheet.
+		 * 
+		 * @param id The stylesheet id.
+		 */
 		public function unset(id:String):void
 		{
 			delete _ss[id];

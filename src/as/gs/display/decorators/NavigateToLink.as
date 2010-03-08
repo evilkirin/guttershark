@@ -1,9 +1,9 @@
 package gs.display.decorators
 {
-	import flash.events.Event;
-	import gs.core.Model;
+	import gs.model.Model;
 	import gs.util.DecoratorUtils;
 
+	import flash.events.Event;
 	import flash.utils.Dictionary;
 
 	/**
@@ -11,7 +11,7 @@ package gs.display.decorators
 	 * with "navigateToLink" functionality tied in with the
 	 * model.
 	 * 
-	 * @example (examples/ext/display/decorators/navigatetolink/)
+	 * <p><b>Examples</b> are in the <a target="_blank" href="http://gitweb.codeendeavor.com/?p=guttershark.git;a=summary">guttershark</a> repository.</p>
 	 * 
 	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 */

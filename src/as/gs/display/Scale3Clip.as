@@ -5,6 +5,10 @@ package gs.display
 	
 	/**
 	 * The Scale3Clip is a sprite that manages scale 3.
+	 * 
+	 * <p><b>Examples</b> are in the <a target="_blank" href="http://gitweb.codeendeavor.com/?p=guttershark.git;a=summary">guttershark</a> repository.</p>
+	 * 
+	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 */
 	public class Scale3Clip extends MovieClip
 	{

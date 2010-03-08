@@ -1,7 +1,7 @@
 package
 {
-	import gs.core.DocumentController;
-	import gs.core.Preloader;
+	import gs.control.DocumentController;
+	import gs.preloading.Preloader;
 
 	import flash.events.Event;
 

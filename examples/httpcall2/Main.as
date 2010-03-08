@@ -1,8 +1,8 @@
 package
 {
-	import gs.core.DocumentController;
-	import gs.service.http.HTTPCall;
-	import gs.service.http.HTTPCallResult;
+	import gs.control.DocumentController;
+	import gs.http.HTTPCall;
+	import gs.http.HTTPCallResult;
 
 	public class Main extends DocumentController
 	{
@@ -14,7 +14,7 @@ package
 		
 		override protected function onModelReady():void
 		{
-			var hc:HTTPCall=model.getHTTPCallById("google");
+			var hc:HTTPCall=model.getHTTPCallById("google","home");
 			hc.setCallbacks({onResult:result});
 			hc.send();
 		}

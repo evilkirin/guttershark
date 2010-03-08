@@ -4,6 +4,8 @@ package gs.util
 	/**
 	 * The URLUtils class contains utility methods for
 	 * working with urls.
+	 * 
+	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 */
 	public class URLUtils 
 	{

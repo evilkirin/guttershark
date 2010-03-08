@@ -4,18 +4,16 @@ package
 	import fl.video.VideoAlign;
 	import fl.video.VideoScaleMode;
 
-	import gs.core.Document;
+	import gs.control.DocumentController;
 	import gs.display.flv.FLVPlaybackQManager;
-	import gs.util.FlashvarUtils;
 
 	import flash.utils.setTimeout;
 
-	public class Main extends Document
+	public class Main extends DocumentController
 	{
 		
 		public var queueplayer:FLVPlayback;
 		private var queuePlayback:FLVPlaybackQManager;
-		private var flashvars:Object;
 		
 		public function Main()
 		{
@@ -28,14 +26,9 @@ package
 			setTimeout(test,2000);
 		}
 		
-		protected function flashvarsForStandalone():Object
+		override protected function flashvarsForStandalone():Object
 		{
 			return {akamaiHost:"http://cp44952.edgefcs.net/"};
-		}
-		
-		override protected function initFlashvars():void
-		{
-			flashvars=FlashvarUtils.getFlashvars(this,flashvarsForStandalone);
 		}
 		
 		private function test():void

@@ -1,13 +1,17 @@
 package gs.util
 {
-	import gs.core.*;
-	import gs.display.flv.*;
-	import gs.support.events.*;
-	import gs.support.preloading.events.*;
-	import gs.util.XMLLoader;
+	import gs.display.flv.FLV;
+	import gs.events.AssetCompleteEvent;
+	import gs.events.AssetErrorEvent;
+	import gs.events.FLVEvent;
+	import gs.events.PreloadProgressEvent;
+	import gs.preloading.Preloader;
 	
 	import flash.display.InteractiveObject;
-	import flash.events.*;
+	import flash.events.Event;
+	import flash.events.FocusEvent;
+	import flash.events.KeyboardEvent;
+	import flash.events.MouseEvent;
 	
 	/**
 	 * The EventHandler class is a utility to simplify
@@ -51,6 +55,8 @@ package gs.util
 	 * <li>FLV</li>
 	 * <li>XMLLoader</li>
 	 * </ul>
+	 * 
+	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 */
 	public class EventHandler 
 	{

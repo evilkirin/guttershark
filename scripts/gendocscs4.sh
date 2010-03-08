@@ -140,10 +140,11 @@ ${ASDOC}asdoc \
 -exclude-classes fl.video.VideoState \
 -left-frameset-width 350 \
 -package gs "The gs package contains all Actionscript 3 classes, namespaces, and meta data for the gs package." \
+-package gs.audio "The gs.audio package contains classes that simplify managing and playing audio." \
 -package gs.core "The gs.core package contains core classes for working with guttershark." \
--package gs.control "The gs.control package contains controller classes for an FLA, and preloading." \
+-package gs.control "The gs.control package contains stub document controller classes." \
+-package gs.display "The gs.display package contains classes that are display objects and sub packages for more display objects." \
 -package gs.display.decorators "The gs.display.decorators package contains re-usable decorators." \
--package gs.display "The gs.display package contains classes that are display objects." \
 -package gs.display.button "The gs.display.button package contains classes that implement buttons." \
 -package gs.display.accordion "The gs.display.accordion package contains classes that implement an accordion component." \
 -package gs.display.list "The gs.display.list package contains classes that implement a list component." \
@@ -157,27 +158,25 @@ ${ASDOC}asdoc \
 -package gs.display.tooltip "The gs.display.tooltip package contains base tool tip clips for a tool tip manager." \
 -package gs.display.video "The gs.video package contains classes use for video objects." \
 -package gs.display.views "The gs.display.controls.views package contains base classes for generic views." \
--package gs.managers "The gs.managers package contains manager classes that simplify many mundane programming tasks." \
--package gs.model "The gs.model package contains classes for working with model classes and model xml." \
--package gs.rtmp "The gs.rtmp package contains classes for working with RTMP." \
--package gs.rtmp.core "The gs.rtmp.core package contains the core RTMP connection classes." \
--package gs.rtmp.rso "The gs.rtmp.rso package contains classes for Remote Shared Objects with RTMP." \
--package gs.rtmp.conference "The gs.rtmp.conference package contains classes for building conference rooms with RTMP." \
--package gs.service "The gs.service package contains classes that simplify http, remoting, and soap services." \
--package gs.service.http "The gs.service.http package contains classes that simplify http." \
--package gs.service.soap "The gs.service.soap package contains classes that simplify soap services." \
--package gs.service.remoting "The gs.service.remoting package contains classes that simplify remoting services." \
--package gs.support "The gs.support package contains all classes that support, managers,controllers and events and generally aren't used directly, with the exception of a couple classes." \
 -package gs.display.view "The gs.display.view package contains view classes." \
 -package gs.display.xmlview "The gs.display.xmlview package contains classes for working with and creating views from an xml source." \
--package gs.ext.display.controls "The gs.ext.display.controls package contains extra pre-built controls." \
+-package gs.events "The gs.events package contains event classes." \
+-package gs.http "The gs.http package contains classes that simplify http." \
+-package gs.managers "The gs.managers package contains manager classes that simplify many mundane programming tasks." \
+-package gs.model "The gs.model package contains classes for working with model classes and model xml." \
+-package gs.preloading "The gs.preloading package contains classes for preloading." \
+-package gs.preloading.workers "The gs.preloading.worker package contains worker classes that implement loading of different types of assets." \
+-package gs.remoting "The gs.service.remoting package contains classes that simplify remoting services." \
+-package gs.rtmp "The gs.rtmp package contains classes for working with RTMP." \
+-package gs.rtmp.core "The gs.rtmp.core package contains the core RTMP connection classes." \
+-package gs.rtmp.rso "The gs.rtmp.rso package contains classes for remote shared objects with RTMP." \
+-package gs.rtmp.conference "The gs.rtmp.conference package contains classes for building conference rooms with RTMP." \
+-package gs.soap "The gs.soap package contains classes that simplify soap services." \
+-package gs.support "The gs.support package contains all classes that support, managers,controllers and events and generally aren't used directly, with the exception of a couple classes." \
 -package gs.support.eventmanager "The gs.support.eventmanager contains all support classes for the EventManager, and other event listener delegates you can opt into for components." \
--package gs.support.bindings "The gs.support.bindings package contains all support classes for the BindingUtils class." \
 -package gs.support.events "The gs.support.events package contains supporting events for guttershark controllers, models, and display objects." \
 -package gs.support.layoutmanager "The gs.support.layoutmanager package contains classes that support the LayoutManager." \
--package gs.support.preloading "The gs.support.preloading package contains classes that support a PreloadController." \
 -package gs.support.preloading.events "The gs.support.preloading.events package contains event classes used with a PreloadController." \
--package gs.support.preloading.workers "The gs.support.preloading.worker package contains worker classes that implement loading of different types of assets from a PreloadingController." \
 -package gs.support.servicemanager.http "The gs.support.servicemanager.http package contains classes that implement HTTP service calls with the ServiceManager." \
 -package gs.support.servicemanager.remoting "The gs.support.servicemanager.remoting package contains classes that implement Flash Remoting calls with the ServiceManager." \
 -package gs.support.servicemanager.shared "The gs.support.servicemanager.shared package contains classes that are shared between different service call implementations with the ServiceManager." \
@@ -187,6 +186,7 @@ ${ASDOC}asdoc \
 -package gs.util "The gs.util package contains all utility functions, classes and sub packages." \
 -package gs.util.akamai "The gs.util.akamai package contains utility classes for Akamai services." \
 -package gs.util.autosuggest "The gs.util.autosuggest package contains utility classes that help create an auto suggest." \
+-package gs.util.bindings "The gs.util.bindings package contains all support classes for the BindingUtils class." \
 -package gs.util.cache "The gs.util.cache package contains utility classes that cache objects in memory." \
 -package gs.util.iters "The gs.util.iters package contains utility iterators." \
 -package gs.util.collections "The gs.util.collections package contains utility collections." \

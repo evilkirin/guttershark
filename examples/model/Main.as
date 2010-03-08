@@ -1,6 +1,6 @@
 package
 {
-	import gs.core.*;
+	import gs.control.DocumentController;
 
 	public class Main extends DocumentController
 	{

@@ -1,9 +1,9 @@
 package
 {
-	import gs.core.DocumentController;
-	import gs.core.Preloader;
+	import gs.control.DocumentController;
 	import gs.managers.AssetManager;
 	import gs.managers.SoundManager;
+	import gs.preloading.Preloader;
 
 	import flash.events.Event;
 	import flash.utils.setTimeout;

@@ -69,6 +69,10 @@ package gs.managers
 	 * data can be treated differently depending on which tracking implementation your using. Most require an Array returned. Read the source of this
 	 * class for more information.</li>
 	 * </ul>
+	 * 
+	 * <p><b>Examples</b> are in the <a target="_blank" href="http://gitweb.codeendeavor.com/?p=guttershark.git;a=summary">guttershark</a> repository.</p>
+	 * 
+	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 */
 	final public class TrackingManager 
 	{

@@ -1,9 +1,9 @@
 package 
 {
+	import gs.display.GSSprite;
 	import gs.managers.AssetManager;
-	import gs.core.*;
-	import gs.display.*;
-	import gs.support.preloading.*;
+	import gs.preloading.Asset;
+	import gs.preloading.Preloader;
 
 	import flash.events.Event;
 	import flash.text.AntiAliasType;

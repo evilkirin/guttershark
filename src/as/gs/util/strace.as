@@ -24,8 +24,9 @@ package gs.util
 	 * strace_fla::MainTimeline/test2()
 	 * strace_fla::MainTimeline/frame1()
 	 * &lt;&lt;trace1
-	 * 
 	 * </listing>
+	 * 
+	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 */
 	public function strace(msg:String,pre:String=null,post:String=null):void
 	{

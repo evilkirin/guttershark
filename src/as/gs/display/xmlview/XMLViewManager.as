@@ -15,7 +15,7 @@ package gs.display.xmlview
 	 * or implement the IXMLView interface class which has hooks
 	 * and initialization methods that accept the neccessary XML data.</p>
 	 * 
-	 * <p>See the example in examples/ext/xview/.</p>
+	 * <p><b>Examples</b> are in the <a target="_blank" href="http://gitweb.codeendeavor.com/?p=guttershark.git;a=summary">guttershark</a> repository.</p>
 	 * 
 	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 */

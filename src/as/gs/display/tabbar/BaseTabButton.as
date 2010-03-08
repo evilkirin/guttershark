@@ -10,6 +10,8 @@ package gs.display.tabbar
 	 * <p>It declares an "active" property, which is
 	 * set to true or false when deactivate, or activate
 	 * is called.</p>
+	 * 
+	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 */
 	public class BaseTabButton extends GSClip implements ITabButton 
 	{

@@ -15,6 +15,10 @@ package gs.display.text
 	 * class' createGradientBox method for more information
 	 * about how properties on this class are mapped to the
 	 * actual gradient.</p>
+	 * 
+	 * <p><b>Examples</b> are in the <a target="_blank" href="http://gitweb.codeendeavor.com/?p=guttershark.git;a=summary">guttershark</a> repository.</p>
+	 * 
+	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 */
 	public class GradientLabel extends MovieClip 
 	{

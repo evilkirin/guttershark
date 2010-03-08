@@ -7,6 +7,8 @@ package gs.util
 	/**
 	 * The SharedObjectUtils class contains utility methods for working with
 	 * shared objects.
+	 * 
+	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 */
 	public class SharedObjectUtils 
 	{

@@ -1,6 +1,6 @@
 package 
 {
-	import gs.core.DocumentController;
+	import gs.control.DocumentController;
 
 	import flash.text.StyleSheet;
 	import flash.text.TextField;

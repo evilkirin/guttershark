@@ -1,7 +1,7 @@
 package gs.display 
 {
-	import gs.support.bindings.PropertyChangeEvent;
 	import gs.util.MathUtils;
+	import gs.util.bindings.PropertyChangeEvent;
 
 	import com.greensock.TweenLite;
 
@@ -23,15 +23,7 @@ package gs.display
 	 * The VimeoVolume class re-creates the vimeo.com
 	 * volume control slider.
 	 * 
-	 * @example (examples/display/controls/vimeovolume/)
-	 * <script src="../../../../examples/swfobject.js"></script>
-	 * <br/><div id="flashcontent"></div>
-	 * <script>
-	 * var vars={};
-	 * var params={scale:'noScale',salign:'lt',menu:'false'};
-	 * var attribs={id:'flaswf',name:'flaswf'};
-	 * swfobject.embedSWF("../../../../examples/display/vimeovolume/main.swf","flashcontent","33","20","9.0.0",null,vars,params,attribs);
-	 * </script>
+	 * <p><b>Examples</b> are in the <a target="_blank" href="http://gitweb.codeendeavor.com/?p=guttershark.git;a=summary">guttershark</a> repository.</p>
 	 * 
 	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 */

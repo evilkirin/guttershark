@@ -1,6 +1,6 @@
 package
 {
-	import gs.support.bindings.ObjectProxy;	
+	import gs.util.bindings.ObjectProxy;
 
 	public class ObjectProxy1 extends ObjectProxy 
 	{

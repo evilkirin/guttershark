@@ -1,6 +1,6 @@
 package
 {
-	import gs.core.DocumentController;
+	import gs.control.DocumentController;
 
 	import flash.display.MovieClip;
 	import flash.events.MouseEvent;

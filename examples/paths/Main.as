@@ -2,7 +2,7 @@ package
 {
 	import fl.controls.Button;
 
-	import gs.core.*;
+	import gs.control.DocumentController;
 
 	import flash.events.MouseEvent;
 

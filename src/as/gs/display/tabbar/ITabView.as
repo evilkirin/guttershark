@@ -4,6 +4,8 @@ package gs.display.tabbar
 	/**
 	 * The ITabView interface defines a contract
 	 * for views that work with the TabBar class.
+	 * 
+	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 */
 	public interface ITabView 
 	{

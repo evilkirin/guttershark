@@ -18,26 +18,9 @@ package gs.managers
 	 * <p>Each object, must be registered with an instance
 	 * of a tooltip - then the manager can handle the rest.</p>
 	 * 
-	 * @example Using tool tip manager.
-	 * <listing>	
-	 * //tooltip manager needs a container
-	 * var toolTipContainer:MovieClip = new MovieClip();
-	 * addChild(toolTipContainer);
+	 * <p><b>Examples</b> are in the <a target="_blank" href="http://gitweb.codeendeavor.com/?p=guttershark.git;a=summary">guttershark</a> repository.</p>
 	 * 
-	 * //set the tool tip container
-	 * var ttm:ToolTipManager = new ToolTipManager();
-	 * ttm.toolTipHolder = toolTipContainer;
-	 * 
-	 * //a movie clip that requires a tooltip
-	 * var objNeedsTooltip:MovieClip = new MovieClip();
-	 * addChild(objNeedsTooltip);
-	 * 
-	 * //create a tooltip instance; extend base tooltip for your own.
-	 * var tooltip:BaseToolTip=new BaseToolTip();
-	 * 
-	 * //tell the tool tip manager to manage a tooltip for the object.
-	 * ttm.register(objNeedsTooltip,tooltip);
-	 * </listing>
+	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 */
 	public class ToolTipManager
 	{

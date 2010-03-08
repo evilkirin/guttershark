@@ -1,6 +1,6 @@
 package gs.util 
 {
-	import gs.core.*;
+	import gs.model.Model;
 	import gs.util.filters.FilterUtils;
 	
 	import flash.display.DisplayObject;
@@ -11,8 +11,7 @@ package gs.util
 	import flash.text.StyleSheet;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
-	import flash.ui.ContextMenu;
-
+	
 	/**
 	 * The SetterUtils class contains utility methods
 	 * that decrease amount of code you have to write for setting the same
@@ -396,14 +395,6 @@ package gs.util
 						usedText=true;
 						obj.htmlText=ml.strings.getStringFromID(n.htmlText.@stringId);
 					}
-				}
-			}
-			if(n.contextMenu)
-			{
-				if(n.contextMenu.@id!=undefined)
-				{
-					var cmm:ContextMenu=ml.createContextMenuById(n.contextMenu.@id);
-					obj.contextMenu=cmm;
 				}
 			}
 			var children:XMLList=n.children();

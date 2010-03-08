@@ -1,6 +1,6 @@
 package 
 {
-	import gs.core.DocumentController;
+	import gs.control.DocumentController;
 	import gs.util.SetterUtils;
 	import gs.util.Strings;
 

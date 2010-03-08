@@ -1,10 +1,10 @@
 package
 {
 	import fl.controls.TextArea;
-
-	import gs.core.DocumentController;
+	
+	import gs.control.DocumentController;
 	import gs.util.ObjectUtils;
-
+	
 	public class Main extends DocumentController
 	{
 		

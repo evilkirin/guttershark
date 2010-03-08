@@ -7,6 +7,8 @@ package gs.display.tabbar
 	 * the ITabView interface. It implements the required
 	 * functions, from ITabView, which you can override or leave
 	 * as is.
+	 * 
+	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 */
 	public class BaseTabView extends BaseView implements ITabView
 	{
