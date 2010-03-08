@@ -10,7 +10,7 @@ package gs.audio
 	import flash.utils.Dictionary;
 	import flash.utils.Proxy;
 	import flash.utils.flash_proxy;
-
+	
 	/**
 	 * Dispatched when the group starts playing.
 	 * 
@@ -63,14 +63,22 @@ package gs.audio
 	/**
 	 * The AudioGroup class controls multiple AudioObject instances.
 	 * 
+	 * <p><b>Examples</b> are in the <a target="_blank" href="http://gitweb.codeendeavor.com/?p=guttershark.git;a=summary">guttershark</a> repository.</p>
+	 * 
 	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 * 
 	 * @see gs.audio.AudioObject
 	 */
-	public class AudioGroup extends Proxy implements IEventDispatcher
+	dynamic public class AudioGroup extends Proxy implements IEventDispatcher
 	{
 		
 		/**
+		 * Internal lookup for group.
+		 */
+		private static var _ag:Dictionary=new Dictionary();
+		
+		/**
+		 * @private
 		 * The group id.
 		 */
 		public var id:String;
@@ -118,14 +126,45 @@ package gs.audio
 		private var muted:Boolean;
 		
 		/**
-		 * Constructor for AudioGroup instances.
+		 * Get an audio group.
 		 * 
-		 * @param id The group id.
-		 * @param groupOptions Group play options.
+		 * @param id The audio group id.
 		 */
-		public function AudioGroup(id:String):void
+		public static function get(id:String):AudioGroup
 		{
-			this.id=id;
+			if(!id)return null;
+			return _ag[id];
+		}
+		
+		/**
+		 * Save an audio group.
+		 * 
+		 * @param id The id of the audio group.
+		 * @param ag The audio group.
+		 */
+		public static function set(id:String,ag:AudioGroup):void
+		{
+			if(!id||!ag)return;
+			if(!ag.id)ag.id=id;
+			_ag[id]=ag;
+		}
+		
+		/**
+		 * Unset (delete) an audio group.
+		 * 
+		 * @param id The audio group id.
+		 */
+		public static function unset(id:String):void
+		{
+			if(!id)return;
+			delete _ag[id];
+		}
+		
+		/**
+		 * Constructor for AudioGroup instances.
+		 */
+		public function AudioGroup():void
+		{
 			ed=new EventDispatcher(this);
 			objs=new Dictionary();
 			audibles=new Dictionary();
@@ -159,19 +198,21 @@ package gs.audio
 		}
 		
 		/**
-		 * Add a sound instance, display object, or any
-		 * object that exposes a <em>soundTransform</em> property.
+		 * Add an object to control. You can add a Sound instance,
+		 * display object, or any object with a <code>soundTransform</code>
+		 * property.
 		 * 
 		 * @param id The id of the object.
 		 * @param obj The object.
 		 * @param options Persistent play options for the object.
 		 */
-		public function addObject(id:String, obj:*, options:Object=null):void
+		public function addObject(id:String,obj:*,options:Object=null):void
 		{
 			if(!(obj is Sound)&&!("soundTransform" in obj)) throw new Error("The volume for the object added cannot be controled, it must be a Sound or contain a {soundTransform} property.");
 			if(!(obj is Sound))
 			{
-				var ao:AudioObject=new AudioObject(id,obj);
+				var ao:AudioObject=new AudioObject(obj);
+				ao.id=id;
 				objs[id]=ao;
 			}
 			audibles[id]=obj;
@@ -188,19 +229,10 @@ package gs.audio
 			if(objs[id])
 			{
 				objs[id].dispose();
-				objs[id]=null;
 				delete objs[id];
 			}
-			if(audibles[id])
-			{
-				audibles[id]=null;
-				delete audibles[id];
-			}
-			if(audibleOptions[id])
-			{
-				audibleOptions[id]=null;
-				delete audibleOptions[id];
-			}
+			if(audibles[id])delete audibles[id];
+			if(audibleOptions[id])delete audibleOptions[id];
 			var i:int=0;
 			var l:int=playingObjs.length;
 			for(;i<l;i++)
@@ -222,7 +254,8 @@ package gs.audio
 		public function playSound(id:String,options:Object=null):void
 		{
 			if(!hasObject(id))return;
-			var ao:AudioObject=new AudioObject(id,audibles[id],this);
+			var ao:AudioObject=new AudioObject(audibles[id]);
+			ao.setIdAndGroup(id,this);
 			playingObjs.push(ao);
 			if(options&&!options.volume)options.volume=transform.volume;
 			if(options)ao.play(options);
@@ -239,7 +272,8 @@ package gs.audio
 			var ao:AudioObject;
 			for(key in audibles)
 			{
-				ao=new AudioObject(key,audibles[key],this);
+				ao=new AudioObject(audibles[key]);
+				ao.setIdAndGroup(key,this);
 				if(audibleOptions[key])ao.play(audibleOptions[key]);
 				else ao.play({volume:transform.volume});
 				playingObjs.push(ao);
@@ -348,7 +382,7 @@ package gs.audio
 		 * 
 		 * @example Setting custom levels:
 		 * <listing>	
-		 * snm.setLevels(["sparkle","blip"],[.3,.5]);
+		 * group.setLevels(["sparkle","blip"],[.3,.5]);
 		 * </listing>
 		 * 
 		 * @param ids The ids of the objects whose levels should be updated.
@@ -425,8 +459,7 @@ package gs.audio
 		 */
 		public function volumeTo(level:Number,duration:Number=.3):void
 		{
-			if(!level)return;
-			if(!duration)return;
+			if(level<0 || duration <0)return;
 			transform.volume=level;
 			var i:int=0;
 			var l:int=playingObjs.length;
@@ -496,7 +529,7 @@ package gs.audio
 		 */
 		public function toggleMute():void
 		{
-			if(muted)unMute();
+			if(muted)unmute();
 			else mute();
 		}
 		
@@ -517,7 +550,7 @@ package gs.audio
 		/**
 		 * Un-mute all sounds and objects contained in this group.
 		 */
-		public function unMute():void
+		public function unmute():void
 		{
 			var i:int=0;
 			var l:int=playingObjs.length;
@@ -548,6 +581,7 @@ package gs.audio
 		 */
 		public function dispose():void
 		{
+			AudioGroup.unset(id);
 			var i:int=0;
 			var l:int=playingObjs.length;
 			for(;i<l;i++)AudioObject(playingObjs[int(i)]).dispose();
@@ -599,7 +633,9 @@ package gs.audio
 		{
 			if(isPlaying(name))return AudioObject(getPlayingObj(name));
 			if(objs[name])return AudioObject(objs[name]);
-			return new AudioObject(name,audibles[name],this);
+			var ao:AudioObject=new AudioObject(audibles[name]);
+			ao.setIdAndGroup(name,this);
+			return ao;
 		}
 		
 		/**

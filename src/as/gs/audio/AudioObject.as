@@ -3,7 +3,7 @@ package gs.audio
 	import gs.events.AudioEvent;
 	import gs.util.MathUtils;
 
-	import com.greensock.TweenLite;
+	import com.greensock.TweenMax;
 
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
@@ -11,6 +11,7 @@ package gs.audio
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
 	import flash.media.SoundTransform;
+	import flash.utils.Dictionary;
 	import flash.utils.Timer;
 
 	/**
@@ -91,15 +92,11 @@ package gs.audio
 	[Event("panChange", type="gs.support.soundmanager.AudioEvent")]
 
 	/**
-	 * The AudioObject class controls any object that's
-	 * audible. It can control a sound instance or any object with
+	 * The AudioObject class controls any audible object.
+	 * It can control a sound instance or any object with
 	 * a <em><strong>soundTransform</strong></em> property.
 	 * 
-	 * <p><strong>There is one, possibly awkward thing about
-	 * the AudioObject class.</strong> If you're using the sound
-	 * manager or an audio group, an audio object will automatically
-	 * dispose of itself if it is controlling a sound instance, and
-	 * it has completed playing.</p>
+	 * <p><b>Examples</b> are in the <a target="_blank" href="http://gitweb.codeendeavor.com/?p=guttershark.git;a=summary">guttershark</a> repository.</p>
 	 * 
 	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 * 
@@ -107,11 +104,29 @@ package gs.audio
 	 */
 	public class AudioObject extends EventDispatcher
 	{
+		
+		/**
+		 * Internal dictionary for audio objects.
+		 */
+		private static var _ao:Dictionary = new Dictionary();
 
 		/**
+		 * @private
 		 * The id of this audible object.
 		 */
 		public var id:String;
+		
+		/**
+		 * @private
+		 * The object being controled.
+		 */
+		public var obj:*;
+		
+		/**
+		 * @private
+		 * The group this audible object belongs to if any.
+		 */
+		public var group:AudioGroup;
 		
 		/**
 		 * The type of this audible object.
@@ -122,12 +137,6 @@ package gs.audio
 		 * The play options.
 		 */
 		private var ops:Object;
-		
-		/**
-		 * @private
-		 * The object being controled.
-		 */
-		public var obj:*;
 		
 		/**
 		 * The sound channel if this is controlling a Sound.
@@ -158,12 +167,6 @@ package gs.audio
 		 * How many loops have occured.
 		 */
 		private var loops:Number;
-		
-		/**
-		 * @private
-		 * The group this audible object belongs to.
-		 */
-		public var audibleGroup:AudioGroup;
 
 		/**
 		 * Whether or not this audible object is playing.
@@ -190,19 +193,63 @@ package gs.audio
 		 * The timer used for progress events.
 		 */
 		private var progressTimer:Timer;
-
+		
+		/**
+		 * Whether or not this instance will dispatch progress events.
+		 */
+		private var dispatchesProgress:Boolean;
+		
+		/**
+		 * The progress timer interval.
+		 */
+		private var _progressTimerInterval:int;
+		
+		/**
+		 * Get an audio object.
+		 * 
+		 * @param id The audio object id.
+		 */
+		public static function get(id:String):AudioObject
+		{
+			if(!id)return null;
+			return _ao[id];
+		}
+		
+		/**
+		 * Save an audio object.
+		 * 
+		 * @param id The id of the audio group.
+		 * @param ag The audio group.
+		 */
+		public static function set(id:String,ao:AudioObject):void
+		{
+			if(!id||!ao)return;
+			if(!ao.id)ao.id=id;
+			_ao[id]=ao;
+		}
+		
+		/**
+		 * Unset (delete) an audio object.
+		 * 
+		 * @param id The audio object id.
+		 */
+		public static function unset(id:String):void
+		{
+			if(!id)return;
+			delete _ao[id];
+		}
+		
 		/**
 		 * Constructor for AudioObject instances.
 		 * 
-		 * @param id The id for this audible object.
 		 * @param obj The object to control.
-		 * @param group Optionally provide an AudibleGroup this belongs to, for automatic cleanup in the group.
 		 */
-		public function AudioObject(id:String,obj:*,group:AudioGroup=null):void
+		public function AudioObject(_obj:*):void
 		{
-			this.id=id;
-			this.obj=obj;
-			if(group)audibleGroup=group;
+			_progressTimerInterval=300;
+			if(!_obj)throw new ArgumentError("ERROR: Parameter {_obj} cannot be null.");
+			dispatchesProgress=false;
+			obj=_obj;
 			if(obj is Sound)type="s";
 			else if("soundTransform" in obj)type="o";
 			else throw new Error("The volume for the object added cannot be controled, it must be a Sound or contain a {soundTransform} property.");
@@ -213,6 +260,35 @@ package gs.audio
 			ops={};
 		}
 		
+		/**
+		 * The interval for dispatching progress events.
+		 */
+		public function set progressTimerInterval(val:int):void
+		{
+			_progressTimerInterval=val;
+			stopProgressEvents();
+			progressTimer=new Timer(_progressTimerInterval);
+			if(dispatchesProgress && _isPlaying)startProgressEvents();
+		}
+		
+		/**
+		 * The interval for dispatching progress events.
+		 */
+		public function get progressTimerInterval():int
+		{
+			return _progressTimerInterval;
+		}
+		
+		/**
+		 * @private
+		 * Set the id and group.
+		 */
+		public function setIdAndGroup(_id:String,_group:AudioGroup):void
+		{
+			id=_id;
+			group=_group;
+		}
+
 		/**
 		 * Play this audio object.
 		 * 
@@ -226,55 +302,51 @@ package gs.audio
 		 * unless this option is true, which will restart the playing sound.</li>
 		 * </ul>
 		 * 
-		 * @param ops Play options.
+		 * @param _ops Play options.
 		 */
-		public function play(ops:Object=null):void
+		public function play(_ops:Object=null):void
 		{
-			if(!ops)ops={};
+			if(!_ops)_ops={};
 			if(type=="o")
 			{
 				trace("WARNING: An audible object cannot 'play' a display object it's managing.");
 				return;
 			}
-			if(!ops&&_isPlaying)return;
-			if(!ops.restartIfPlaying&&_isPlaying)return;
-			if(_isPlaying)
-			{
-				removeListener();
-				channel.stop();
-			}
-			this.ops=ops;
+			ops=_ops;
+			if((!ops&&_isPlaying) || (!ops.restartIfPlaying&&_isPlaying))return;
+			if(_isPlaying)channel.stop();
+			removeListeners();
 			var startTime:Number=(ops.starTime)?ops.starTime:0;
 			var loops:Number=(ops.loops)?ops.loops:0;
 			var panning:Number=(ops.panning)?ops.panning:0;
 			var volume:Number=(ops.volume)?ops.volume:1;
-			if(transform.volume&&!this.ops.volume)volume=transform.volume;
+			if(transform.volume && !ops.volume)volume=transform.volume;
 			transform=new SoundTransform(volume,panning);
 			if(loops>0)loopWatcher=new Timer(obj.length);
-			channel=obj.play(startTime,loops,transform);
 			dispatchEvent(new AudioEvent(AudioEvent.START));
-			_isPlaying=true;
-			addListener();
+			channel=obj.play(startTime,loops,transform);
+			addListeners();
 			if(loopWatcher)loopWatcher.start();
-			if(hasEventListener(AudioEvent.PROGRESS)&&!progressTimer.running)progressTimer.start();
+			_isPlaying=true;
+			if(dispatchesProgress)startProgressEvents();
 		}
 		
 		/**
 		 * Add listeners for loop and complete.
 		 */
-		private function addListener():void
+		private function addListeners():void
 		{
 			if(loopWatcher)loopWatcher.addEventListener(TimerEvent.TIMER,onLoop,false,0,true);
-			channel.addEventListener(Event.SOUND_COMPLETE,onComplete,false,0,true);
+			if(channel)channel.addEventListener(Event.SOUND_COMPLETE,onComplete,false,0,true);
 		}
 		
 		/**
 		 * Remove listeners for loop and complete.
 		 */
-		private function removeListener():void
+		private function removeListeners():void
 		{
 			if(loopWatcher)loopWatcher.removeEventListener(TimerEvent.TIMER,onLoop);
-			channel.removeEventListener(Event.SOUND_COMPLETE,onComplete);
+			if(channel)channel.removeEventListener(Event.SOUND_COMPLETE,onComplete);
 		}
 		
 		/**
@@ -283,7 +355,7 @@ package gs.audio
 		public function get isPlaying():Boolean
 		{
 			if(type=="o")return false;
-			return isPlaying;
+			return _isPlaying;
 		}
 		
 		/**
@@ -292,7 +364,7 @@ package gs.audio
 		public function get isPaused():Boolean
 		{
 			if(type=="o")return false;
-			return isPaused;
+			return _isPaused;
 		}
 		
 		/**
@@ -312,12 +384,13 @@ package gs.audio
 			if(loopWatcher)loopWatcher.stop();
 			_isPlaying=false;
 			dispatchEvent(new AudioEvent(AudioEvent.COMPLETE));
-			if(audibleGroup)
+			if(group)
 			{
-				audibleGroup.cleanupAudibleObject(this);
+				group.cleanupAudibleObject(this);
 				dispose();
+				return;
 			}
-			progressTimer.stop();
+			stopProgressEvents();
 		}
 		
 		/**
@@ -330,12 +403,13 @@ package gs.audio
 			channel.stop();
 			_isPlaying=false;
 			dispatchEvent(new AudioEvent(AudioEvent.STOP));
-			if(audibleGroup)
+			if(group)
 			{
-				audibleGroup.cleanupAudibleObject(this);
+				group.cleanupAudibleObject(this);
 				dispose();
+				return;
 			}
-			progressTimer.stop();
+			stopProgressEvents();
 		}
 		
 		/**
@@ -343,14 +417,13 @@ package gs.audio
 		 */
 		public function pause():void
 		{
-			if(type=="o")return;
-			if(_isPaused)return;
+			if(type=="o"||_isPaused)return;
 			_isPlaying=false;
 			if(loopWatcher)loopWatcher.stop();
 			dispatchEvent(new AudioEvent(AudioEvent.PAUSED));
 			pausePosition=channel.position;
 			channel.stop();
-			progressTimer.stop();
+			stopProgressEvents();
 			_isPaused=true;
 		}
 		
@@ -359,22 +432,39 @@ package gs.audio
 		 */
 		public function resume():void
 		{
-			if(type=="o")return;
-			if(_isPlaying)return;
-			if(!_isPaused)return;
+			if(type=="o"||_isPlaying||!_isPaused)return;
 			_isPlaying=true;
 			_isPaused=false;
-			removeListener();
+			removeListeners();
 			var startTime:Number=pausePosition;
 			var loops:Number=(ops.loops)?ops.loops:0;
 			channel=obj.play(startTime,loops,transform);
 			if(!muted)channel.soundTransform=transform;
 			dispatchEvent(new AudioEvent(AudioEvent.RESUMED));
-			addListener();
+			addListeners();
 			if(loopWatcher)loopWatcher.start();
-			if(!progressTimer.running&&hasEventListener(AudioEvent.PROGRESS))progressTimer.start();
+			if(dispatchesProgress)startProgressEvents();
 		}
 		
+		/**
+		 * Accessor method to get the channel or obj variable.
+		 * 
+		private function getObj():*
+		{
+			if(type=="s")return channel;
+			else if(type=="o")return obj;
+			return null;
+		}*/
+		
+		/**
+		 * Updates the sound transform.
+		 */
+		private function updateTransform():void
+		{
+			if(type=="s" && channel)channel.soundTransform=transform;
+			else if(type=="o" && obj)obj.soundTransform=transform;
+		}
+
 		/**
 		 * Increase the volume.
 		 * 
@@ -383,8 +473,7 @@ package gs.audio
 		public function increaseVolume(step:Number=.1):void
 		{
 			transform.volume+=step;
-			if(type=="s")channel.soundTransform=transform;
-			else if(type=="o")obj.soundTransform=transform;
+			updateTransform();
 		}
 		
 		/**
@@ -396,8 +485,7 @@ package gs.audio
 		{
 			if(transform.volume==0)return;
 			transform.volume-=step;
-			if(type=="s")channel.soundTransform=transform;
-			else if(type=="o")obj.soundTransform=transform;
+			updateTransform();
 		}
 		
 		/**
@@ -405,13 +493,11 @@ package gs.audio
 		 */
 		public function mute():void
 		{
-			if(muted)return;
-			if(transform.volume==0)return;
+			if(muted||transform.volume==0)return;
 			muted=true;
 			vol=transform.volume;
 			transform.volume=0;
-			if(type=="s")channel.soundTransform=transform;
-			else if(type=="o")obj.soundTransform=transform;
+			updateTransform();
 			dispatchEvent(new AudioEvent(AudioEvent.MUTE));
 		}
 		
@@ -423,8 +509,7 @@ package gs.audio
 			if(!muted)return;
 			muted=false;
 			transform.volume=vol;
-			if(type=="s")channel.soundTransform=transform;
-			else if(type=="o")obj.soundTransform=transform;
+			updateTransform();
 			dispatchEvent(new AudioEvent(AudioEvent.UNMUTE));
 		}
 		
@@ -445,7 +530,7 @@ package gs.audio
 		 */
 		public function panTo(pan:Number,duration:Number=.3):void
 		{
-			TweenLite.to(this,duration,{pn:pan});
+			TweenMax.to(this,duration,{pn:pan});
 		}
 		
 		/**
@@ -458,8 +543,7 @@ package gs.audio
 			if(transform.pan!=panning)dispatchEvent(new AudioEvent(AudioEvent.PAN_CHANGE));
 			if(transform.pan==panning)return;
 			transform.pan=panning;
-			if(type=="s")channel.soundTransform=transform;
-			else obj.soundTransform=transform;
+			updateTransform();
 		}
 		
 		/**
@@ -478,8 +562,7 @@ package gs.audio
 		public function set pn(panning:Number):void
 		{
 			transform.pan=panning;
-			if(type=="s")channel.soundTransform=transform;
-			else obj.soundTransform=transform;
+			updateTransform();
 		}
 		
 		/**
@@ -498,13 +581,9 @@ package gs.audio
 		public function set volume(level:Number):void
 		{
 			if(transform.volume!=level)dispatchEvent(new AudioEvent(AudioEvent.VOLUME_CHANGE));
+			if(transform.volume==level)return;
 			transform.volume=level;
-			if(type=="s")
-			{
-				if(!channel)return;
-				channel.soundTransform=transform;
-			}
-			else obj.soundTransform=transform;
+			updateTransform();
 		}
 		
 		/**
@@ -523,7 +602,7 @@ package gs.audio
 		 */
 		public function volumeTo(level:Number,duration:Number=.3):void
 		{
-			TweenLite.to(this,duration,{vl:level});
+			TweenMax.to(this,duration,{vl:level});
 		}
 		
 		/**
@@ -540,8 +619,18 @@ package gs.audio
 		public function set vl(level:Number):void
 		{
 			transform.volume=level;
-			if(type=="s")channel.soundTransform=transform;
-			else obj.soundTransform=transform;
+			updateTransform();
+		}
+		
+		/**
+		 * Set the volume. This is a helper method in case you need to
+		 * use setTimeout with volume.
+		 * 
+		 * @param level The volume level.
+		 */
+		public function setVolume(level:Number):void
+		{
+			volume=level;
 		}
 		
 		/**
@@ -557,7 +646,7 @@ package gs.audio
 				return;
 			}
 			if(!position)return;
-			removeListener();
+			removeListeners();
 			channel.stop();
 			var lps:int=(ops.loops)?ops.loops:0;
 			if(lps>0 && loops>1) lps=loops-lps;
@@ -682,7 +771,7 @@ package gs.audio
 		override public function addEventListener(type:String,listener:Function,useCapture:Boolean=false,priority:int=0,useWeakReference:Boolean=false):void
 		{
 			super.addEventListener(type,listener,useCapture,priority,useWeakReference);
-			if(type==AudioEvent.PROGRESS&&!hasEventListener(AudioEvent.PROGRESS))startProgressEvents();
+			if(type==AudioEvent.PROGRESS)dispatchesProgress=true;
 		}
 		
 		/**
@@ -691,7 +780,7 @@ package gs.audio
 		override public function removeEventListener(type:String,listener:Function,useCapture:Boolean=false):void
 		{
 			super.removeEventListener(type,listener,useCapture);
-			if(type==AudioEvent.PROGRESS&&!hasEventListener(AudioEvent.PROGRESS))stopProgressEvents();
+			if(type==AudioEvent.PROGRESS)dispatchesProgress=false;
 		}
 		
 		/**
@@ -699,9 +788,10 @@ package gs.audio
 		 */
 		public function dispose():void
 		{
-			removeListener();
-			progressTimer.stop();
-			progressTimer.removeEventListener(TimerEvent.TIMER,onTick);
+			removeListeners();
+			stopProgressEvents();
+			_progressTimerInterval=0;
+			dispatchesProgress=false;
 			id=null;
 			obj=null;
 			type=null;
@@ -711,7 +801,7 @@ package gs.audio
 			loops=NaN;
 			loopWatcher=null;
 			ops=null;
-			audibleGroup=null;
+			group=null;
 			channel=null;
 			muted=false;
 			pausePosition=NaN;
