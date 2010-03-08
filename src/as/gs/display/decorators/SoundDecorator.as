@@ -1,14 +1,13 @@
 package gs.display.decorators 
 {
-	import gs.managers.AssetManager;
-	import gs.managers.SoundManager;
+	import gs.audio.AudioObject;
 	import gs.util.DecoratorUtils;
 
 	import flash.display.Stage;
 	import flash.events.Event;
 	import flash.events.MouseEvent;
 	import flash.utils.Dictionary;
-
+	
 	/**
 	 * The SoundDecorator class decorates a sprite with
 	 * sound functionality for most mouse events.
@@ -19,11 +18,11 @@ package gs.display.decorators
 	 */
 	final dynamic public class SoundDecorator extends Decorator
 	{
-
+		
 		/**
-		 * Enabled flag.
+		 * Whether or not this sound decorator is enabled.
 		 */
-		private var en:Boolean;
+		public var enabled:Boolean;
 		
 		/**
 		 * The clips' stage reference.
@@ -31,54 +30,44 @@ package gs.display.decorators
 		private var clipStageRef:Stage;
 		
 		/**
-		 * The sound manager.
-		 */
-		private var snm:SoundManager;
-		
-		/**
 		 * click sound.
 		 */
-		private var _clicksound:String;
+		private var _clicksound:AudioObject;
 		
 		/**
 		 * double click sound.
 		 */
-		private var _dclickSound:String;
+		private var _dclickSound:AudioObject;
 		
 		/**
 		 * over sound.
 		 */
-		private var _overSound:String;
+		private var _overSound:AudioObject;
 		
 		/**
 		 * down sown
 		 */
-		private var _downSound:String;
+		private var _downSound:AudioObject;
 		
 		/**
 		 * up sound.
 		 */
-		private var _upSound:String;
+		private var _upSound:AudioObject;
 		
 		/**
 		 * mouse out sound.
 		 */
-		private var _outSound:String;
+		private var _outSound:AudioObject;
 		
 		/**
 		 * mouse up outside sound.
 		 */
-		private var _upOutsideSound:String;
+		private var _upOutsideSound:AudioObject;
 		
 		/**
 		 * flag for using up outside.
 		 */
 		private var useUpOutside:Boolean;
-		
-		/**
-		 * The audio group in the sound manager.
-		 */
-		private var groupId:String;
 		
 		/**
 		 * Flag when mouse down over sprite.
@@ -99,20 +88,13 @@ package gs.display.decorators
 		 * 
 		 * @param clip The sprite to decorate.
 		 * @param sounds An object with sound properties to used.
-		 * @param audioGroupname An optional audio group name for the sound manager,
-		 * by default it uses "soundDecorators."
 		 */
-		public function SoundDecorator(decorate:*,sounds:Object,audioGroupName:String="soundDecorators")
+		public function SoundDecorator(decorate:*,sounds:Object)
 		{
-			if(!decorate) throw new Error("Parameter {decorate} cannot be null.");
-			if(!sounds) return;
-			this.sprite=decorate;
+			if(!decorate)throw new Error("Parameter {decorate} cannot be null.");
+			sprite=decorate;
 			methods=new Dictionary();
 			props=DecoratorUtils.buildProps(["clickSound","overSound","downSound","upSound","outSound","upOutsideSound","doubleClickSound"]);
-			en=true;
-			snm=SoundManager.gi();
-			groupId=audioGroupName;
-			if(!snm.doesGroupExist(groupId))snm.createGroup(groupId);
 			if(sounds.clickSound)clickSound=sounds.clickSound;
 			if(sounds.overSound)overSound=sounds.overSound;
 			if(sounds.downSound)downSound=sounds.downSound;
@@ -123,31 +105,13 @@ package gs.display.decorators
 		}
 		
 		/**
-		 * Enable or disable sound functionality.
-		 */
-		public function set enabled(val:Boolean):void
-		{
-			en=val;
-		}
-		
-		/**
-		 * Enable or disable sound functionality.
-		 */
-		public function get enabled():Boolean
-		{
-			return en;
-		}
-		
-		/**
 		 * Set the click sound.
 		 * 
-		 * @param val An audibleId that get's used with the sound manager.
+		 * @param ao The audible object for the click sound.
 		 */
-		public function set clickSound(soundLibraryName:String):void
+		public function set clickSound(ao:AudioObject):void
 		{
-			if(_clicksound)snm.getGroup(groupId).removeObject(_clicksound);
-			snm.getGroup(groupId).addObject(soundLibraryName.toLowerCase(),AssetManager.getSound(soundLibraryName));
-			_clicksound=soundLibraryName.toLowerCase();
+			_clicksound=ao;
 			sprite.removeEventListener(MouseEvent.CLICK,onClick);
 			sprite.addEventListener(MouseEvent.CLICK,onClick,false,0,true);
 		}
@@ -157,20 +121,18 @@ package gs.display.decorators
 		 */
 		private function onClick(e:MouseEvent):void
 		{
-			if(!en)return;
-			snm.getGroup(groupId).playSound(_clicksound);
+			if(!enabled)return;
+			_clicksound.play();
 		}
 		
 		/**
 		 * Set the double click sound.
 		 * 
-		 * @param val An audibleId that get's used with the sound manager.
+		 * @param ao The audible object for the double click sound.
 		 */
-		public function set doubleClickSound(soundLibraryName:String):void
+		public function set doubleClickSound(ao:AudioObject):void
 		{
-			if(_dclickSound)snm.getGroup(groupId).removeObject(_dclickSound);
-			snm.getGroup(groupId).addObject(soundLibraryName.toLowerCase(),AssetManager.getSound(soundLibraryName));
-			_dclickSound=soundLibraryName.toLowerCase();
+			_dclickSound=ao;
 			sprite.removeEventListener(MouseEvent.DOUBLE_CLICK,onDoubleClick);
 			sprite.addEventListener(MouseEvent.DOUBLE_CLICK,onDoubleClick,false,0,true);
 		}
@@ -180,20 +142,18 @@ package gs.display.decorators
 		 */
 		private function onDoubleClick(e:MouseEvent):void
 		{
-			if(!en)return;
-			snm.getGroup(groupId).playSound(_dclickSound);
+			if(!enabled)return;
+			_dclickSound.play();
 		}
 		
 		/**
 		 * Set the over sound.
 		 * 
-		 * @param val An audibleId that get's used with the sound manager.
+		 * @param ao The audio object for the over sound.
 		 */
-		public function set overSound(soundLibraryName:String):void
+		public function set overSound(ao:AudioObject):void
 		{
-			if(_overSound)snm.getGroup(groupId).removeObject(_overSound);
-			snm.getGroup(groupId).addObject(soundLibraryName.toLowerCase(),AssetManager.getSound(soundLibraryName));
-			_overSound=soundLibraryName.toLowerCase();
+			_overSound=ao;
 			sprite.removeEventListener(MouseEvent.MOUSE_OVER,onMouseOver);
 			sprite.addEventListener(MouseEvent.MOUSE_OVER,onMouseOver,false,0,true);
 		}
@@ -203,20 +163,18 @@ package gs.display.decorators
 		 */
 		private function onMouseOver(e:MouseEvent):void
 		{
-			if(!en)return;
-			snm.getGroup(groupId).playSound(_overSound);
+			if(!enabled)return;
+			_overSound.play();
 		}
 		
 		/**
 		 * Set the down sound.
 		 * 
-		 * @param val An audibleId that get's used with the sound manager.
+		 * @param ao The audio object for the down sound.
 		 */
-		public function set downSound(soundLibraryName:String):void
+		public function set downSound(ao:AudioObject):void
 		{
-			if(_downSound)snm.getGroup(groupId).removeObject(_downSound);
-			snm.getGroup(groupId).addObject(soundLibraryName.toLowerCase(),AssetManager.getSound(soundLibraryName));
-			_downSound=soundLibraryName.toLowerCase();
+			_downSound=ao;
 			sprite.removeEventListener(MouseEvent.MOUSE_DOWN,onMouseDown);
 			sprite.addEventListener(MouseEvent.MOUSE_DOWN,onMouseDown,false,0,true);
 		}
@@ -226,20 +184,18 @@ package gs.display.decorators
 		 */
 		private function onMouseDown(e:MouseEvent):void
 		{
-			if(!en)return;
-			snm.getGroup(groupId).playSound(_downSound);
+			if(!enabled)return;
+			_downSound.play();
 		}
-		
+
 		/**
 		 * Set the up sound.
 		 * 
-		 * @param val An audibleId that get's used with the sound manager.
+		 * @param ao The audio object for the up sound.
 		 */
-		public function set upSound(soundLibraryName:String):void
+		public function set upSound(ao:AudioObject):void
 		{
-			if(_upSound)snm.getGroup(groupId).removeObject(_upSound);
-			snm.getGroup(groupId).addObject(soundLibraryName.toLowerCase(),AssetManager.getSound(soundLibraryName));
-			_upSound=soundLibraryName.toLowerCase();
+			_upSound=ao;
 			sprite.removeEventListener(MouseEvent.MOUSE_UP,onMouseUp);
 			sprite.addEventListener(MouseEvent.MOUSE_UP,onMouseUp,false,0,true);
 		}
@@ -249,20 +205,18 @@ package gs.display.decorators
 		 */
 		private function onMouseUp(e:MouseEvent):void
 		{
-			if(!en)return;
-			snm.getGroup(groupId).playSound(_upSound);
+			if(!enabled)return;
+			_upSound.play();
 		}
-		
+
 		/**
 		 * Set the out sound.
 		 * 
-		 * @param val An audibleId that get's used with the sound manager.
+		 * @param ao The audio object for the out sound.
 		 */
-		public function set outSound(soundLibraryName:String):void
+		public function set outSound(ao:AudioObject):void
 		{
-			if(_outSound)snm.getGroup(groupId).removeObject(_outSound);
-			snm.getGroup(groupId).addObject(soundLibraryName.toLowerCase(),AssetManager.getSound(soundLibraryName));
-			_outSound=soundLibraryName.toLowerCase();
+			_outSound=ao;
 			sprite.removeEventListener(MouseEvent.MOUSE_OUT,onMouseOut);
 			sprite.addEventListener(MouseEvent.MOUSE_OUT,onMouseOut,false,0,true);
 		}
@@ -272,8 +226,8 @@ package gs.display.decorators
 		 */
 		private function onMouseOut(e:MouseEvent):void
 		{
-			if(!en)return;
-			snm.getGroup(groupId).playSound(_outSound);
+			if(!enabled)return;
+			_outSound.play();
 		}
 		
 		/**
@@ -281,11 +235,9 @@ package gs.display.decorators
 		 * 
 		 * @param val An audibleId that get's used with the sound manager.
 		 */
-		public function set upOutsideSound(soundLibraryName:String):void
+		public function set upOutsideSound(ao:AudioObject):void
 		{
-			if(_upOutsideSound)snm.getGroup(groupId).removeObject(_upOutsideSound);
-			snm.getGroup(groupId).addObject(soundLibraryName.toLowerCase(),AssetManager.getSound(soundLibraryName));
-			_upOutsideSound=soundLibraryName.toLowerCase();
+			_upOutsideSound=ao;
 			useUpOutside=true;
 			sprite.addEventListener(MouseEvent.MOUSE_DOWN,onMouseDownForOutside);
 			if(!sprite.stage)
@@ -313,12 +265,11 @@ package gs.display.decorators
 		 */
 		private function onMouseUpStage(e:MouseEvent):void
 		{
-			if(!en)return;
-			if(!clipStageRef)return;
+			if(!enabled||!clipStageRef)return;
 			if(sprite.hitTestPoint(clipStageRef.mouseX,clipStageRef.mouseY)) return;
 			if(!downOverSprite)return;
 			downOverSprite=false;
-			snm.getGroup(groupId).playSound(_upOutsideSound);
+			_upOutsideSound.play();
 		}
 		
 		/**
@@ -360,7 +311,7 @@ package gs.display.decorators
 			sprite.removeEventListener(MouseEvent.MOUSE_DOWN,onMouseDown);
 			sprite.removeEventListener(MouseEvent.MOUSE_OUT,onMouseOut);
 			sprite.removeEventListener(MouseEvent.MOUSE_UP,onMouseUp);
-			en=false;
+			enabled=false;
 			_clicksound=null;
 			_downSound=null;
 			_outSound=null;
@@ -369,10 +320,8 @@ package gs.display.decorators
 			_upSound=null;
 			sprite=null;
 			clipStageRef=null;
-			snm=null;
 			useUpOutside=false;
 			downOverSprite=false;
-			groupId=null;
 		}
 	}
 }
