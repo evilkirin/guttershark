@@ -61,7 +61,7 @@ package gs.audio
 	[Event("unmute", type="gs.events.AudioEvent")]
 	
 	/**
-	 * The AudioGroup class controls multiple AudioObject instances.
+	 * The AudioGroup class controls multiple audible objects.
 	 * 
 	 * <p><b>Examples</b> are in the <a target="_blank" href="http://gitweb.codeendeavor.com/?p=guttershark.git;a=summary">guttershark</a> repository.</p>
 	 * 
