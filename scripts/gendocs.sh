@@ -1,42 +1,81 @@
 #!/usr/bin/env bash
-#-exclude-classes net.guttershark.StartHere \
-#-exclude-classes net.guttershark.ext.xview.BaseXView \
-#-exclude-classes net.guttershark.ext.xview.XViewManager \
 ME=`whoami`
-ASDOC="/Users/${ME}/dev/flex3sdk/bin/"
-AS_PATH="/Users/${ME}/dev/codelibs/as/"
+ASDOC="/Users/${ME}/Development/lib/flex3sdk/bin/"
+AS_PATH="/Users/${ME}/Development/lib/actionscript/"
 rm -rf ./docs/*
 ${ASDOC}asdoc \
 -source-path ./src/as/ \
 -source-path ${AS_PATH}/externals/ \
--source-path "/Applications/Adobe CS3/Adobe Flash CS3/Configuration/Component Source/ActionScript 3.0/User Interface" \
--source-path "/Applications/Adobe CS3/Adobe Flash CS3/Configuration/Component Source/ActionScript 3.0/FLVPlayback" \
--source-path "/Applications/Adobe CS3/Adobe Flash CS3/Configuration/ActionScript 3.0/Classes"  \
--doc-sources ./src/as/net/guttershark/ \
+-source-path "/Applications/Adobe Flash CS4/Common/Configuration/Component Source/ActionScript 3.0/User Interface" \
+-source-path "/Applications/Adobe Flash CS4/Common/Configuration/Component Source/ActionScript 3.0/FLVPlayback" \
+-source-path "/Applications/Adobe Flash CS4/Common/Configuration/ActionScript 3.0/projects/Flash/src" \
+-doc-sources ./src/as/gs/ \
 -main-title "Guttershark Flash API Docs" \
 -window-title "Guttershark Flash API Docs" \
 -output ./docs/ \
--exclude-classes net.guttershark.display.Carousel \
--exclude-classes net.guttershark.display.carousel.Carousel \
--exclude-classes net.guttershark.display.DropDown \
--exclude-classes net.guttershark.display.combo.ComboBox \
--exclude-classes net.guttershark.display.Slider \
--exclude-classes net.guttershark.display.slider.Slider \
--exclude-classes net.guttershark.display.tree.Tree \
--exclude-classes net.guttershark.display.tree.TreeEvent \
--exclude-classes net.guttershark.display.tree.TreeNode \
--exclude-classes net.guttershark.display.tree.TreeNodeRenderer \
--exclude-classes net.guttershark.display.tree.TreeNodeStates \
--exclude-classes net.guttershark.display.tree.TreeNodeTypes \
--exclude-classes net.guttershark.display.particle.stencil.StencilRenderer \
--exclude-classes net.guttershark.display.particle.stencil.StencilParticle \
--exclude-classes net.guttershark.display.particle.stencil.Pixel \
--exclude-classes net.guttershark.display.particle.stencil.IRendererEffect \
+-exclude-classes com.adobe.serialization.json.JSON \
+-exclude-classes com.adobe.serialization.json.JSONDecoder \
+-exclude-classes com.adobe.serialization.json.JSONEncoder \
+-exclude-classes com.adobe.serialization.json.JSONParseError \
+-exclude-classes com.adobe.serialization.json.JSONToken \
+-exclude-classes com.adobe.serialization.json.JSONTokenizer \
+-exclude-classes com.adobe.serialization.json.JSONTokenType \
+-exclude-classes com.greensock.TweenLite \
+-exclude-classes com.greensock.TweenMax \
+-exclude-classes com.greensock.OverwriteManager \
+-exclude-classes com.greensock.events.TweenEvent \
+-exclude-classes com.greensock.plugins.AutoAlphaPlugin \
+-exclude-classes com.greensock.plugins.BevelFilterPlugin \
+-exclude-classes com.greensock.plugins.BezierPlugin \
+-exclude-classes com.greensock.plugins.BezierThroughPlugin \
+-exclude-classes com.greensock.plugins.BevelThroughPlugin \
+-exclude-classes com.greensock.plugins.BlurFilterPlugin \
+-exclude-classes com.greensock.plugins.ColorMatrixFilterPlugin \
+-exclude-classes com.greensock.plugins.ColorTransformPlugin \
+-exclude-classes com.greensock.plugins.DropShadowFilterPlugin \
+-exclude-classes com.greensock.plugins.EndArrayPlugin \
+-exclude-classes com.greensock.plugins.FilterPlugin \
+-exclude-classes com.greensock.plugins.FrameLabelPlugin \
+-exclude-classes com.greensock.plugins.FramePlugin \
+-exclude-classes com.greensock.plugins.GlowFilterPlugin \
+-exclude-classes com.greensock.plugins.HexColorsPlugin \
+-exclude-classes com.greensock.plugins.RemoveTintPlugin \
+-exclude-classes com.greensock.plugins.RoundPropsPlugin \
+-exclude-classes com.greensock.plugins.ShortRotationPlugin \
+-exclude-classes com.greensock.plugins.TintPlugin \
+-exclude-classes com.greensock.plugins.TweenPlugin \
+-exclude-classes com.greensock.plugins.VisiblePlugin \
+-exclude-classes com.greensock.plugins.VolumePlugin \
+-exclude-classes com.greensock.core.PropTween \
+-exclude-classes com.greensock.core.SimpleTimeline \
+-exclude-classes com.greensock.core.TweenCore \
+-exclude-classes com.greensock.easing.Quad \
+-exclude-classes com.adobe.crypto.MD5 \
+-exclude-classes com.adobe.utils.IntUtil \
+-exclude-classes gs.display.Carousel \
+-exclude-classes gs.display.carousel.Carousel \
+-exclude-classes gs.display.DropDown \
+-exclude-classes gs.display.combo.ComboBox \
+-exclude-classes gs.display.Slider \
+-exclude-classes gs.display.slider.Slider \
+-exclude-classes gs.display.tree.Tree \
+-exclude-classes gs.display.tree.TreeEvent \
+-exclude-classes gs.display.tree.TreeNode \
+-exclude-classes gs.display.tree.TreeNodeRenderer \
+-exclude-classes gs.display.tree.TreeNodeStates \
+-exclude-classes gs.display.tree.TreeNodeTypes \
+-exclude-classes gs.display.particle.stencil.StencilRenderer \
+-exclude-classes gs.display.particle.stencil.StencilParticle \
+-exclude-classes gs.display.particle.stencil.Pixel \
+-exclude-classes gs.display.particle.stencil.IRendererEffect \
 -exclude-classes gs.easing.Quad \
--exclude-classes net.guttershark.display.ScrollContainer \
+-exclude-classes gs.display.ScrollContainer \
+-exclude-classes gs.display.video.FLVPlayer \
+-exclude-classes gs.util.fileref.Downloader \
 -exclude-classes com.asual.swfaddress.SWFAddress \
 -exclude-classes com.asual.swfaddress.SWFAddressEvent \
--exclude-classes net.guttershark.display.video.FLVPlayer \
+-exclude-classes fl.video.SeekBarAccImpl \
+-exclude-classes fl.video.VolumeBarAccImpl \
 -exclude-classes fl.events.ColorPickerEvent \
 -exclude-classes fl.events.ComponentEvent \
 -exclude-classes fl.events.DataChangeEvent \
@@ -100,40 +139,57 @@ ${ASDOC}asdoc \
 -exclude-classes fl.video.VideoScaleMode \
 -exclude-classes fl.video.VideoState \
 -left-frameset-width 350 \
--package net.guttershark "The net.guttershark package contains all Actionscript 3 classes, namespaces, and meta data for the net.guttershark package." \
--package net.guttershark.control "The net.guttershark.control package contains controller classes for an FLA, and preloading." \
--package net.guttershark.display.decorators "The net.guttershark.display.decorators package contains re-usable decorators." \
--package net.guttershark.display "The net.guttershark.display package contains all classes that are display objects, and are used in the display list." \
--package net.guttershark.display.accordion "The net.guttershark.display.accordion package contains classes that implement an accordion component." \
--package net.guttershark.display.list "The net.guttershark.display.list package contains classes that implement a list component." \
--package net.guttershark.display.tabbar "The net.guttershark.display.tabbar package contains classes that implement a tab bar component." \
--package net.guttershark.display.buttons "The net.guttershark.display.buttons package contains base classes for generic buttons." \
--package net.guttershark.display.draw "The net.guttershark.display.draw package contains display objects that are drawn with vectors." \
--package net.guttershark.display.text "The net.guttershark.display.text package contains generic text display objects." \
--package net.guttershark.display.tooltip "The net.guttershark.display.tooltip package contains base tool tip clips for the ToolTipManager." \
--package net.guttershark.display.video "The net.guttershark.video package contains classes use for video objects." \
--package net.guttershark.display.views "The net.guttershark.display.controls.views package contains base classes for generic views." \
--package net.guttershark.managers "The net.guttershark.managers package contains manager classes that simplify many mundane programming tasks." \
--package net.guttershark.model "The net.guttershark.model package contains classes for working with model classes and model xml." \
--package net.guttershark.support "The net.guttershark.support package contains all classes that support, managers,controllers and events and generally aren't used directly, with the exception of a couple classes." \
--package net.guttershark.display.xview "The net.guttershark.display.xview package contains classes for working with and creating views from an xml source (xview)." \
--package net.guttershark.ext.display.controls "The net.guttershark.ext.display.controls package contains extra pre-built controls." \
--package net.guttershark.support.eventmanager "The net.guttershark.support.eventmanager contains all support classes for the EventManager, and other event listener delegates you can opt into for components." \
--package net.guttershark.support.bindings "The net.guttershark.support.bindings package contains all support classes for the BindingUtils class." \
--package net.guttershark.support.events "The net.guttershark.support.events package contains supporting events for guttershark controllers, models, and display objects." \
--package net.guttershark.support.layoutmanager "The net.guttershark.support.layoutmanager package contains classes that support the LayoutManager." \
--package net.guttershark.support.preloading "The net.guttershark.support.preloading package contains classes that support a PreloadController." \
--package net.guttershark.support.preloading.events "The net.guttershark.support.preloading.events package contains event classes used with a PreloadController." \
--package net.guttershark.support.preloading.workers "The net.guttershark.support.preloading.worker package contains worker classes that implement loading of different types of assets from a PreloadingController." \
--package net.guttershark.support.servicemanager.http "The net.guttershark.support.servicemanager.http package contains classes that implement HTTP service calls with the ServiceManager." \
--package net.guttershark.support.servicemanager.remoting "The net.guttershark.support.servicemanager.remoting package contains classes that implement Flash Remoting calls with the ServiceManager." \
--package net.guttershark.support.servicemanager.shared "The net.guttershark.support.servicemanager.shared package contains classes that are shared between different service call implementations with the ServiceManager." \
--package net.guttershark.support.servicemanager.soap "The net.guttershark.support.servicemanager.soap package contains classes that implement soap calls with the ServiceManager." \
--package net.guttershark.support.soundmanager "The net.guttershark.support.soundmanager package contains all support classes for the SoundManager class." \
--package net.guttershark.util "The net.guttershark.util package contains all utility classes and sub packages." \
--package net.guttershark.util.akamai "The net.guttershark.akamai package contains utility classes for Akamai services." \
--package net.guttershark.util.autosuggest "The net.guttershark.util.autosuggest package contains utility classes that help create an auto suggest." \
--package net.guttershark.util.cache "The net.guttershark.util.cache package contains utility classes that cache objects in memory." \
--package net.guttershark.util.collections "The net.guttershark.util.collections package contains utility classes that define abstract data structures." \
--package net.guttershark.util.filters "The net.guttershark.util.filters package contains utility classes that simplify working with filters." \
--package net.guttershark.util.geom "The net.guttershark.util.geom package contains classes that define basic geometry."
+-package gs "The gs package contains all Actionscript 3 classes, namespaces, and meta data for the gs package." \
+-package gs.audio "The gs.audio package contains classes that simplify managing and playing audio." \
+-package gs.core "The gs.core package contains core classes for working with guttershark." \
+-package gs.control "The gs.control package contains stub document controller classes." \
+-package gs.display "The gs.display package contains classes that are display objects and sub packages for more display objects." \
+-package gs.display.decorators "The gs.display.decorators package contains re-usable decorators." \
+-package gs.display.button "The gs.display.button package contains classes that implement buttons." \
+-package gs.display.accordion "The gs.display.accordion package contains classes that implement an accordion component." \
+-package gs.display.list "The gs.display.list package contains classes that implement a list component." \
+-package gs.display.flv "The gs.display.flv package contains classes that implement flv." \
+-package gs.display.shapes "The gs.display.shapes package contains re-usable shapes." \
+-package gs.display.tabbar "The gs.display.tabbar package contains classes that implement a tab bar component." \
+-package gs.display.text "The gs.display.text package contains classes that help render text." \
+-package gs.display.buttons "The gs.display.buttons package contains base classes for generic buttons." \
+-package gs.display.draw "The gs.display.draw package contains display objects that are drawn with vectors." \
+-package gs.display.text "The gs.display.text package contains generic text display objects." \
+-package gs.display.tooltip "The gs.display.tooltip package contains base tool tip clips for a tool tip manager." \
+-package gs.display.video "The gs.video package contains classes use for video objects." \
+-package gs.display.views "The gs.display.controls.views package contains base classes for generic views." \
+-package gs.display.view "The gs.display.view package contains view classes." \
+-package gs.display.xmlview "The gs.display.xmlview package contains classes for working with and creating views from an xml source." \
+-package gs.events "The gs.events package contains event classes." \
+-package gs.http "The gs.http package contains classes that simplify http." \
+-package gs.managers "The gs.managers package contains manager classes that simplify many mundane programming tasks." \
+-package gs.model "The gs.model package contains classes for working with model classes and model xml." \
+-package gs.preloading "The gs.preloading package contains classes for preloading." \
+-package gs.preloading.workers "The gs.preloading.worker package contains worker classes that implement loading of different types of assets." \
+-package gs.remoting "The gs.service.remoting package contains classes that simplify remoting services." \
+-package gs.rtmp "The gs.rtmp package contains classes for working with RTMP." \
+-package gs.rtmp.core "The gs.rtmp.core package contains the core RTMP connection classes." \
+-package gs.rtmp.rso "The gs.rtmp.rso package contains classes for remote shared objects with RTMP." \
+-package gs.rtmp.conference "The gs.rtmp.conference package contains classes for building conference rooms with RTMP." \
+-package gs.soap "The gs.soap package contains classes that simplify soap services." \
+-package gs.support "The gs.support package contains all classes that support, managers,controllers and events and generally aren't used directly, with the exception of a couple classes." \
+-package gs.support.eventmanager "The gs.support.eventmanager contains all support classes for the EventManager, and other event listener delegates you can opt into for components." \
+-package gs.support.events "The gs.support.events package contains supporting events for guttershark controllers, models, and display objects." \
+-package gs.support.layoutmanager "The gs.support.layoutmanager package contains classes that support the LayoutManager." \
+-package gs.support.preloading.events "The gs.support.preloading.events package contains event classes used with a PreloadController." \
+-package gs.support.servicemanager.http "The gs.support.servicemanager.http package contains classes that implement HTTP service calls with the ServiceManager." \
+-package gs.support.servicemanager.remoting "The gs.support.servicemanager.remoting package contains classes that implement Flash Remoting calls with the ServiceManager." \
+-package gs.support.servicemanager.shared "The gs.support.servicemanager.shared package contains classes that are shared between different service call implementations with the ServiceManager." \
+-package gs.support.servicemanager.soap "The gs.support.servicemanager.soap package contains classes that implement soap calls with the ServiceManager." \
+-package gs.support.soundmanager "The gs.support.soundmanager package contains all support classes for the SoundManager class." \
+-package gs.support.tracking "The gs.support.tracking package contains all support classes for the TrackingManager class." \
+-package gs.util "The gs.util package contains all utility functions, classes and sub packages." \
+-package gs.util.akamai "The gs.util.akamai package contains utility classes for Akamai services." \
+-package gs.util.autosuggest "The gs.util.autosuggest package contains utility classes that help create an auto suggest." \
+-package gs.util.bindings "The gs.util.bindings package contains all support classes for the BindingUtils class." \
+-package gs.util.cache "The gs.util.cache package contains utility classes that cache objects in memory." \
+-package gs.util.iters "The gs.util.iters package contains utility iterators." \
+-package gs.util.collections "The gs.util.collections package contains utility collections." \
+-package gs.util.filters "The gs.util.filters package contains utility classes that simplify working with filters." \
+-package gs.util.fileref "The gs.util.fileref package contains utility classes for working with FileReference and FileReferenceList." \
+-package gs.util.geom "The gs.util.geom package contains classes that define basic geometry."

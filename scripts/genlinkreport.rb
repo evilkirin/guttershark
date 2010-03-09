@@ -7,7 +7,7 @@ final_out << "-external-library-path '/Applications/Adobe Flash CS4/Common/Confi
 final_out << "-sp '/Applications/Adobe Flash CS4/Common/Configuration/Component Source/Actionscript 3.0/FLVPlayback/' "
 final_out << "-sp '/Applications/Adobe Flash CS4/Common/Configuration/Component Source/Actionscript 3.0/FLVPlaybackCaptioning/' "
 #final_out << "-sp '/Applications/Adobe Flash CS4/Common/Configuration/Component Source/Actionscript 3.0/User Interface/' "
-final_out << "-load-externs libs/gsreport.xml "
+final_out << "-link-report libs/report.xml "
 final_out << "-o libs/guttershark.swc "
 final_out << "-ic "
 d.each do |dir|
@@ -20,7 +20,7 @@ d.each do |dir|
 end
 final_out << " -optimize"
 final_out << " -debug=false"
-#final_out << " -compute-digest=true"
-#final_out << " -include-lookup-only=true"
-#final_out << " -verify-digests=true"
+final_out << " -compute-digest=true"
+final_out << " -include-lookup-only=true"
+final_out << " -verify-digests=true"
 system(final_out)

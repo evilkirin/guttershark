@@ -1,12 +1,13 @@
 require "fileutils"
 asfiles=File.join("./src/as/**","*.as")
 d=Dir.glob(asfiles)
-final_out="~/dev/flex3sdk/bin/compc "
-final_out << "-sp ~/dev/_projects/_git/guttershark/src/as/ "
-final_out << "-sp ~/dev/codelibs/as/externals/ "
-final_out << "-sp '/Applications/Adobe CS3/Adobe Flash CS3/Configuration/ActionScript 3.0/Classes' "
-final_out << "-sp '/Applications/Adobe CS3/Adobe Flash CS3/Configuration/Component Source/ActionScript 3.0/FLVPlayback' "
-final_out << "-sp '/Applications/Adobe CS3/Adobe Flash CS3/Configuration/Component Source/ActionScript 3.0/User Interface' "
+final_out="~/Development/lib/flex3sdk/bin/compc "
+final_out << "-sp ~/Development/git/guttershark/src/as/ "
+final_out << "-sp ~/Development/lib/actionscript/externals/ "
+final_out << "-sp '/Applications/Adobe Flash CS4/Common/Configuration/ActionScript 3.0/FP10' "
+final_out << "-sp '/Applications/Adobe Flash CS4/Common/Configuration/Component Source/Actionscript 3.0/FLVPlayback/ ' "
+final_out << "-sp '/Applications/Adobe Flash CS4/Common/Configuration/Component Source/Actionscript 3.0/FLVPlaybackCaptioning/ ' "
+final_out << "-sp '/Applications/Adobe Flash CS4/Common/Configuration/Component Source/Actionscript 3.0/User Interface/ ' "
 final_out << "-directory=true -o ./bin/tmplib/ "
 final_out << "-ic "
 d.each do |dir|
