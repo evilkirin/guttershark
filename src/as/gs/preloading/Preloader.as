@@ -176,6 +176,7 @@ package gs.preloading
 			Worker.RegisterDefaultWorkers();
 			if(!loaderContext)this.loaderContext=new LoaderContext(false,ApplicationDomain.currentDomain);
 			else this.loaderContext=loaderContext;
+			this.loaderContext.checkPolicyFile=true;
 			totalPixelsToFill=pixelsToFill;
 			bytesTotalPool=[];
 			bytesLoadedPool=[];
