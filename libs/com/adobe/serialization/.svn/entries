@@ -1,19 +1,0 @@
-8
-
-dir
-22
-http://interactive.mccannsf.com/svn/repos/libmccannsf/AS3/flash/com/adobe/serialization
-http://interactive.mccannsf.com/svn/repos/libmccannsf
-
-
-
-2008-05-07T06:49:08.665692Z
-1
-asmith
-
-
-svn:special svn:externals svn:needs-lock
-
-json
-dir
-
