@@ -1,14 +1,21 @@
 package gs.managers
 {
-	import com.adobe.serialization.json.JSON;
 	import gs.display.flv.FLV;
-	import gs.util.*;
+	import gs.util.BitmapUtils;
+	import gs.util.XMLLoader;
 
-	import flash.display.*;
+	import com.adobe.serialization.json.JSON;
+
+	import flash.display.Bitmap;
+	import flash.display.BitmapData;
+	import flash.display.Loader;
+	import flash.display.MovieClip;
+	import flash.display.Sprite;
 	import flash.media.Sound;
 	import flash.net.NetStream;
 	import flash.system.ApplicationDomain;
-	import flash.text.*;
+	import flash.text.Font;
+	import flash.text.StyleSheet;
 	import flash.utils.Dictionary;
 
 	/**
