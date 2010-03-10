@@ -94,6 +94,11 @@ package gs.http
 		public var onHTTPStatus:Function;
 		
 		/**
+		 * A callback to handle closing of this http call.
+		 */
+		public var onClose:Function;
+		
+		/**
 		 * The time each attempt is given before timeing out,
 		 * and trying again.
 		 */
@@ -233,6 +238,7 @@ package gs.http
 		 * <li>onProgress (Function) - The on progress handler.</li>
 		 * <li>onHTTPStatus (Function) - The on http status handler.</li>
 		 * <li>onOpen (Function) - The on open handler.</li>
+		 * <li>opClose (Function) _ The on close handler.</li>
 		 * <li>onIOError (Function) - The on io error handler.</li>
 		 * <li>onSecurityError (Function) - The on security error handler.</li>
 		 * </ul>
@@ -241,6 +247,7 @@ package gs.http
 		 */
 		public function setCallbacks(callbacks:Object):void
 		{
+			onClose=callbacks.onClose;
 			onOpen=callbacks.onOpen;
 			onHTTPStatus=callbacks.onHTTPStatus;
 			onIOError=callbacks.onIOError;
@@ -308,6 +315,19 @@ package gs.http
 		public function get data():Object
 		{
 			return _data;
+		}
+		
+		/**
+		 * Close this HTTPCall and stop any load operation.
+		 */
+		public function close():void
+		{
+			try{if(loader)loader.close();}catch(e:*){}
+			removeEventListeners();
+			sent=false;
+			complete=false;
+			tries=0;
+			if(onClose!=null)onClose();
 		}
 		
 		/**
@@ -466,6 +486,7 @@ package gs.http
 			onIOError=null;
 			onHTTPStatus=null;
 			onOpen=null;
+			onClose=null;
 			onSecurityError=null;
 			responseFormat=null;
 			resultHandler=null;

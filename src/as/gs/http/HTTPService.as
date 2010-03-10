@@ -96,6 +96,10 @@ package gs.http
 		/**
 		 * Send an http call.
 		 * 
+		 * <p>This method returns the HTTPCall instance that's doing the work for
+		 * you. You only need to hold onto the reference if for some
+		 * reason you need to close the http call.</p>
+		 * 
 		 * <p>The call props object supports these properties:</p>
 		 * 
 		 * <ul>
@@ -114,11 +118,12 @@ package gs.http
 		 * <li>onProgress (Function) - The on progress handler.</li>
 		 * <li>onHTTPStatus (Function) - The on http status handler.</li>
 		 * <li>onOpen (Function) - The on open handler.</li>
+		 * <li>onClose (Function) - The on close handler.</li>
 		 * <li>onIOError (Function) - The on io error handler.</li>
 		 * <li>onSecurityError (Function) - The on security error handler.</li>
 		 * </ul>
 		 */
-		public function send(urlpath:String,callProps:Object):void
+		public function send(urlpath:String,callProps:Object):HTTPCall
 		{
 			if(!urlpath||urlpath=="")throw new ArgumentError("ERROR: Parameter {urlpath} cannot be null.");
 			if(!callProps.method)throw new ArgumentError("ERROR: The callProps arguments must have a 'method' property set to either GET or POST.");
@@ -128,6 +133,19 @@ package gs.http
 			var hc:HTTPCall=new HTTPCall(path,callProps.method,callProps.data,time,retry,callProps.responseFormat||callProps.resFormat,callProps.resultHandler);
 			hc.setCallbacks(callProps);
 			hc.send();
+			return hc;
+		}
+		
+		/**
+		 * Dispose of this http service.
+		 */
+		public function dispose():void
+		{
+			HTTPService.unset(id);
+			id=null;
+			baseurl=null;
+			timeout=0;
+			retries=0;
 		}
 	}
 }
