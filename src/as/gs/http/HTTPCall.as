@@ -243,7 +243,7 @@ package gs.http
 		 * <li>onProgress (Function) - The on progress handler.</li>
 		 * <li>onHTTPStatus (Function) - The on http status handler.</li>
 		 * <li>onOpen (Function) - The on open handler.</li>
-		 * <li>opClose (Function) _ The on close handler.</li>
+		 * <li>onClose (Function) - The on close handler.</li>
 		 * <li>onIOError (Function) - The on io error handler.</li>
 		 * <li>onSecurityError (Function) - The on security error handler.</li>
 		 * </ul>
