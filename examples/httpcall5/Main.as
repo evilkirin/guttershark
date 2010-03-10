@@ -34,7 +34,6 @@ package
 			trace("close");
 			
 			//the request was closed, and I want to resend it.
-			hc.onClose=null;
 			hc.send();
 		}
 
