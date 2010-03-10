@@ -441,6 +441,7 @@ package gs.preloading
 			currentItem=null;
 			if(lastCompletedAsset)lastCompleteAsset.dispose();
 			lastCompleteAsset=null;
+			loaderContext=null;
 		}
 
 		/**
