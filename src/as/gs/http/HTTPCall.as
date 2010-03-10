@@ -164,6 +164,11 @@ package gs.http
 		private var complete:Boolean;
 		
 		/**
+		 * Internal request url.
+		 */
+		private var _requestURL:String;
+		
+		/**
 		 * Get an HTTPCall instance.
 		 * 
 		 * @param id The id of the http call.
@@ -223,7 +228,7 @@ package gs.http
 			data=_data;
 			method=_method;
 		}
-		
+
 		/**
 		 * Set callbacks for events.
 		 * 
@@ -315,6 +320,24 @@ package gs.http
 		public function get data():Object
 		{
 			return _data;
+		}
+		
+		/**
+		 * The url for the internal request.
+		 */
+		public function set requestURL(val:String):void
+		{
+			_requestURL=val;
+			request=new URLRequest(val);
+			request.requestHeaders=[];
+		}
+		
+		/**
+		 * The url for the internal request.
+		 */
+		public function get requestURL():String
+		{
+			return _requestURL;
 		}
 		
 		/**
@@ -493,6 +516,7 @@ package gs.http
 			sent=false;
 			timeoutid=NaN;
 			complete=false;
+			_requestURL=null;
 			_method=null;
 			_data=null;
 		}
