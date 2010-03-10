@@ -19,5 +19,13 @@ package gs.remoting
 		 * The fault object.
 		 */
 		public var fault:Object;
+		
+		/**
+		 * Dispose of this remoting call fault.
+		 */
+		public function dispose():void
+		{
+			fault=null;
+		}
 	}
 }

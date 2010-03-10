@@ -19,5 +19,13 @@ package gs.remoting
 		 * The result object.
 		 */
 		public var result:Object;
+		
+		/**
+		 * Dispose of this remoting call result.
+		 */
+		public function dispose():void
+		{
+			result=null;
+		}
 	}
 }
