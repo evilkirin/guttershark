@@ -58,7 +58,11 @@ package gs.soap
 		}
 		
 		/**
+		 * Traces out a more dscriptive message.
 		 * 
+		 * <listing>	
+		 * return "[Name: "+name+", ServicePath: " +servicePath+", Parameters: " +params+"]";
+		 * </listing>
 		 */
 		public function toString():String
 		{
