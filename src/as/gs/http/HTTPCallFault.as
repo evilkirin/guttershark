@@ -49,5 +49,19 @@ package gs.http
 		 * The text fault object.
 		 */
 		public var text:String;
+		
+		/**
+		 * Dispose of this http call fault.
+		 */
+		public function dispose():void
+		{
+			rawResult=null;
+			fault=null;
+			json=null;
+			vars=null;
+			xml=null;
+			binary=null;
+			text=null;
+		}
 	}
 }

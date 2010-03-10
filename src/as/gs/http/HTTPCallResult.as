@@ -45,5 +45,17 @@ package gs.http
 		 */
 		public var xml:XML;
 		
+		/**
+		 * Dispose of this http call result.
+		 */
+		public function dispose():void
+		{
+			rawResult=null;
+			json=null;
+			text=null;
+			binary=null;
+			vars=null;
+			xml=null;
+		}
 	}
 }
