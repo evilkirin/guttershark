@@ -84,6 +84,15 @@ package gs.util
 		}
 		
 		/**
+		 * Dispose of this xml namespace proxy.
+		 */
+		public function dispose():void
+		{
+			xml=null;
+			ns=null;
+		}
+
+		/**
 		 * Forwards a property lookup to the internal xml,
 		 * prefixed by the namespace.
 		 */
