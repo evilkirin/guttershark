@@ -72,6 +72,10 @@ ${ASDOC}asdoc \
 -exclude-classes gs.display.ScrollContainer \
 -exclude-classes gs.display.video.FLVPlayer \
 -exclude-classes gs.util.fileref.Downloader \
+-exclude-classes gs.tracking.Hitbox \
+-exclude-classes gs.tracking.Webtrends \
+-exclude-classes gs.tracking.Tracking \
+-exclude-classes gs.tracking.Omniture \
 -exclude-classes com.asual.swfaddress.SWFAddress \
 -exclude-classes com.asual.swfaddress.SWFAddressEvent \
 -exclude-classes fl.video.SeekBarAccImpl \
