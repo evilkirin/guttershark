@@ -65,6 +65,11 @@ package gs.soap
 		public var onHTTPStatus:Function;
 		
 		/**
+		 * A callback to handle closing of this soap call.
+		 */
+		public var onClose:Function;
+		
+		/**
 		 * Whether or not to trace the soap request before sending.
 		 */
 		public var traceSoapRequest:Boolean;
@@ -165,6 +170,7 @@ package gs.soap
 		 * <li>onSecurityError (Function) - The on security error callback.</li>
 		 * <li>onIOError (Function) - The on io error callback.</li>
 		 * <li>onHTTPStatus (Function) - The http status callback.</li>
+		 * <li>onClose (Function) - The on close handler.</li>
 		 * </ul>
 		 * 
 		 * @param callbacks The callback.
@@ -179,6 +185,7 @@ package gs.soap
 			onHTTPStatus=callbacks.onHTTPStatus;
 			onIOError=callbacks.onIOError;
 			onSecurityError=callbacks.onSecurityError;
+			onClose=callbacks.onCallback;
 		}
 		
 		/**
@@ -234,6 +241,17 @@ package gs.soap
 			execute();
 		}
 		
+		/**
+		 * Close this SoapCall and stop any load operation.
+		 */
+		public function close():void
+		{
+			try{loader.close();}catch(e:*){}
+			completed=false;
+			tries=0;
+			if(onClose!=null)onClose();
+		}
+
 		/**
 		 * Executes the call.
 		 */
