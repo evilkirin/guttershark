@@ -52,6 +52,16 @@ package gs.remoting
 		private var objectEncoding:int;
 		
 		/**
+		 * The username for credentials.
+		 */
+		private var user:String;
+		
+		/**
+		 * The password for credentials.
+		 */
+		private var pass:String;
+		
+		/**
 		 * Get a remoting service.
 		 * 
 		 * @param id The remoting service id.
@@ -135,9 +145,38 @@ package gs.remoting
 			var time:int=callProps.timeout||timeout;
 			var retry:int=callProps.retries||retries;
 			var rc:RemotingCall=new RemotingCall(gateway,endpoint,method,objectEncoding,time,retry,callProps.resultHandler);
+			rc.setCredentials(user,pass);
 			rc.setCallbacks(callProps);
 			if(!callProps.args && !callProps.arguments)callProps.args=[];
 			rc.send(callProps.args||callProps.arguments);
+		}
+		
+		/**
+		 * Set authentication credentials.
+		 * 
+		 * @param user The user id.
+		 * @param _pass The password.
+		 */
+		public function setCredentials(_user:String,_pass:String):void
+		{
+			user=_user;
+			pass=_pass;
+		}
+
+		/**
+		 * Dispose of this remoting service.
+		 */
+		public function dispose():void
+		{
+			RemotingService.unset(id);
+			id=null;
+			pass=null;
+			user=null;
+			gateway=null;
+			endpoint=null;
+			timeout=0;
+			retries=0;
+			objectEncoding=0;
 		}
 	}
 }
