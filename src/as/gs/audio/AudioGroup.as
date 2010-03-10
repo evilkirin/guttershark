@@ -590,16 +590,8 @@ package gs.audio
 			id=null;
 			audibleOptions=null;
 			var key:String;
-			for(key in audibles)
-			{
-				audibles[key]=null;
-				delete audibles[key];
-			}
-			for(key in objs)
-			{
-				objs[key]=null;
-				delete objs[key];
-			}
+			for(key in audibles)delete audibles[key];
+			for(key in objs)delete objs[key];
 			playingObjs=null;
 			transform=null;
 		}
