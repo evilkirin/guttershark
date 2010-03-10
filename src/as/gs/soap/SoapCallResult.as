@@ -58,5 +58,16 @@ package gs.soap
 		{
 			nspaceProxy=new XMLNamespaceProxy(body,new Namespace("",uri));
 		}
+		
+		/**
+		 * Dispose of this soap call result.
+		 */
+		public function dispose():void
+		{
+			raw=null;
+			xml=null;
+			nspace=null;
+			body=null;
+		}
 	}
 }
