@@ -174,6 +174,10 @@ package gs.soap
 		/**
 		 * Send a soap call.
 		 * 
+		 * <p>This method returns the SoapCall instance that's doing the work for
+		 * you. You only need to hold onto the reference if for some
+		 * reason you need to close the soap call.</p>
+		 * 
 		 * <p>You can pass these callProps properties:</p>
 		 * 
 		 * <ul>
@@ -196,20 +200,21 @@ package gs.soap
 		 * @param method The method to call.
 		 * @param callProps Call properties.
 		 */
-		public function send(method:String,callProps:Object):void
+		public function send(method:String,callProps:Object):SoapCall
 		{
 			if(!callProps)callProps={};
 			if(!methodsLookup[method])
 			{
 				if(callProps.onMethodNotAvailable)callProps.onMethodNotAvailable();
 				trace("WARNING: Soap method {"+method+"} is not available. Not doing anything.");
-				return;
+				return null;
 			}
 			var time:int=callProps.timeout||timeout;
 			var retry:int=callProps.retries||retries;
 			var sc:SoapCall=new SoapCall(this,methodsLookup[method],time,retry,callProps.resultHandler,callProps.traceSoapRequest);
 			sc.setCallbacks(callProps);
 			sc.send(callProps.args||callProps.arguments);
+			return sc;
 		}
 		
 		/**
