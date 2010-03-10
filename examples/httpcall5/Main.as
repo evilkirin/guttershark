@@ -20,7 +20,7 @@ package
 		{
 			hc=new HTTPCall("http://www.google.com/");
 			hc.responseFormat=HTTPCallResponseFormat.TEXT;
-			hc.setCallbacks({onResult:result});
+			hc.setCallbacks({onResult:result,onClose:close});
 			hc.send();
 			
 			setTimeout(hc.close,200);
@@ -29,6 +29,15 @@ package
 			trace(HTTPCall.get("test"));
 		}
 		
+		private function close():void
+		{
+			trace("close");
+			
+			//the request was closed, and I want to resend it.
+			hc.onClose=null;
+			hc.send();
+		}
+
 		protected function result(r:HTTPCallResult):void
 		{
 			trace(r.text);
