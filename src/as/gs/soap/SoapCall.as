@@ -135,6 +135,11 @@ package gs.soap
 		private var timeoutid:Number;
 		
 		/**
+		 * Whether or not the call was sent.
+		 */
+		private var sent:Boolean;
+		
+		/**
 		 * Constructor for SoapCall instances.
 		 * 
 		 * @param _service The SoapService this call is sent to.
@@ -236,6 +241,8 @@ package gs.soap
 		 */
 		public function send(_args:Object):void
 		{
+			if(sent&&!completed)return;
+			sent=true;
 			args=_args;
 			buildRequestXML();
 			execute();
@@ -246,8 +253,9 @@ package gs.soap
 		 */
 		public function close():void
 		{
-			try{loader.close();}catch(e:*){}
-			completed=false;
+			try{if(loader)loader.close();}catch(e:*){}
+			completed=true;
+			sent=false;
 			tries=0;
 			if(onClose!=null)onClose();
 		}
@@ -323,6 +331,7 @@ package gs.soap
 		{
 			if(completed)return;
 			completed=true;
+			sent=false;
 			clearTimeout(timeoutid);
 			if(onSecurityError!=null)onSecurityError(e);
 		}
@@ -334,6 +343,7 @@ package gs.soap
 		{
 			if(completed)return;
 			completed=true;
+			sent=false;
 			clearTimeout(timeoutid);
 			if(e.status==0 || e.status==200)return;
 			if(onHTTPStatus!=null)onHTTPStatus(e);
@@ -346,6 +356,7 @@ package gs.soap
 		{
 			//if(completed)return;
 			completed=true;
+			sent=false;
 			clearTimeout(timeoutid);
 			var raw:String=String(loader.data);
 			var handler:* =new resultHandler();
@@ -361,6 +372,7 @@ package gs.soap
 		{
 			if(completed)return;
 			completed=true;
+			sent=false;
 			clearTimeout(timeoutid);
 			if(onIOError!=null)onIOError(e);
 		}
