@@ -140,7 +140,7 @@ package gs.remoting
 		 * @param args The method arguments.
 		 * @param callProps The call properties used for the remoting call.
 		 */
-		public function send(method:String,callProps:Object):void
+		public function send(method:String,callProps:Object):RemotingCall
 		{
 			var time:int=callProps.timeout||timeout;
 			var retry:int=callProps.retries||retries;
@@ -149,6 +149,7 @@ package gs.remoting
 			rc.setCallbacks(callProps);
 			if(!callProps.args && !callProps.arguments)callProps.args=[];
 			rc.send(callProps.args||callProps.arguments);
+			return rc;
 		}
 		
 		/**
