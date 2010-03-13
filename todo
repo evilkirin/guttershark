@@ -1,6 +1,9 @@
 audio group
 audio object
+
 dispose RemotingCall method
+
+add close to Soap and Remoting
 
 -Add relative voluming into AudioGroup and AudioObject.
 -Remove sound manager?
