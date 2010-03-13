@@ -348,7 +348,7 @@ package gs.http
 			try{if(loader)loader.close();}catch(e:*){}
 			removeEventListeners();
 			sent=false;
-			complete=false;
+			complete=true;
 			tries=0;
 			if(onClose!=null)onClose();
 		}
