@@ -147,6 +147,12 @@ package gs.remoting
 		public var resultHandler:Class;
 		
 		/**
+		 * The handler for when you close this call
+		 * by calling close().
+		 */
+		public var onClose:Function;
+		
+		/**
 		 * Arguments to send to the method.
 		 */
 		private var args:Array;
@@ -324,6 +330,7 @@ package gs.remoting
 		 */
 		public function setCallbacks(callbacks:Object):void
 		{
+			if(!callbacks)return;
 			onResult=callbacks.onResult;
 			onFault=callbacks.onFault;
 			onTimeout=callbacks.onTimeout;
@@ -334,8 +341,22 @@ package gs.remoting
 			onClosed=callbacks.onClosed;
 			onProhibited=callbacks.onProhibited;
 			onSecurityError=callbacks.onSecurityError;
+			onClose=callbacks.onClose;
 		}
 		
+		/**
+		 * Closes the internal net connection and cancels
+		 * the request.
+		 */
+		public function close():void
+		{
+			try{if(connection)connection.close();}catch(e:*){}
+			sent=false;
+			complete=true;
+			tries=0;
+			if(onClose!=null)onClose();
+		}
+
 		/**
 		 * On io error.
 		 */
