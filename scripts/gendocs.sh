@@ -13,6 +13,11 @@ ${ASDOC}asdoc \
 -main-title "Guttershark Flash API Docs" \
 -window-title "Guttershark Flash API Docs" \
 -output ./docs/ \
+-exclude-classes deng.fzip.FZip \
+-exclude-classes deng.fzip.FZipEvent \
+-exclude-classes deng.fzip.FZipErrorEvent \
+-exclude-classes deng.fzip.FZipFile \
+-exclude-classes deng.utils.ChecksumUtil \
 -exclude-classes com.adobe.serialization.json.JSON \
 -exclude-classes com.adobe.serialization.json.JSONDecoder \
 -exclude-classes com.adobe.serialization.json.JSONEncoder \
