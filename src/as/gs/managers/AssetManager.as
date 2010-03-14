@@ -1,11 +1,14 @@
 package gs.managers
 {
+	import deng.fzip.FZip;
+	import deng.fzip.FZipFile;
+	
 	import gs.display.flv.FLV;
 	import gs.util.BitmapUtils;
 	import gs.util.XMLLoader;
-
+	
 	import com.adobe.serialization.json.JSON;
-
+	
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
 	import flash.display.Loader;
@@ -17,6 +20,7 @@ package gs.managers
 	import flash.text.Font;
 	import flash.text.StyleSheet;
 	import flash.utils.Dictionary;
+	import flash.utils.setTimeout;
 
 	/**
 	 * The AssetManager class is a helper that stores all assets
@@ -484,7 +488,53 @@ package gs.managers
 			if(cd.hasDefinition(exportName)) return cd.getDefinition(exportName) as Class;
 			throw new Error("Class {" + exportName + "} was not found.");
 		}
-
+		
+		/**
+		 * Get an FZip.
+		 * 
+		 * @param libraryName The library name used when the asset was registered.
+		 */
+		public static function getFZip(libraryName:String):FZip
+		{
+			return FZip(assets[libraryName]);
+		}
+		
+		/**
+		 * Send a bitmap from an fzip file to a receiver function.
+		 * 
+		 * <p>This method needs a reciever callback because the bitmap
+		 * is loaded by calling "loader.loadBytes" which takes a few milliseconds.
+		 * The bitmap will not be ready for you if this function returned
+		 * immediately.</p>
+		 * 
+		 * @example An example reciever function
+		 * <listing>	
+		 * function receiveBitmap(filename:String,bitmap:Bitmap):void{}
+		 * </listing>
+		 * 
+		 * @param fzip The FZip object.
+		 * @param filename The filename inside the fzip.
+		 * @param receiver The receiver function: <code>function(filename:String,bitmap:Bitmap).</code>
+		 * @param timeout (Optional) The time to wait before triggering the callback in milliseconds.
+		 */
+		public static function getBitmapFromFZip(fzip:FZip,filename:String,receiver:Function,timeout:Number=100):void
+		{
+			var loader:Loader=new Loader();
+			var fzipfile:FZipFile=fzip.getFileByName(filename);
+			loader.loadBytes(fzipfile.content);
+			setTimeout(_sendBitmap,timeout,filename,loader,receiver);
+		}
+		
+		/**
+		 * Sends bitmaps to a receiver function.
+		 */
+		private static function _sendBitmap(filename:String,loader:Loader,receiver:Function):void
+		{
+			var bitmap:Bitmap=BitmapUtils.copyBitmap(Bitmap(loader.content));
+			bitmap.smoothing=true;
+			receiver.apply(null,[filename,bitmap]);
+		}
+		
 		/**
 		 * Purge all assets from the library. The AssetManager is still
 		 * usable after a dispose - just the assets are disposed of.
