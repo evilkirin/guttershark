@@ -169,6 +169,7 @@ package gs.preloading.workers
 		 * <li>mp3</li>
 		 * <li>xml</li>
 		 * <li>zip</li>
+		 * <li>fzip</li>
 		 * <li>swf</li>
 		 * <li>flv</li>
 		 * <li>f4v</li>
@@ -199,6 +200,8 @@ package gs.preloading.workers
 			RegisterWorkerForFileType("json",JSONWorker);
 			RegisterWorkerForFileType("text",TextWorker);
 			RegisterWorkerForFileType("txt",TextWorker);
+			RegisterWorkerForFileType("zip",FZipWorker);
+			RegisterWorkerForFileType("fzip",FZipWorker);
 		}
 		
 		/**
@@ -272,8 +275,8 @@ package gs.preloading.workers
 		 */
 		protected function onProgress(pe:ProgressEvent):void
 		{
-			this.bytesLoaded = pe.bytesLoaded;
-			this.bytesTotal = pe.bytesTotal;
+			this.bytesLoaded=pe.bytesLoaded;
+			this.bytesTotal=pe.bytesTotal;
 			dispatchEvent(new AssetProgressEvent(AssetProgressEvent.PROGRESS,asset));
 		}
 		
