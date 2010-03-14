@@ -184,7 +184,7 @@ package gs.control
 		protected function onModelIOError():void{}
 		
 		/**
-		 * A hook you can override to cath security errors for the model.
+		 * A hook you can override to catch security errors for the model.
 		 */
 		protected function onModelSecurityError():void{}
 		
