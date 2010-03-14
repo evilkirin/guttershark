@@ -6,6 +6,10 @@ package gs.util
 	/**
 	 * The Disposer class is a helper that can simplify
 	 * disposing objects.
+	 * 
+	 * <p><b>Examples</b> are in the <a target="_blank" href="http://gitweb.codeendeavor.com/?p=guttershark.git;a=summary">guttershark</a> repository.</p>
+	 * 
+	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 */
 	public class Disposer 
 	{
