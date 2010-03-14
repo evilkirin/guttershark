@@ -1,5 +1,6 @@
 package gs.preloading
 {
+	import gs.events.FZipAssetAvailableEvent;
 	import gs.events.AssetCompleteEvent;
 	import gs.events.AssetErrorEvent;
 	import gs.events.AssetOpenEvent;
@@ -99,7 +100,7 @@ package gs.preloading
 		 */
 		public function load(controller:Preloader,loaderContext:LoaderContext=null):void
 		{
-			this.controller = controller;
+			this.controller=controller;
 			worker=Worker.GetWorkerInstance(fileType);
 			addListenersToWorker();
 			worker.loaderContext=loaderContext;
@@ -119,6 +120,7 @@ package gs.preloading
 			worker.removeEventListener(AssetOpenEvent.OPEN,controller.open);
 			worker.removeEventListener(AssetStatusEvent.STATUS,onHTTPStatus);
 			worker.removeEventListener(SecurityErrorEvent.SECURITY_ERROR,onSecurityError);
+			worker.removeEventListener(FZipAssetAvailableEvent.AVAILABLE,onFZipAssetAvailable);
 		}
 		
 		/**
@@ -133,6 +135,15 @@ package gs.preloading
 			worker.addEventListener(AssetOpenEvent.OPEN,controller.open);
 			worker.addEventListener(AssetStatusEvent.STATUS,onHTTPStatus);
 			worker.addEventListener(SecurityErrorEvent.SECURITY_ERROR,onSecurityError);
+			worker.addEventListener(FZipAssetAvailableEvent.AVAILABLE,onFZipAssetAvailable);
+		}
+		
+		/**
+		 * On fzip asset available.
+		 */
+		private function onFZipAssetAvailable(e:FZipAssetAvailableEvent):void
+		{
+			controller.fzipAssetAvailable(e);
 		}
 		
 		/**
