@@ -1,5 +1,6 @@
 package gs.preloading
 {
+	import gs.events.FZipAssetAvailableEvent;
 	import gs.events.AssetCompleteEvent;
 	import gs.events.AssetErrorEvent;
 	import gs.events.AssetOpenEvent;
@@ -521,8 +522,18 @@ package gs.preloading
 		 * @param e AssetOpenEvent
 		 */
 		public function open(e:AssetOpenEvent):void
-		{	
+		{
 			dispatchEvent(new AssetOpenEvent(AssetOpenEvent.OPEN,e.asset));
+		}
+		
+		/**
+		 * @private
+		 * 
+		 * Dispatches the fzip asset available event.
+		 */
+		public function fzipAssetAvailable(e:FZipAssetAvailableEvent):void
+		{
+			dispatchEvent(new FZipAssetAvailableEvent(FZipAssetAvailableEvent.AVAILABLE,false,false,e.file));
 		}
 	}
 }
