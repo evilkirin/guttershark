@@ -18,7 +18,7 @@ package gs.audio
 		private var actions:Array;
 		
 		/**
-		 * Constructor for AudioTimeline isntances.
+		 * Constructor for AudioTimeline instances.
 		 */
 		public function AudioTimeline():void
 		{
