@@ -3,7 +3,6 @@ package
 	import deng.fzip.FZip;
 
 	import gs.control.DocumentController;
-	import gs.events.FZipAssetAvailableEvent;
 	import gs.events.PreloadProgressEvent;
 	import gs.managers.AssetManager;
 	import gs.preloading.Preloader;
@@ -28,7 +27,6 @@ package
 			preloader.addItems(model.getAssetsForPreload());
 			preloader.addEventListener(Event.COMPLETE,onPreloadComplete);
 			preloader.addEventListener(PreloadProgressEvent.PROGRESS,onPCProgress);
-			preloader.addEventListener(FZipAssetAvailableEvent.AVAILABLE,_onFZipAssetAvailable);
 			preloader.start();
 		}
 		
@@ -42,11 +40,6 @@ package
 		{
 			//trace(filename)
 			addChild(bitmap);
-		}
-		
-		private function _onFZipAssetAvailable(e:FZipAssetAvailableEvent):void
-		{
-			//trace("file::",e.file.filename);
 		}
 		
 		public function onPCProgress(pe:PreloadProgressEvent):void
