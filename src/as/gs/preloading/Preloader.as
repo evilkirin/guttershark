@@ -1,6 +1,5 @@
 package gs.preloading
 {
-	import gs.events.FZipAssetAvailableEvent;
 	import gs.events.AssetCompleteEvent;
 	import gs.events.AssetErrorEvent;
 	import gs.events.AssetOpenEvent;
@@ -9,13 +8,13 @@ package gs.preloading
 	import gs.events.PreloadProgressEvent;
 	import gs.managers.AssetManager;
 	import gs.preloading.workers.Worker;
-	
+
 	import flash.events.Event;
 	import flash.events.EventDispatcher;
 	import flash.system.ApplicationDomain;
 	import flash.system.LoaderContext;
 	import flash.utils.setTimeout;
-	
+
 	/**
 	 * Dispatched for each asset that has completed downloading.
 	 * 
@@ -524,16 +523,6 @@ package gs.preloading
 		public function open(e:AssetOpenEvent):void
 		{
 			dispatchEvent(new AssetOpenEvent(AssetOpenEvent.OPEN,e.asset));
-		}
-		
-		/**
-		 * @private
-		 * 
-		 * Dispatches the fzip asset available event.
-		 */
-		public function fzipAssetAvailable(e:FZipAssetAvailableEvent):void
-		{
-			dispatchEvent(new FZipAssetAvailableEvent(FZipAssetAvailableEvent.AVAILABLE,false,false,e.file));
 		}
 	}
 }
