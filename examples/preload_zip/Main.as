@@ -1,7 +1,5 @@
 package  
 {
-	import deng.fzip.FZip;
-
 	import gs.control.DocumentController;
 	import gs.events.PreloadProgressEvent;
 	import gs.managers.AssetManager;
@@ -32,13 +30,12 @@ package
 		
 		override protected function onPreloadComplete(e:Event):void
 		{
-			var fzip:FZip = AssetManager.getFZip("zip1");
-			AssetManager.getBitmapFromFZip(fzip,"icons/accept.png",_receiveBitmap);
+			AssetManager.getBitmapFromFZip( AssetManager.getFZip("zip1") ,"icons/accept.png", _receiveBitmap);
 		}
 		
 		private function _receiveBitmap(filename:String,bitmap:Bitmap):void
 		{
-			//trace(filename)
+			trace(filename);
 			addChild(bitmap);
 		}
 		
