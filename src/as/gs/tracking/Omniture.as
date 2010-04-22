@@ -4,8 +4,8 @@ package gs.tracking
 	import gs.util.XMLUtils;
 	
 	/**
-	 * The Omniture class handles firing an omniture
-	 * tracking event. Don't use this manually, create an
+	 * The Omniture fires omniture tracking events.
+	 * Don't use this manually, create an
 	 * instance and pass it to a Tracking instance.
 	 */
 	public class Omniture

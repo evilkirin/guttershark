@@ -6,7 +6,12 @@ package gs.tracking
 	import flash.utils.Dictionary;
 
 	/**
-	 * The Tracking class simplifies tracking.
+	 * The Tracking class handles firing tracking
+	 * events manually or from registered objects
+	 * that trigger tracking events.
+	 * 
+	 * <p>You need to set the omniture, webtrends and hitbox
+	 * properties to an instance before firing.</p>
 	 */
 	public class Tracking
 	{
