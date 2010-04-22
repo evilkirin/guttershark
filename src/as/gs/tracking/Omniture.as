@@ -7,6 +7,8 @@ package gs.tracking
 	 * The Omniture fires omniture tracking events.
 	 * Don't use this manually, create an
 	 * instance and pass it to a Tracking instance.
+	 * 
+	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 */
 	public class Omniture
 	{

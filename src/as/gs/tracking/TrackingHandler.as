@@ -6,6 +6,8 @@ package gs.tracking
 	/**
 	 * The TrackingHandler class is used internally
 	 * in a tracking instance.
+	 * 
+	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
 	 */
 	public class TrackingHandler 
 	{
