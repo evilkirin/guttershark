@@ -1,13 +1,11 @@
-package gs.support.tracking 
+package gs.tracking 
 {
-	import gs.managers.TrackingManager;
-
 	import flash.events.Event;
 	import flash.events.IEventDispatcher;
 
 	/**
 	 * The TrackingHandler class is used internally
-	 * in a tracking manager.
+	 * in a tracking instance.
 	 */
 	public class TrackingHandler 
 	{
@@ -33,26 +31,26 @@ package gs.support.tracking
 		public var options:Object;
 		
 		/**
-		 * Manager reference for the manager that actually
+		 * Tracking reference for the tracking that actually
 		 * fires the tracking call.
 		 */
-		protected var manager:TrackingManager;
+		protected var tracking:Tracking;
 		
 		/**
 		 * Constructor for TrackingHandler instances.
 		 * 
-		 * @param _manager A tracking manager reference.
+		 * @param _tracking A tracking reference.
 		 * @param _id The tracking id.
 		 * @param _obj The object that triggers the tracking call.
 		 * @param _event The event that triggers the tracking call.
 		 * @param _options Options for the tracking call.
 		 */
-		public function TrackingHandler(_manager:TrackingManager,_id:String,_obj:IEventDispatcher,_event:String,_options:Object)
+		public function TrackingHandler(_tracking:Tracking,_id:String,_obj:IEventDispatcher,_event:String,_options:Object)
 		{
-			if(!_manager)throw new ArgumentError("Parameter {_manager} cannot be null.");
+			if(!_tracking)throw new ArgumentError("Parameter {_tracking} cannot be null.");
 			if(!_event)throw new ArgumentError("Parameter {_event} cannot be null.");
 			if(!_obj)throw new ArgumentError("Parameter {_obj} cannot be null.");
-			manager=_manager;
+			tracking=_tracking;
 			id=_id;
 			obj=_obj;
 			obj.addEventListener(_event,handler);
@@ -61,11 +59,11 @@ package gs.support.tracking
 		}
 		
 		/**
-		 * When the event fires, tell the manager to fire a tracking call.
+		 * When the event fires, tell the tracking to fire a tracking call.
 		 */
 		private function handler(e:Event):void
 		{
-			manager.track(this);
+			tracking.track(id,options);
 		}
 		
 		/**
@@ -74,7 +72,7 @@ package gs.support.tracking
 		public function dispose():void
 		{
 			obj.removeEventListener(event,handler);
-			manager=null;
+			tracking=null;
 			obj=null;
 			id=null;
 			event=null;

@@ -1,6 +1,6 @@
 package gs.managers 
 {
-	import gs.support.tracking.TrackingHandler;
+	import gs.tracking.TrackingHandler;
 	import gs.util.PlayerUtils;
 
 	import flash.external.ExternalInterface;
@@ -201,12 +201,14 @@ package gs.managers
 		 */
 		public function register(obj:*,event:String,id:String=null,options:Object=null):void
 		{
-			if(!obj)throw new ArgumentError("Parameter {obj} cannot be null.");
+			trace("WARNING: The EventManager is deprecated.");
+			return;
+			/*if(!obj)throw new ArgumentError("Parameter {obj} cannot be null.");
 			if(!event)throw new ArgumentError("Parameter {event} cannot be null");
 			var th:TrackingHandler=new TrackingHandler(this,id,obj,event,options);
 			if(!objs[obj])objs[obj]=new Dictionary(true);
 			if(objs[obj][event])trace("WARNING: Overwriting a previous tracking handler.");
-			objs[obj][event]=th;
+			objs[obj][event]=th;*/
 		}
 		
 		/**
