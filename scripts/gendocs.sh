@@ -77,10 +77,6 @@ ${ASDOC}asdoc \
 -exclude-classes gs.display.ScrollContainer \
 -exclude-classes gs.display.video.FLVPlayer \
 -exclude-classes gs.util.fileref.Downloader \
--exclude-classes gs.tracking.Hitbox \
--exclude-classes gs.tracking.Webtrends \
--exclude-classes gs.tracking.Tracking \
--exclude-classes gs.tracking.Omniture \
 -exclude-classes com.asual.swfaddress.SWFAddress \
 -exclude-classes com.asual.swfaddress.SWFAddressEvent \
 -exclude-classes fl.video.SeekBarAccImpl \
@@ -191,7 +187,7 @@ ${ASDOC}asdoc \
 -package gs.support.servicemanager.shared "The gs.support.servicemanager.shared package contains classes that are shared between different service call implementations with the ServiceManager." \
 -package gs.support.servicemanager.soap "The gs.support.servicemanager.soap package contains classes that implement soap calls with the ServiceManager." \
 -package gs.support.soundmanager "The gs.support.soundmanager package contains all support classes for the SoundManager class." \
--package gs.support.tracking "The gs.support.tracking package contains all support classes for the TrackingManager class." \
+-package gs.tracking "The gs.tracking package contains tracking classes." \
 -package gs.util "The gs.util package contains all utility functions, classes and sub packages." \
 -package gs.util.akamai "The gs.util.akamai package contains utility classes for Akamai services." \
 -package gs.util.autosuggest "The gs.util.autosuggest package contains utility classes that help create an auto suggest." \
