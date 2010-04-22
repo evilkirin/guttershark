@@ -12,3 +12,6 @@ Actionscript 3 Library
 
 #LIBS#
 you'll need to link against the swcs in the libs folder
+
+#DOCS#
+http://codeendeavor.com/docs/gs/
