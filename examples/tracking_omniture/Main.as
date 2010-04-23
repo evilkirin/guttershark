@@ -36,7 +36,7 @@ package
 		{
 			//first we need to configure the actionsource object.
 			actionsource = new ActionSource();
-			var waEnv:String = flashvars.waEnv||"";
+			var waEnv:String = flashvars.waEnv||"test";
 			var waRS:String = flashvars.waRS||"";
 			var waOrg1:String = flashvars.waOrg1||"cim";
 			actionsource.channel = waOrg1;
