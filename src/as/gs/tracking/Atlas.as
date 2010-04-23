@@ -52,8 +52,10 @@ package gs.tracking
 		public function track(node:XML,options:Object):void
 		{
 			if(!Tracking.assertions(options))return;
-			try{loader.load(new URLRequest(node.toString()));}
-			catch(e:Error){}
+			try {
+				if(traces)trace("atlas()",node.toString());
+				loader.load(new URLRequest(node.toString()));
+			}catch(e:Error){}
 		}
 	}
 }

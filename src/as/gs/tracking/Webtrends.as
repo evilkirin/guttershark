@@ -50,11 +50,7 @@ package gs.tracking
 				if(dd[1])ti+=String(dd[1]);
 				if(dd[2])cg_n+=String(dd[2]);
 			}
-			if(traces)
-			{
-				trace(">>track webtrends");
-				trace("dcsMultiTrack","DCS.dcsuri",dcsuri,"WT.ti",ti,"WT_cg_n",cg_n);
-			}
+			if(traces) trace("webtrends() dcsMultiTrack","DCS.dcsuri",dcsuri,"WT.ti",ti,"WT_cg_n",cg_n);
 			if(!ExternalInterface.available)
 			{
 				trace("WARNING: ExternalInterface is not available for webtrends.");
