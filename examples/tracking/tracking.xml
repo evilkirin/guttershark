@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <tracking>
-	
 	<track id="trackTest1">
 		<omniture>
-			
 			<track>
-				<pageName>test</pageName> <!-- this is always required. -->
-				<!-- you can define any other properties. -->
+				<!-- this is always required. -->
+				<pageName>test</pageName>
+				<!--
+				you can define any other properties.
+				all defined properties are enumerated
+				and defined on the "actionsource" component
+				before firing.
+				-->
 				<prop6>test2</prop6>
+				<eVar4>hello</eVar4>
 			</track>
-			
 			<trackLink>
-				<url>http://www.whitehouse.ocom/</url> <!-- optional, if this isn't set it users the "name" as the url -->
+				<!-- track link tags will only ever have three parameters -->
+				<url>http://www.whitehouse.ocom/</url> <!-- optional, if this isn't set it uses the "name" as the url --> 
 				<type>o</type> <!-- o for custom, d for download, e for exit -->
 				<name>adfasdf</name>
 			</trackLink>
 		</omniture>
 	</track>
-	
 </tracking>
