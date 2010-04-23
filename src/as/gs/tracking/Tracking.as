@@ -191,7 +191,7 @@ package gs.tracking
 			if(XMLUtils.hasNode(node,"webtrends") && webtrends) webtrends.track(new XML(node.webtrends),options);
 			if(XMLUtils.hasNode(node,"hitbox") && hitbox) hitbox.track(new XML(node.hitbox),options);
 			if(XMLUtils.hasNode(node,"omniture") && omniture) omniture.track(new XML(node.omniture),options);
-			if(XMLUtils.hasNode(node,"atlas") && atlas) atlas.track(new XML(node.omniture),options);
+			if(XMLUtils.hasNode(node,"atlas") && atlas) atlas.track(new XML(node.atlas),options);
 			//if(XMLUtils.hasAttrib(node,"ganalytics") && hitbox) hitbox.track(node,options);
 		}
 		
