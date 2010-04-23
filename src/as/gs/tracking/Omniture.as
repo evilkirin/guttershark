@@ -4,11 +4,42 @@ package gs.tracking
 	import gs.util.XMLUtils;
 	
 	/**
-	 * The Omniture fires omniture tracking events.
-	 * Don't use this manually, create an
-	 * instance and pass it to a Tracking instance.
+	 * The Omniture class fires omniture tracking events.
+	 * 
+	 * <p>You don't use this manually, create an instance
+	 * and set it as the tracking.omniture property.</p>
+	 * 
+	 * @example Supported xml structure for tracking xml.
+	 * <listing>	
+	 * &lt;track id="trackTest1"&gt;
+	 *     &lt;omniture&gt;
+	 *         &lt;track&gt;
+	 *             &lt;!-- this is always required. --&gt;
+	 *             &lt;pageName&gt;test&lt;/pageName&gt;
+	 *             &lt;!--
+	 *             you can define any other properties.
+	 *             all defined properties are enumerated
+	 *             and defined on the "actionsource" component
+	 *             before firing.
+	 *             --&gt;
+	 *             &lt;prop6&gt;test2&lt;/prop6&gt;
+	 *             &lt;eVar4&gt;hello&lt;/eVar4&gt;
+	 *         &lt;/track&gt;
+	 *         &lt;trackLink&gt;
+	 *             &lt;!-- track link tags will only ever have three parameters --&gt;
+	 *             &lt;url&gt;http://www.whitehouse.ocom/&lt;/url&gt; &lt;!-- optional, if this isn't set it uses the "name" as the url --&gt; 
+	 *             &lt;type&gt;o&lt;/type&gt; &lt;!-- o for custom, d for download, e for exit --&gt;
+	 *             &lt;name&gt;adfasdf&lt;/name&gt;
+	 *         &lt;/trackLink&gt;
+	 *     &lt;/omniture&gt;
+	 * &lt;/track&gt;
+	 * </listing>
 	 * 
 	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
+	 * 
+	 * <p><b>Examples</b> are in the <a target="_blank" href="http://gitweb.codeendeavor.com/?p=guttershark.git;a=summary">guttershark</a> repository.</p>
+	 * 
+	 * @see gs.tracking.Tracking
 	 */
 	public class Omniture
 	{
@@ -46,6 +77,9 @@ package gs.tracking
 		
 		/**
 		 * Sends a tracking call.
+		 * 
+		 * @param node The xml node for omniture.
+		 * @param options Tracking options.
 		 */
 		public function track(node:XML,options:Object):void
 		{

@@ -1,21 +1,57 @@
 package gs.tracking 
 {
+	import gs.util.PlayerUtils;
 	import gs.util.XMLUtils;
 
 	import flash.events.IEventDispatcher;
 	import flash.utils.Dictionary;
 
 	/**
-	 * The Tracking class handles firing tracking
-	 * events manually or from registered objects
-	 * that trigger tracking events.
+	 * The Tracking class handles firing tracking events.
 	 * 
-	 * <p>You need to set the omniture, webtrends and hitbox
-	 * properties to an instance before firing.</p>
+	 * <p>The Tracking class requires you to set the "xml"
+	 * property to an XML object formatted like this:</p>
+	 * 
+	 * <listing>	
+	 * &lt;tracking&gt;
+	 *     &lt;track id="onMyMovieClipClick"&gt;
+	 *     &lt;/track&gt;
+	 * &lt;/tracking&gt;
+	 * </listing>
+	 * 
+	 * <p>The tracking manager looks for certain tags
+	 * inside of a "track" node - which controls what
+	 * to fire. You can mix and match any of the
+	 * tags. Whichever tags exist inside of the track
+	 * node get fired. You should see the other tracking
+	 * classes for the supported xml structure.</p>
+	 * 
+	 * <p><b>Extras</b></p>
+	 * 
+	 * <p>The Tracking class also supports an additional
+	 * "options" parameter when you register an object or
+	 * fire tracking event manually:</p>
+	 * 
+	 * <p>Available options:</p>
+	 * <ul>
+	 * <li><b>assertTarget</b> (Object) - An object to use for asserting properties and methods.</li>
+	 * <li><b>assertProp</b> (String) - A property on the 'assertTarget' to assert. (true: tracking fires, false:tracking not fired).</li>
+	 * <li><b>assertMethod</b> (Function) - A function to call for a boolean result. (true: tracking fires, false:tracking not fired).</li>
+	 * <li><b>whenTrue</b> (String) - A tracking ID to fire when assertProp or assertMethod is true.</li>
+	 * <li><b>whenFalse</b> (String) - A tracking ID to fire when assertProp or assertMethod is false.</li>
+	 * <li><b>dynamicData</b> (Function) - A function to call to get dynamic data to append to a tracking tag. You
+	 * should read the source from either of the classes that implement the tracking calls to see how the dynamic
+	 * data is handled and expected.</li>
+	 * </ul>
 	 * 
 	 * <p><b>Examples</b> are in the <a target="_blank" href="http://gitweb.codeendeavor.com/?p=guttershark.git;a=summary">guttershark</a> repository.</p>
 	 * 
 	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
+	 * 
+	 * @see gs.tracking.Webtrends
+	 * @see gs.tracking.Omniture
+	 * @see gs.tracking.Atlas
+	 * @see gs.tracking.Hitbox
 	 */
 	public class Tracking
 	{
@@ -54,6 +90,18 @@ package gs.tracking
 		public var hitbox:Hitbox;
 		
 		/**
+		 * An instance of Atlas. You need to set this if
+		 * you're expecting to fire atlas tracking events.
+		 */
+		public var atlas:Atlas;
+		
+		/**
+		 * Whether or not to send tracking events when the flash
+		 * player is running as a standalone player.
+		 */
+		public var trackWhenStandalone:Boolean;
+		
+		/**
 		 * Storage for tracking handlers.
 		 */
 		private var tracks:Array;
@@ -68,8 +116,9 @@ package gs.tracking
 			if(!_xml)throw new ArgumentError("ERROR: Argument {_xml} cannot be null.");
 			xml=_xml;
 			tracks=[];
+			trackWhenStandalone=true;
 		}
-		
+
 		/**
 		 * Get a saved Tracking instance.
 		 * 
@@ -113,6 +162,7 @@ package gs.tracking
 		 */
 		public function register(obj:IEventDispatcher,event:String,id:String,options:Object = null):void
 		{
+			if(options &&!options.assertTarget)options.assertTarget=obj;
 			tracks.push(new TrackingHandler(this,id,obj,event,options));
 		}
 		
@@ -128,6 +178,7 @@ package gs.tracking
 		 */
 		public function track(id:String,options:Object=null):void
 		{
+			if((!trackWhenStandalone && (PlayerUtils.isIDEPlayer()||PlayerUtils.isStandAlonePlayer())))return;
 			var nid:String=getId(id,options);
 			var found:Boolean=true;
 			try { var node:XML=new XML(xml.track.(@id==nid)); }
@@ -137,9 +188,10 @@ package gs.tracking
 				trace("WARNING: A track node with id {"+id+"} wasn't found. Not doing anything.");
 				return;
 			}
-			if(XMLUtils.hasNode(node,"webtrends") && webtrends) webtrends.track(node.webtrends,options);
-			if(XMLUtils.hasNode(node,"hitbox") && hitbox) hitbox.track(node.hitbox,options);
+			if(XMLUtils.hasNode(node,"webtrends") && webtrends) webtrends.track(new XML(node.webtrends),options);
+			if(XMLUtils.hasNode(node,"hitbox") && hitbox) hitbox.track(new XML(node.hitbox),options);
 			if(XMLUtils.hasNode(node,"omniture") && omniture) omniture.track(new XML(node.omniture),options);
+			if(XMLUtils.hasNode(node,"atlas") && atlas) atlas.track(new XML(node.omniture),options);
 			//if(XMLUtils.hasAttrib(node,"ganalytics") && hitbox) hitbox.track(node,options);
 		}
 		
