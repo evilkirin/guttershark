@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tracking>
+	<track id="trackTest1">
+		<atlas>http://google.com/test.jpg</atlas>
+	</track>
+</tracking>

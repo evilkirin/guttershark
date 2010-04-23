@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<model>
+	<assets>
+		<asset libraryName="tracking" source="tracking.xml" preload="true" />
+	</assets>
+</model>
