@@ -72,7 +72,15 @@ package gs.tracking
 		 */
 		public function clearVars():void
 		{
-			actionsource.clearVars();
+			var i:int=1;
+			for(;i<50;i++)
+			{
+				actionsource["prop" +i]='';
+				actionsource["eVar"+i]='';
+			}
+			i=1;
+			for(;i<5;i++)actionsource["hier"+i] = '';
+			actionsource.events='';
 		}
 		
 		/**
