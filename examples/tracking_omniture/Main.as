@@ -35,6 +35,10 @@ package
 		override protected function onPreloadComplete(e:Event):void
 		{
 			//first we need to configure the actionsource object.
+			//usually you will get this code from someone in
+			//your analytics department. typically they'll tell
+			//you to copy and paste into the main timeline. that's
+			//so Flash 5. use the below snippet or pieces of it.
 			actionsource = new ActionSource();
 			var waEnv:String = flashvars.waEnv||"test";
 			var waRS:String = flashvars.waRS||"";
