@@ -96,7 +96,7 @@ package gs.util
 		 * <listing>	
 		 * private var xloader:XMLLoader=new XMLLoader();
 		 * 
-		 * xloader.load(new URLRequest(myxmlfile,onXMLComplete));
+		 * xloader.load(new URLRequest(myxmlfile),onXMLComplete);
 		 * 
 		 * function onXMLComplete():void
 		 * {
