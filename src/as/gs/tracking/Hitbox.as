@@ -10,12 +10,12 @@ package gs.tracking
 	 * 
 	 * @example Supported xml structure for tracking xml.
 	 * <listing>	
-	 * &lt;tracking&gt;
+	 * &lt;track id="hitBox1"&gt;
 	 *     &lt;hitbox&gt;
 	 *         &lt;lpos&gt;MyLPOS&lt;/lpos&gt;
 	 *         &lt;lid&gt;MyLID&lt;/lid&gt;
 	 *     &lt;/hitbox&gt;
-	 * &lt;/tracking&gt;
+	 * &lt;/track&gt;
 	 * </listing>
 	 * 
 	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>

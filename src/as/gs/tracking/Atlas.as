@@ -11,9 +11,9 @@ package gs.tracking
 	 * 
 	 * @example Supported xml structure for tracking xml.
 	 * <listing>	
-	 * &lt;tracking&gt;
+	 * &lt;track id="atlas1"&gt;
 	 *     &lt;atlas&gt;http://www.google.com/g.jpg&lt;/atlas&gt;
-	 * &lt;/tracking&gt;	
+	 * &lt;/track&gt;	
 	 * </listing>
 	 * 
 	 * <script src="http://mint.codeendeavor.com/?js" type="text/javascript"></script>
