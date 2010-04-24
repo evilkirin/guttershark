@@ -366,8 +366,8 @@ package gs.model
 		public function getAssetByLibraryName(libraryName:String, prependSourcePath:String=null):Asset
 		{
 			checkForXML();
-			var cacheKey:String="asset_"+libraryName;
-			if(modelcache.isCached(cacheKey))return modelcache.getCachedObject(cacheKey) as Asset;
+			//var cacheKey:String="asset_"+libraryName;
+			//if(modelcache.isCached(cacheKey))return modelcache.getCachedObject(cacheKey) as Asset;
 			if(!libraryName)throw new ArgumentError("Parameter libraryName cannot be null");
 			var node:XMLList=assets..asset.(@libraryName==libraryName);
 			var ft:String=(node.@forceType!=undefined&&node.@forceType!="")?node.@forceType:null;
@@ -375,7 +375,7 @@ package gs.model
 			if(prependSourcePath)src=prependSourcePath+src;
 			if(node.@path!=undefined)src=getPath(node.@path.toString())+src;
 			var a:Asset=new Asset(src,libraryName,ft);
-			modelcache.cacheObject(cacheKey,a);
+			//modelcache.cacheObject(cacheKey,a);
 			return a;
 		}
 		
@@ -387,13 +387,13 @@ package gs.model
 		public function getAssetsByLibraryNames(...libraryNames:Array):Array
 		{
 			checkForXML();
-			var cacheKey:String="assets_"+libraryNames.join("");
-			if(modelcache.isCached(cacheKey))return modelcache.getCachedObject(cacheKey) as Array;
+			//var cacheKey:String="assets_"+libraryNames.join("");
+			//if(modelcache.isCached(cacheKey))return modelcache.getCachedObject(cacheKey) as Array;
 			var p:Array=[];
 			var i:int=0;
 			var l:int=libraryNames.length;
 			for(;i<l;i++)p[int(i)]=getAssetByLibraryName(libraryNames[int(i)]);
-			modelcache.cacheObject(cacheKey,p);
+			//modelcache.cacheObject(cacheKey,p);
 			return p;
 		}
 		
@@ -405,15 +405,15 @@ package gs.model
 		public function getAssetGroup(groupId:String):Array
 		{
 			checkForXML();
-			var cacheKey:String="assetGroup_"+groupId; 
-			if(modelcache.isCached(cacheKey))return modelcache.getCachedObject(cacheKey) as Array;
+			//var cacheKey:String="assetGroup_"+groupId; 
+			//if(modelcache.isCached(cacheKey))return modelcache.getCachedObject(cacheKey) as Array;
 			var x:XMLList=assets..group.(@id==groupId)..asset;
 			var payload:Array=[];
 			var i:int=0;
 			var l:int=x.length();
 			for(;i<l;i++)payload.push(getAssetByLibraryName(x[int(i)].@libraryName));
 			//for each(n in x..asset)payload.push(getAssetByLibraryName(n.@libraryName));
-			modelcache.cacheObject(cacheKey,payload);
+			//modelcache.cacheObject(cacheKey,payload);
 			return payload;
 		}
 		
@@ -808,8 +808,7 @@ package gs.model
 			for(;i<l;i++)
 			{
 				so=s.getStyle(names[int(i)]);
-				var key:String;
-				for(key in so)
+				for(var key:String in so)
 				{
 					if(key=="font")
 					{
