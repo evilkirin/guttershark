@@ -137,7 +137,7 @@ package gs.tracking
 		public static function set(id:String,tracking:Tracking):void
 		{
 			if(!id || !tracking)return;
-			tracking.id=id;
+			if(!tracking.id)tracking.id=id;
 			insts[id]=tracking;
 		}
 		
