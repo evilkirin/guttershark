@@ -3,23 +3,39 @@
 	<track id="trackTest1">
 		<omniture>
 			<track>
-				<!-- this is always required. -->
-				<pageName>test</pageName>
 				<!--
-				you can define any other properties.
-				all defined properties are enumerated
-				and defined on the "actionsource" component
-				before firing.
+				By listing properties only it triggers the "track"
+				method on actionsource to be called.
+				
+				You can define any property / value here. The tracking
+				class enumerates all nodes and defines them on the
+				actionsource component before firing.
 				-->
+				<pageName>test</pageName>
 				<prop6>test2</prop6>
 				<eVar4>hello</eVar4>
+				<events>event20</events>
 			</track>
-			<trackLink>
-				<!-- track link tags will only ever have three parameters -->
-				<url>http://www.whitehouse.ocom/</url> <!-- optional, if this isn't set it uses the "name" as the url --> 
-				<type>o</type> <!-- o for custom, d for download, e for exit -->
-				<name>adfasdf</name>
-			</trackLink>
+		</omniture>
+	</track>
+	
+	<track id="trackTest2">
+		<omniture>
+			<track>
+				<pageName>test</pageName>
+				<prop6>test2</prop6>
+				<eVar4>hello</eVar4>
+				<events>event20</events>
+				<!--
+				Adding a "trackLink" node triggers the "trackLink" method on
+				the actionsource instance to be called.
+				-->
+				<trackLink>
+					<url>http://www.whitehouse.ocom/</url> <!-- optional, if this isn't set it uses the "name" as the url --> 
+					<type>o</type> <!-- o for custom, d for download, e for exit -->
+					<name>adfasdf</name>
+				</trackLink>
+			</track>
 		</omniture>
 	</track>
 </tracking>

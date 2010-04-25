@@ -68,6 +68,7 @@ package
 			
 			//let the tracking instance handle the button for you.
 			track.register(button1,MouseEvent.CLICK,"trackTest1");
+			track.register(button1,MouseEvent.CLICK,"trackTest2");
 			
 			//...or fire it manually from a click.
 			button1.addEventListener(MouseEvent.CLICK,onButton1Click);
@@ -76,6 +77,7 @@ package
 		private function onButton1Click(e:Event):void
 		{
 			track.track("trackTest1");
+			track.track("trackTest2");
 		}
 	}
 }
