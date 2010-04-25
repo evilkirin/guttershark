@@ -14,24 +14,40 @@ package gs.tracking
 	 * &lt;track id="trackTest1"&gt;
 	 *     &lt;omniture&gt;
 	 *         &lt;track&gt;
-	 *             &lt;!-- this is always required. --&gt;
-	 *             &lt;pageName&gt;test&lt;/pageName&gt;
 	 *             &lt;!--
-	 *             you can define any other properties.
-	 *             all defined properties are enumerated
-	 *             and defined on the "actionsource" component
-	 *             before firing.
+	 *             By listing properties only it triggers the "track"
+	 *             method on actionsource to be called.
+	 *             
+	 *             You can define any property / value here. The tracking
+	 *             class enumerates all nodes and defines them on the
+	 *             actionsource component before firing.
 	 *             --&gt;
+	 *             &lt;pageName&gt;test&lt;/pageName&gt;
 	 *             &lt;prop6&gt;test2&lt;/prop6&gt;
 	 *             &lt;eVar4&gt;hello&lt;/eVar4&gt;
+	 *             &lt;events&gt;event20&lt;/events&gt;
 	 *         &lt;/track&gt;
-	 *         &lt;trackLink&gt;
-	 *             &lt;!-- track link tags will only ever have three parameters --&gt;
-	 *             &lt;url&gt;http://www.whitehouse.ocom/&lt;/url&gt; &lt;!-- optional, if this isn't set it uses the "name" as the url --&gt; 
-	 *             &lt;type&gt;o&lt;/type&gt; &lt;!-- o for custom, d for download, e for exit --&gt;
-	 *             &lt;name&gt;adfasdf&lt;/name&gt;
-	 *         &lt;/trackLink&gt;
 	 *     &lt;/omniture&gt;
+	 * &lt;/track&gt;
+	 * 
+	 * &lt;track id="trackTest2"&gt;
+	 *     &lt;omniture&gt;
+	 *         &lt;track&gt;
+	 *             &lt;pageName&gt;test&lt;/pageName&gt;
+	 *             &lt;prop6&gt;test2&lt;/prop6&gt;
+	 *             &lt;eVar4&gt;hello&lt;/eVar4&gt;
+	 *             &lt;events&gt;event20&lt;/events&gt;
+	 *             &lt;!--
+	 *             Adding a "trackLink" node triggers the "trackLink" method on
+	 *             the actionsource instance to be called.
+	 *             --&gt;
+	 *             &lt;trackLink&gt;
+	 *                &lt;url&gt;http://www.whitehouse.ocom/&lt;/url&gt; &lt;!-- optional, if this isn't set it uses the "name" as the url --&gt; 
+	 *                &lt;type&gt;o&lt;/type&gt; &lt;!-- o for custom, d for download, e for exit --&gt;
+	 *                &lt;name&gt;adfasdf&lt;/name&gt;
+	 *             &lt;/trackLink&gt;
+	 *         &lt;/track&gt;
+	 *      &lt;/omniture&gt;
 	 * &lt;/track&gt;
 	 * </listing>
 	 * 
@@ -103,13 +119,14 @@ package gs.tracking
 				for each(var x:XML in n.children())
 				{
 					prop=x.name();
+					if(prop=="trackLink")continue;
 					value=x.toString();
 					traceobj[prop]=value;
 					if(dyd[prop])value+=dyd[prop];
 					actionsource[prop]=value;
 				}
 				if(!actionsource.pageName) trace("WARNING: The pageName propery wasn't set on the actionsource. Not firing track().");
-				else
+				if(!XMLUtils.hasNode(n,"trackLink"))
 				{
 					if(traces)
 					{
@@ -119,17 +136,16 @@ package gs.tracking
 					}
 					actionsource.track();
 				}
-			}
-			clearVars();
-			if(XMLUtils.hasNode(node,"trackLink"))
-			{
-				var url:String=XMLUtils.walkForValue(node,"trackLink.url");
-				var type:String=XMLUtils.walkForValue(node,"trackLink.type");
-				var name:String=XMLUtils.walkForValue(node,"trackLink.name");
-				if(!url||url=="")url=null;
-				if(!type)type="o";
-				if(traces) trace("--trackLink(" + ((url)?url:name) + "," + type + "," + name + ")--");
-				actionsource.trackLink(url,type,name);
+				if(XMLUtils.hasNode(n,"trackLink"))
+				{
+					var url:String=XMLUtils.walkForValue(n,"trackLink.url");
+					var type:String=XMLUtils.walkForValue(n,"trackLink.type");
+					var name:String=XMLUtils.walkForValue(n,"trackLink.name");
+					if(!url||url=="")url=null;
+					if(!type)type="o";
+					if(traces) trace("--trackLink(" + ((url)?url:name) + "," + type + "," + name + ")--");
+					actionsource.trackLink(url,type,name);
+				}
 			}
 		}
 	}
