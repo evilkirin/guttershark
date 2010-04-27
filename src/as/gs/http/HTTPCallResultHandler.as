@@ -1,5 +1,6 @@
 package gs.http
 {
+	import gs.util.XMLUtils;
 	import flash.utils.ByteArray;
 	
 	import gs.util.StringUtils;
@@ -28,7 +29,7 @@ package gs.http
 		 */
 		public function process(call:HTTPCall):*
 		{
-			var res:Boolean;
+			var res:Boolean=true;
 			var data:* =call.loader.data;
 			var callfault:HTTPCallFault=new HTTPCallFault();
 			var callresult:HTTPCallResult=new HTTPCallResult();
@@ -54,13 +55,13 @@ package gs.http
 						res=false;
 						callfault.fault=json.faultMessage;
 					}
-					if(!res && callfault)
+					if(!res)
 					{
 						callfault.rawResult=call.loader.data;
 						callfault.json=json;
 						return callfault;
 					}
-					if(res && callresult)
+					else
 					{
 						callresult.rawResult=call.loader.data;
 						callresult.json=json;
@@ -87,13 +88,13 @@ package gs.http
 						res=false;
 						callfault.fault=vars.faultMessage;
 					}
-					if(!res && callfault)
+					if(!res)
 					{
 						callfault.rawResult=call.loader.data;
 						callfault.vars=vars;
 						return callfault;
 					}
-					if(res && callresult)
+					else
 					{
 						callresult.rawResult=call.loader.data;
 						callresult.vars=vars;
@@ -101,31 +102,31 @@ package gs.http
 					}
 					break;
 				case "xml":
-					var xml:XML = new XML(String(data));
-					if(xml.result!=undefined)res=StringUtils.toBoolean(xml.result.toString());
-					if(xml.success!=undefined)res=StringUtils.toBoolean(xml.result.toString());
-					if(xml.fault!=undefined)
+					var xml:XML=new XML(String(data));
+					if(XMLUtils.hasNode(xml,"result"))res=res=StringUtils.toBoolean(xml.result.toString());
+					if(XMLUtils.hasNode(xml,"success"))res=StringUtils.toBoolean(xml.result.toString());
+					if(XMLUtils.hasNode(xml,"fault"))
 					{
 						res=false;
 						callfault.fault=xml.fault.toString();
 					}
-					if(xml.faultString!=undefined)
+					if(XMLUtils.hasNode(xml,"faultString"))
 					{
 						res=false;
 						callfault.fault=xml.faultString.toString();
 					}
-					if(xml.faultMessage!=undefined)
+					if(XMLUtils.hasNode(xml,"faultMessage"))
 					{
 						res=false;
 						callfault.fault=xml.faultMessage.toString();
 					}
-					if(!res && callfault)
+					if(!res)
 					{
 						callfault.rawResult=call.loader.data;
 						callfault.xml=xml;
 						return callfault;
 					}
-					if(res && callfault)
+					else
 					{
 						callresult.rawResult=call.loader.data;
 						callresult.xml=xml;
